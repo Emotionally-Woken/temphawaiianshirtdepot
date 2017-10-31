@@ -16,13 +16,8 @@ const Product = db.define('product', {
     defaultValue: ['Classic']
   },
   price: {
-   type: Sequelize.INTEGER,
+   type: Sequelize.DECIMAL,
    allowNull: false
-  },
-  salePrice: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-    defaultValue: this.price
   },
   quantity: {
     type: Sequelize.INTEGER,
@@ -34,3 +29,5 @@ const Product = db.define('product', {
 Product.prototype.sale = function(percentage) {
   this.salePrice = this.price - (this.price * percentage);
 };
+
+module.exports = Product;

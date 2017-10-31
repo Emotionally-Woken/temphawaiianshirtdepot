@@ -1,7 +1,7 @@
 const Chance = require('chance')
 const chance = new Chance()
 const db = require('./server/db/')
-const {User, Product, Order, Review} = require('./server/db/models/')
+const { User, Product, Order, OrderDetail, Review } = require('./server/db/models/index.js')
 
 const statuses = ['created', 'processing', 'canceled', 'completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
@@ -34,7 +34,7 @@ const makeFakeProducts = ( num ) => {
     fakeProducts.push({
       title: `${hawaiianWords[chance.integer({min: 0, max: 6})]}${locationWords[chance.integer({min: 0, max: 6})]}`,
       description: chance.paragraph({sentences: 4}),
-      price: chance.dollar({max: 50}),
+      price: chance.floating({min: 15, max: 50, fixed: 2}),
       category: [category[chance.integer({min: 0, max: 4})]],
       quantity: chance.integer({min: 1, max: 10}),
     })
@@ -42,15 +42,16 @@ const makeFakeProducts = ( num ) => {
   return fakeProducts
 }
 
+//make reviewids on products
 //fake review maker.
 const makeFakeReviews = ( num ) => {
   let fakeReviews = []
   for (let i = 0; i < num; i++) {
     fakeReviews.push({
-      userId: chance.integer({min: 1, max: 5}),
-      productId: chance.integer({min: 1, max: 5}),
+      userId: chance.integer({min: 1, max: 10}),
+      productId: chance.integer({min: 1, max: 10}),
       stars: chance.integer({min: 0, max: 5}),
-      review: `This ${madLibNouns[chance.integer({min: 0, max: 6})]} made ${madLibPronoun[chance.integer({min: 0, max: 6})]} feel ${madLibAdjectives[chance.integer({min: 0, max: 7})]}!`
+      reviewContent: `This ${madLibNouns[chance.integer({min: 0, max: 6})]} made ${madLibPronoun[chance.integer({min: 0, max: 6})]} feel ${madLibAdjectives[chance.integer({min: 0, max: 7})]}!`
     })
   }
   return fakeReviews;
@@ -58,27 +59,29 @@ const makeFakeReviews = ( num ) => {
 
 const makeFakeOrders = ( num ) => {
   let orderDetailNumbers = numbersForPop.slice(0)
+  let orderIdNumber = numbersForPop.slice(0)
   let fakeOrders = []
+  let fakeOrdersDetails = []
   for (let i = 1; i <= num; i++){
     fakeOrders.push({
       userId: chance.integer({min: 1, max: 5}),
       status: statuses[chance.integer({num: 0, max: 3})],
+      orderDetailId: orderIdNumber.shift()
+    })
+    fakeOrdersDetails.push({
+      orderId: orderDetailNumbers.shift(),
       quantity: chance.integer({ min: 1, max: 3 }),
-      productId: chance.integer({ min: 1, max: 5 }),
-      price: chance.dollar()
+      productId: chance.integer({ min: 1, max: 10 }),
+      price: chance.floating({ min: 15, max: 50, fixed: 2 })
     })
   }
-  return fakeOrders;
+  return [fakeOrders, fakeOrdersDetails];
 }
 
-const orders = makeFakeOrders( 2 )
-const users = makeFakeUsers(5)
-const products = makeFakeProducts(5)
+const [orders, orderDetails] = makeFakeOrders( 10 )
+const users = makeFakeUsers(10)
+const products = makeFakeProducts(10)
 const reviews = makeFakeReviews(20)
-
-console.log(users)
-console.log(reviews)
-console.log(products)
 
 const seed = () => {
   Promise.all(users.map(user=> User.create(user)))
@@ -91,6 +94,10 @@ const seed = () => {
   .then(() => {
     Promise.all(orders.map(order => Order.create(order)))
   })
+  .then(()=> {
+    Promise.all(orderDetails.map(orderDetail => OrderDetail.create(orderDetail)))
+  })
+  .catch(console.error)
 }
 
 
@@ -106,9 +113,9 @@ const populate = () => {
       console.log(err.stack)
     })
     .then(() => {
-      db.close()
-      return null
-    })
+      // db.close()
+      // return null
+    }) 
 
 }
 
