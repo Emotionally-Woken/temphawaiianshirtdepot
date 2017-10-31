@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "hawaiian_hut",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "Not your typical hawaiian shirt store!",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -28,6 +28,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "history": "^4.6.3",
+    "material-ui": "^0.19.4",
     "morgan": "^1.8.1",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
