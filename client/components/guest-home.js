@@ -1,19 +1,21 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import ProductItem from './ProductItem'
 
 /**
  * COMPONENT
  */
 export const GuestHome = (props) => {
  let {products} = props;
- console.log("products: ", products)
 
   return (
-    <div>
-      { (products && products.length) ? <div>
-        here!!!! </div> : ''}
-      <h3>Welcome You</h3>
+    <div className='row'>
+      {products && products.map(product =>
+        <div className='col-md-3 justify-content-center'>
+          <ProductItem key={product.id} product={product}/>
+        </div>
+      )}
     </div>
   )
 }
@@ -21,11 +23,14 @@ export const GuestHome = (props) => {
 /**
  * CONTAINER
  */
-// const mapState = (state) => {
-// }
+const mapState = (state) => {
+  return {
+    products: state.product
+  }
+}
 
 // export default connect(mapState)(GuestHome)
-export default GuestHome
+export default connect(mapState)(GuestHome)
 
 /**
  * PROP TYPES
