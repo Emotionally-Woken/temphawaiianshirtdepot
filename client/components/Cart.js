@@ -2,10 +2,16 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {cart} from '../store'
 
-function Cart(){
+function Cart(props){
+  const {cart} = props;
 
   return(
     <div>
+      {cart.map(orderDetail => {
+        return(<div key={orderDetail.productId}>
+        <img src={orderDetail.image} />
+        </div>)
+      })}
     </div>
   )
 
