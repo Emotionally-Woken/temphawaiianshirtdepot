@@ -3,15 +3,10 @@ const db = require('../db')
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.String,
+    type: Sequelize.STRING,
     defaultValue: 'Created',
     allowNull: false
-  },
-  quantity: {
-    type: Sequelize.INTEGER,
-
-  },
-  price: Sequelize.DECIMAL
+  }
 })
 
 module.exports = Order;
