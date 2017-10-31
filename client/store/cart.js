@@ -28,6 +28,7 @@ export const addToCartThunk = item =>
     orderDetail.productId = item.id;
     orderDetail.price = item.price;
     orderDetail.quantity = 1;
+    orderDetail.image = item.image;
     orderDetail.limit = item.quantity
     dispatch(addToCartAction(orderDetail));
     history.push('/cart');
