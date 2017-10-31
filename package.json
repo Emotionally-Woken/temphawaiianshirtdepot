@@ -1,5 +1,5 @@
 {
-  "name": "boilermaker",
+  "name": "hawaii",
   "version": "1.0.0",
   "description": "Some boilerplate code to get you started - get shakin'!",
   "engines": {
@@ -55,6 +55,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
+    "chance": "^1.0.12",
     "css-loader": "^0.26.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.0",
