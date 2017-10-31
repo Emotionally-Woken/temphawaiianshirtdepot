@@ -4,7 +4,7 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main'
-export {default as UserHome} from './user-home'
-export {default as GuestHome} from './guest-home'
-export {default as ProductItem} from './ProductItem'
-export {Login, Signup} from './auth-form'
+export {default as UserHome} from './User-home'
+export {default as AllProducts} from './All-products'
+export {default as ProductItem} from './Product-item'
+export {Login, Signup} from './Auth-form'
