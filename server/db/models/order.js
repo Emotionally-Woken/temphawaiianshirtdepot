@@ -2,20 +2,16 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  totalCost: {
-    type: Sequelize.VIRTUAL,
-    get(){
-      //if we have multiple items on an order ?
-    }
-  },
-  quantity: Sequelize.JSON, //{size: quantity}
-  productId: Sequelize.STRING,
-  orderStatus: {
-    type: Sequelize.ENUM('Created, Processing, Cancelled, Complete'),
+  status: {
+    type: Sequelize.String,
     defaultValue: 'Created',
     allowNull: false
   },
-  timeBought: Sequelize.TIME
+  quantity: {
+    type: Sequelize.INTEGER,
+
+  },
+  price: Sequelize.DECIMAL
 })
 
 module.exports = Order;
