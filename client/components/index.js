@@ -5,4 +5,5 @@
  */
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
+export {default as GuestHome} from './guest-home'
 export {Login, Signup} from './auth-form'
