@@ -11,24 +11,8 @@ const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 
 //initial state for testing only!!!
 
-const initialState = [{
-  orderId: 1,
-  quantity: 1,
-  productId: 2,
-  price: 10.00
-}, {
-  orderId: 2,
-  quantity: 1,
-  productId: 1,
-  price: 10.00
-  }, {
-    orderId: 3,
-    quantity: 1,
-    productId: 3,
-    price: 10.00
-  }]
 
-// const initialState = []
+const initialState = []
 
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
 export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
