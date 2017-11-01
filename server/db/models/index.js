@@ -12,7 +12,7 @@ const OrderDetail = require('./orderDetail')
  */
 
  User.hasMany(Review)
- Review.hasOne(Product)
+ Product.hasOne(Review)
  User.hasMany(Order)
  Product.belongsToMany(Order, {through: OrderDetail})
 

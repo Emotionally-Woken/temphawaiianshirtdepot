@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Product from './Product'
-import { Review } from '../store/reviews'
+import Product from './Product-item'
+import { Review, postReview, cancelReview } from '../store/reviews'
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -27,13 +27,15 @@ class ReviewForm extends Component {
       productId: this.props.product.id
     })
 
-    this.props.cancleReview()
+    this.props.cancelReview()
   }
 
   render() {
     return (
       <div>
-        <Product {...this.props} setStars={this.setStars} />
+        {/* <Product {...this.props} setStars={this.setStars} /> */}
+
+        { this.props.product &&
 
         <div className="review-marg">
           <div>
@@ -68,13 +70,12 @@ class ReviewForm extends Component {
               </div>
             </form>
           </div>
-
-        </div>
+        </div>}
       </div>
     )
   }
 }
 
-const mapDispatch = { Review }
+const mapDispatch = { postReview }
 
 export default connect(null, mapDispatch)(ReviewForm)
