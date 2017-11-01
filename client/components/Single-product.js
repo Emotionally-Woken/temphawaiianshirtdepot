@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import ReviewList from './ReviewList'
 
 const SingleProduct = (props)=>{
   let {products, productId} = props
@@ -42,6 +43,7 @@ const SingleProduct = (props)=>{
       </CardActions>
     </Card>
   </MuiThemeProvider>}
+  <ReviewList productId={productId} />
   </div>
     )
 }
