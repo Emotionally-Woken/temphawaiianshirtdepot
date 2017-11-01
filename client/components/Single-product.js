@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import ReviewList from './ReviewList'
 
 const SingleProduct = (props)=>{
@@ -16,8 +15,6 @@ const SingleProduct = (props)=>{
   return (
     <div>
     { selectedProduct &&
-    <MuiThemeProvider>
-
       <Card>
         <CardHeader
         title="URL Avatar"
@@ -41,8 +38,7 @@ const SingleProduct = (props)=>{
         <FlatButton label="Action1" />
         <FlatButton label="Action2" />
       </CardActions>
-    </Card>
-  </MuiThemeProvider>}
+    </Card> }
   <ReviewList productId={productId} />
   </div>
     )

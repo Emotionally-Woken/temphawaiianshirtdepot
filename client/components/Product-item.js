@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {NavLink, Link} from 'react-router-dom';
 
 const ProductItem = (props)=>{
   const {product} = props
 
   return (
-    <MuiThemeProvider>
-      <Card>
+    <Card>
       <CardMedia>
         <img
         src="https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg" alt="" />
@@ -23,7 +21,6 @@ const ProductItem = (props)=>{
         <FlatButton containerElement={<Link to={`/item/${product.id}`}/>}label="View Details" />
       </CardActions>
     </Card>
-  </MuiThemeProvider>
   )
 }
 

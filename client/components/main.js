@@ -8,7 +8,6 @@ import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './drawer'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class Main extends React.Component {
 
   constructor(props) {
@@ -26,7 +25,6 @@ class Main extends React.Component {
 
     return (
       <div>
-        <MuiThemeProvider>
         <Toolbar>
 
           <ToolbarGroup firstChild={true}>
@@ -59,7 +57,6 @@ class Main extends React.Component {
           </ToolbarGroup>
 
         </Toolbar>
-        </MuiThemeProvider>
 
         <hr />
         {children}

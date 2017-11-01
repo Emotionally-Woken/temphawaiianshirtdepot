@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProductItem from './Product-item'
 import {GridList, GridTile} from 'material-ui/GridList';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 /**
  * COMPONENT
@@ -24,7 +23,6 @@ export const AllProducts = (props) => {
 };
 
   return (
-    <MuiThemeProvider>
       <div style={styles.root}>
         <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
@@ -34,7 +32,6 @@ export const AllProducts = (props) => {
         )}
         </GridList>
       </div>
-    </MuiThemeProvider>
   )
 }
 

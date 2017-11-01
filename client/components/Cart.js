@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeQuantityAction, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 function Cart(props) {
   const { cart, products, handleAmountChange, handleRemoveFromCart } = props;
   console.log(cart)
   if(cart.length && products.length) {
     return (
-      <MuiThemeProvider>
       <div>
         {cart.map(orderDetail => {
           const item = products.find(item => item.id === orderDetail.productId)
@@ -22,12 +20,12 @@ function Cart(props) {
                   <Link to={`/item/${item.id}`}>{item.title}</Link>
                   <p>{orderDetail.quantity}</p>
                   <p>Price: '$'{item.price * orderDetail.quantity}</p>
-                  <i className="fa fa-plus-square" aria-hidden="true" 
+                  <i className="fa fa-plus-square" aria-hidden="true"
                   onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
-                  <i className="fa fa-minus-square" 
-                    aria-hidden="true" 
+                  <i className="fa fa-minus-square"
+                    aria-hidden="true"
                     onClick={() => {canDecrement && handleAmountChange(orderDetail, 'decrement')}} />
-                  <i className="fa fa-times-circle" 
+                  <i className="fa fa-times-circle"
                     aria-hidden="true"
                     onClick={()=>{handleRemoveFromCart(orderDetail)}}/>
                   </div>
@@ -36,14 +34,13 @@ function Cart(props) {
         )
         })}
       </div>
-      </MuiThemeProvider>
     )
   } else {
     return (
      <div>
       <h2>Surf is definitely not up</h2>
       <h4>add something to cart</h4>
-     </div> 
+     </div>
     )
   }
 
