@@ -22,12 +22,12 @@ function Cart(props) {
                   <Link to={`/item/${item.id}`}>{item.title}</Link>
                   <p>{orderDetail.quantity}</p>
                   <p>Price: '$'{item.price * orderDetail.quantity}</p>
-                  <i className="fa fa-plus-square" aria-hidden="true" 
+                  <i className="fa fa-plus-square" aria-hidden="true"
                   onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
-                  <i className="fa fa-minus-square" 
-                    aria-hidden="true" 
+                  <i className="fa fa-minus-square"
+                    aria-hidden="true"
                     onClick={() => {canDecrement && handleAmountChange(orderDetail, 'decrement')}} />
-                  <i className="fa fa-times-circle" 
+                  <i className="fa fa-times-circle"
                     aria-hidden="true"
                     onClick={()=>{handleRemoveFromCart(orderDetail)}}/>
                   </div>
@@ -43,7 +43,7 @@ function Cart(props) {
      <div>
       <h2>Surf is definitely not up</h2>
       <h4>add something to cart</h4>
-     </div> 
+     </div>
     )
   }
 
@@ -51,7 +51,7 @@ function Cart(props) {
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
-  products: state.product
+  products: state.products
 })
 
 const mapDispatchToProps = (dispatch) => ({
