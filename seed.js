@@ -37,6 +37,7 @@ const makeFakeProducts = ( num ) => {
       price: chance.floating({min: 15, max: 50, fixed: 2}),
       category: [category[chance.integer({min: 0, max: 4})]],
       quantity: chance.integer({min: 1, max: 10}),
+      image: chance.avatar({ protocol: 'https' })
     })
   }
   return fakeProducts
