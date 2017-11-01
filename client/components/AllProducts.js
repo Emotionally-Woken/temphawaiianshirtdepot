@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import ProductItem from './Product-item'
+import ProductItem from './ProductItem'
 import {GridList, GridTile} from 'material-ui/GridList';
 
 /**
@@ -40,7 +40,7 @@ export const AllProducts = (props) => {
  */
 const mapState = (state) => {
   return {
-    products: state.product
+    products: state.products
   }
 }
 

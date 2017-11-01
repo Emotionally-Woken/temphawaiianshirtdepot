@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import Product from './Product-item'
+import Product from './ProductItem'
 import { Review, postReview, cancelReview } from '../store/reviews'
 
 class ReviewForm extends Component {

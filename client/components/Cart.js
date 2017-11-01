@@ -48,7 +48,7 @@ function Cart(props) {
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
-  products: state.product
+  products: state.products
 })
 
 const mapDispatchToProps = (dispatch) => ({

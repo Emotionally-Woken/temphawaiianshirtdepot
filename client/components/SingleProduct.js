@@ -46,7 +46,7 @@ const SingleProduct = (props)=>{
 
 const MapState = (state, ownProps)=>{
   return {
-    products: state.product,
+    products: state.products,
     productId: ownProps.match.params.productId
   }
 }
