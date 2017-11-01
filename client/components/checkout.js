@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchItems, updateItem } from '../store/item';
+import { fetchItems, changeQuantityThunk } from '../store/cart';
 
 class CheckoutForm extends Component {
     constructor() {
         super();
         this.state = {
             coupon: '',
-
+            productId: 1,
+            price: 3.0,
+            title: "wonderful title"
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -59,10 +61,10 @@ class CheckoutForm extends Component {
                             <div className="media">
                                 <div className="media-body">
                                     <h4 className="title">
-                                        {item.name}
+                                        {item.title}
                                     </h4>
                                     <p className="summary">
-                                        Id: {item.id}
+                                        Id: {item.productId}
                                         <br />
                                         Quantity: {item.quantity}
                                     </p>
@@ -76,7 +78,7 @@ class CheckoutForm extends Component {
     }
 }
 const mapStateToProps = (state) => ({
-    orderList: state.item
+    orderList: state.cart
 });
 
 const mapDispatchToProps = (dispatch) => ({
