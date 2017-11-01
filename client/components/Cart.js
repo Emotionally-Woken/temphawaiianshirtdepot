@@ -1,38 +1,68 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { cart, changeQuantityThunk } from '../store'
+import { changeQuantityThunk, removeFromCartThunk } from '../store' //deleted cart import, wasn't sure why it was there before
+import Divider from 'material-ui/Divider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 function Cart(props) {
-  const { cart, items } = props;
-
-  return (
-    <div>
-      {cart.map(orderDetail => {
-        const item = items.find(item => item.id === orderDetail.productId)
-        let disabledDecrement = item.quantity === 1;
-        let disabledIncrement = item.quantity === orderDetail.quantity
-        return (<div key={item.id}>
-          <img src={item.image} />
-          <h3>{item.title}</h3>
-          <p>{orderDetail.quatity}</p>
-          <i className="fa fa-plus-square" aria-hidden="true" disabled={disabledIncrement} onClick={() => handleAmountChange(orderDetail, 'increment')} />
-          <i className="fa fa-minus-square" aria-hidden="true" disabled={disabledDecrement} onClick={() => handleAmountChange(orderDetail, 'decrement')} />
-        </div>)
-      })}
-    </div>
-  )
+  const { cart, products, handleAmountChange, handleRemoveFromCart } = props;
+  console.log(cart)
+  if(cart.length && products.length) {
+    return (
+      <MuiThemeProvider>
+      <div>
+        {cart.map(orderDetail => {
+          const item = products.find(item => item.id === orderDetail.productId)
+          let canDecrement = orderDetail.quantity !== 1;
+          let canIncrement = item.quantity !== orderDetail.quantity
+          return (<div  key={item.id} className='container'>
+            <div className='shoppingcart'>
+            <img src={item.image} />
+            <Link to={`/item/${item.id}`}>{item.title}</Link>
+            <p>{orderDetail.quantity}</p>
+            <p>Price: '$'{item.price * orderDetail.quantity}</p>
+            <i className="fa fa-plus-square" aria-hidden="true" 
+            onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
+            <i className="fa fa-minus-square" 
+              aria-hidden="true" 
+              onClick={() => {canDecrement && handleAmountChange(orderDetail, 'decrement')}} />
+            <i className="fa fa-times-circle" 
+              aria-hidden="true"
+              onClick={()=>{handleRemoveFromCart(orderDetail)}}
+            />
+              </div>
+                <Divider className='dividerShoppingCart' inset={true} />
+              </div>
+        )
+        })}
+      </div>
+      </MuiThemeProvider>
+    )
+  } else {
+    return (
+     <div>
+      <h2>Surf is definitely not up</h2>
+      <h4>add something to cart</h4>
+     </div> 
+    )
+  }
 
 }
 
-const mapPropsToState = (state) => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
-  products: state.products
+  products: state.product
 })
 
-const mapDispatchToState = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({
   handleAmountChange: (orderDetail, delta) => {
     dispatch(changeQuantityThunk(orderDetail, delta))
+  },
+  handleRemoveFromCart: (itemToRemove) => {
+    dispatch(removeFromCartThunk(itemToRemove))
   }
 })
 
-const CartContainer = connect(mapPropsToState, mapDispatchToState)(Cart)
+const CartContainer = connect(mapStateToProps, mapDispatchToProps)(Cart)
+export default CartContainer
