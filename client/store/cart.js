@@ -31,16 +31,11 @@ const initialState = [{
 // const initialState = []
 
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
-const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
-const changeQuantityAction = (orderDetail, delta) => ({type: CHANGE_QUANTITY, orderDetail, delta})
+export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
+export const changeQuantityAction = (orderDetail, delta) => ({type: CHANGE_QUANTITY, orderDetail, delta})
 
 
 //Thunk Creators
-
-export const changeQuantityThunk = (orderDetail, delta) =>
-  dispatch => {
-    dispatch(changeQuantityAction(orderDetail, delta))
-  }
 
 
 export const addToCartThunk = item =>
@@ -52,9 +47,6 @@ export const addToCartThunk = item =>
     dispatch(addToCartAction(orderDetail));
     history.push('/cart');
 }
-export const removeFromCartThunk = itemToRemove =>
-  dispatch =>
-    dispatch(removeFromCartAction(itemToRemove));
 
 //Reducer
 
@@ -66,12 +58,13 @@ export default function (state = initialState, action) {
     case REMOVE_FROM_CART:
       return newState.filter(orderDetail => orderDetail.productId !== action.itemToRemove.productId)
     case CHANGE_QUANTITY:
-    return newState.map(orderDetail => {
-      if (orderDetail.productId === action.orderDetail.productId) {
-        action.delta === 'increment' ? orderDetail.quantity++ : orderDetail.quantity--
+      return newState.map(orderDetail => {
+      const newOrderDetail = {...orderDetail}
+      if (newOrderDetail.productId === action.orderDetail.productId) {
+        action.delta === 'increment' ? newOrderDetail.quantity++ : newOrderDetail.quantity--
       }
-      return orderDetail;
-    })
+      return newOrderDetail;
+      })
     default:
       return state;
   }
