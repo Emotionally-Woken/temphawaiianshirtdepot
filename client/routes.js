@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, Signup, UserHome, GuestHome} from './components'
 import {me, fetchAllProducts} from './store'
+import Sidebar from './components/drawer'
 //import { fetchAllProducts } from './store/product';
 //import { GuestHome } from './components/guest-home';
 
@@ -23,6 +24,7 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
+        <div>
         <Main>
           <Switch>
             {/* Routes placed here are available to all visitors */}
@@ -39,6 +41,7 @@ class Routes extends Component {
             <Route component={GuestHome}/>
           </Switch>
         </Main>
+        </div>
       </Router>
     )
   }
