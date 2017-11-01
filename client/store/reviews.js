@@ -42,7 +42,6 @@ export const fetchSingleReview = reviewId =>
 
 export const postReview = review =>
     dispatch => {
-        console.log('review to post: ', review)
         return axios.post('/api/reviews', review)
             .then(res => res.data)
             .then(newReview => {
