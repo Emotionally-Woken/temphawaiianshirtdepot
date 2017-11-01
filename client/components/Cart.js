@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { changeQuantityThunk, removeFromCartThunk } from '../store' //deleted cart import, wasn't sure why it was there before
+import { changeQuantityAction, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
@@ -17,21 +17,20 @@ function Cart(props) {
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
           return (<div  key={item.id} className='container'>
-            <div className='shoppingcart'>
-            <img src={item.image} />
-            <Link to={`/item/${item.id}`}>{item.title}</Link>
-            <p>{orderDetail.quantity}</p>
-            <p>Price: '$'{item.price * orderDetail.quantity}</p>
-            <i className="fa fa-plus-square" aria-hidden="true" 
-            onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
-            <i className="fa fa-minus-square" 
-              aria-hidden="true" 
-              onClick={() => {canDecrement && handleAmountChange(orderDetail, 'decrement')}} />
-            <i className="fa fa-times-circle" 
-              aria-hidden="true"
-              onClick={()=>{handleRemoveFromCart(orderDetail)}}
-            />
-              </div>
+                <div className='shoppingcart'>
+                  <img src={item.image} />
+                  <Link to={`/item/${item.id}`}>{item.title}</Link>
+                  <p>{orderDetail.quantity}</p>
+                  <p>Price: '$'{item.price * orderDetail.quantity}</p>
+                  <i className="fa fa-plus-square" aria-hidden="true" 
+                  onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
+                  <i className="fa fa-minus-square" 
+                    aria-hidden="true" 
+                    onClick={() => {canDecrement && handleAmountChange(orderDetail, 'decrement')}} />
+                  <i className="fa fa-times-circle" 
+                    aria-hidden="true"
+                    onClick={()=>{handleRemoveFromCart(orderDetail)}}/>
+                  </div>
                 <Divider className='dividerShoppingCart' inset={true} />
               </div>
         )
@@ -57,10 +56,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleAmountChange: (orderDetail, delta) => {
-    dispatch(changeQuantityThunk(orderDetail, delta))
+    dispatch(changeQuantityAction(orderDetail, delta))
   },
   handleRemoveFromCart: (itemToRemove) => {
-    dispatch(removeFromCartThunk(itemToRemove))
+    dispatch(removeFromCartAction(itemToRemove))
   }
 })
 
