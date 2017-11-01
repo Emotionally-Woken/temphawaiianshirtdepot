@@ -13,7 +13,6 @@ const ProductItem = (props)=>{
     <MuiThemeProvider>
       <Card>
       <CardMedia>
-
         <img
         src="https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg" alt="" />
       </CardMedia>
