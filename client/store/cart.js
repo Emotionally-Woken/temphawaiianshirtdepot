@@ -34,7 +34,6 @@ const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
 export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
 export const changeQuantityAction = (orderDetail, delta) => ({type: CHANGE_QUANTITY, orderDetail, delta})
 
-
 //Thunk Creators
 
 
