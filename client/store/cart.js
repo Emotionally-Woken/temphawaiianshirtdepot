@@ -9,8 +9,29 @@ const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 
 //Action Creators
 
+//initial state for testing only!!!
+
+const initialState = [{
+  orderId: 1,
+  quantity: 1,
+  productId: 2,
+  price: 10.00
+}, {
+  orderId: 2,
+  quantity: 1,
+  productId: 1,
+  price: 10.00
+  }, {
+    orderId: 3,
+    quantity: 1,
+    productId: 3,
+    price: 10.00
+  }]
+
+// const initialState = []
+
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
-const removeFromCartAction = orderDetail => ({type: REMOVE_FROM_CART, orderDetail })
+const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
 const changeQuantityAction = (orderDetail, delta) => ({type: CHANGE_QUANTITY, orderDetail, delta})
 
 
@@ -31,19 +52,19 @@ export const addToCartThunk = item =>
     dispatch(addToCartAction(orderDetail));
     history.push('/cart');
 }
-export const removeFromCartThunk = orderDetail =>
+export const removeFromCartThunk = itemToRemove =>
   dispatch =>
-    dispatch(removeFromCartAction(orderDetail));
+    dispatch(removeFromCartAction(itemToRemove));
 
 //Reducer
 
-export default function (state = [], action) {
+export default function (state = initialState, action) {
   const newState = Array.from(state)
   switch (action.type) {
     case ADD_TO_CART:
       return [...newState, action.orderDetail]
     case REMOVE_FROM_CART:
-      return newState.filter(orderDetail => orderDetail.productId !== action.item.id)
+      return newState.filter(orderDetail => orderDetail.productId !== action.itemToRemove.productId)
     case CHANGE_QUANTITY:
     return newState.map(orderDetail => {
       if (orderDetail.productId === action.orderDetail.productId) {
