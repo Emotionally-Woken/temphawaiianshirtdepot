@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
-import Sidebar from './drawer'
+import Sidebar from './Drawer'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class Main extends React.Component {
 
@@ -97,7 +97,6 @@ Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
-
 
 // <nav>
 //           {
