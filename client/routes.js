@@ -4,10 +4,8 @@ import {Router} from 'react-router'
 import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, GuestHome} from './components'
+import {Main, Login, Signup, UserHome, AllProducts, SingleProduct} from './components'
 import {me, fetchAllProducts} from './store'
-//import { fetchAllProducts } from './store/product';
-//import { GuestHome } from './components/guest-home';
 
 /**
  * COMPONENT
@@ -24,10 +22,14 @@ class Routes extends Component {
     return (
       <Router history={history}>
         <Main>
+        <div className='container'>
           <Switch>
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route exact path="/collections" component={AllProducts} />
+            <Route path="/collections/:category" component={AllProducts} />
+            <Route path="/item/:productId" component={SingleProduct} />
             {
               isLoggedIn &&
                 <Switch>
@@ -36,8 +38,9 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={GuestHome}/>
+            <Route component={AllProducts}/>
           </Switch>
+        </div>
         </Main>
       </Router>
     )
