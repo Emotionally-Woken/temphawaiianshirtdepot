@@ -1,8 +1,6 @@
 import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import IconButton from 'material-ui/IconButton';
 
 export default class Sidebar extends React.Component {
@@ -18,7 +16,6 @@ export default class Sidebar extends React.Component {
 
   render() {
     return (
-    <MuiThemeProvider>
       <div>
 
         <IconButton
@@ -36,7 +33,6 @@ export default class Sidebar extends React.Component {
           <MenuItem onClick={this.handleClose}>For Pets</MenuItem>
         </Drawer>
       </div>
-    </ MuiThemeProvider>
     );
   }
 }
