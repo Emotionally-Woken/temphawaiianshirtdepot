@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-
+//this is f/collections branch
 export default class Sidebar extends React.Component {
 
   constructor(props) {

@@ -7,7 +7,7 @@ import history from './history'
 
 import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm} from './components'
 import {me, fetchAllProducts, fetchAllReviews} from './store'
-
+//this is f/collections branch
 /**
  * COMPONENT
  */

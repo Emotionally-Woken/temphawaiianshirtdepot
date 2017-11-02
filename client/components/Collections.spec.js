@@ -5,7 +5,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import { Collections } from './Collections'
 
 //npm test to run the tests
-
+//this is f/collections branch
 const adapter = new Adapter()
 enzyme.configure({ adapter })
 

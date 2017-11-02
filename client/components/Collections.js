@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { GridList, GridTile } from 'material-ui/GridList'
-
+//this is f/collections branch
 export const Collections = ({ products, collectionType }) => {
   //Lets put this styles object in a separate file !
   const styles = {
