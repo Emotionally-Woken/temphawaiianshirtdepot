@@ -3,7 +3,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const Chance = require('chance')
 const chance = new Chance()
-
+//changed
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,

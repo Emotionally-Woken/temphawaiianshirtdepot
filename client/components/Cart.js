@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeQuantityAction, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
-
+//changed
 function Cart(props) {
   const { cart, products, handleAmountChange, handleRemoveFromCart } = props;
   let totalPrice = 0

@@ -5,7 +5,7 @@ import Checkout from '../../react-express-stripe/Checkout';
 import Cart from './Cart'
 //----------------------------
 // user signup-component 
-//
+//changed
 //-------------------------
 class CheckoutForm extends Component {
     constructor(props) {
