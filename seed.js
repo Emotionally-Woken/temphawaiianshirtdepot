@@ -36,7 +36,7 @@ const makeFakeProducts = ( num ) => {
       description: chance.paragraph({sentences: 4}),
       price: chance.floating({min: 15, max: 50, fixed: 2}),
       category: [category[chance.integer({min: 0, max: 4})]],
-      quantity: chance.integer({min: 1, max: 10}),
+      quantity: chance.integer({min: 5, max: 15}),
       image: chance.avatar({ protocol: 'https' })
     })
   }
