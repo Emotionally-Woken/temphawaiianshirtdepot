@@ -6,6 +6,7 @@
 export {default as Main} from './Main'
 export {default as UserHome} from './UserHome'
 export {default as AllProducts} from './AllProducts'
+export {default as Collections} from './Collections'
 export {default as ProductItem} from './ProductItem'
 export {default as SingleProduct} from './SingleProduct'
 export {default as ReviewForm} from './ReviewForm'
