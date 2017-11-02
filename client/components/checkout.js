@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchItems, changeQuantityThunk } from '../store/cart';
-
+import { changeQuantityThunk } from '../store/cart';//fetchItems
+import Checkout from '../../react-express-stripe/Checkout';
+import Cart from './Cart'
+//----------------------------
+// user signup-component 
+//
+//-------------------------
 class CheckoutForm extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             coupon: '',
             productId: 1,
@@ -13,12 +18,14 @@ class CheckoutForm extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.renderUserAddress = this.renderUserAddress.bind(this)
+        this.renderLoginOrSignUp = this.renderLoginOrSignUp.bind(this)
 
     }
 
-    componentWillMount() {
-        this.props.fetchItems();
-    }
+    // componentWillMount() {
+    //    // this.props.fetchItems();
+    // }
 
     handleChange(event) {
         const value = event.target.value;
@@ -32,9 +39,33 @@ class CheckoutForm extends Component {
         this.props.history.push(`/order/${id}`);
 
     }
+    handlePay(){
+
+    }
+
+    renderUserAddress(){
+        const {user} = this.props
+        return(
+        <div>
+            <h3>user.name</h3>
+            <p>user.shippingAddress</p>
+            <p>`${user.city}, ${user.state} ${user.zip}`</p>
+        </div>)
+    }
+
+    renderLoginOrSignUp(){
+        return(
+        <div id='checkoutShippingField'>
+            <button>Login</button>
+            <button>Sign Up</button>
+            <button>Guest Check Out</button>
+        </div>)
+    }
     render() {
+        const {cart, user} = this.props
         return (
             <div>
+            {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()} 
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="checkoutInputCoupon">Coupon</label>
@@ -50,38 +81,23 @@ class CheckoutForm extends Component {
                         Enter a coupon
                     </button>
                 </form>
-                {orderList && orderList.map((item) => {
-                    return (
-                        <li className="item" key={item.id} style={{ paddingBottom: '10px' }}>
-                            <span className="pull-right pagado" style={{ paddingRight: '40%' }}>
-                                <button
-                                    type="button"
-                                    onClick={() => { this.updateItem(item.id) }} />
-                            </span>
-                            <div className="media">
-                                <div className="media-body">
-                                    <h4 className="title">
-                                        {item.title}
-                                    </h4>
-                                    <p className="summary">
-                                        Id: {item.productId}
-                                        <br />
-                                        Quantity: {item.quantity}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                    );
-                })}
+                <h1>
+                   Mahalo, {user.name || 'Surfer Dude!'}
+                </h1>
+                <Cart />
+             <button onClick={()=>{/*stripe */}} >Pay!</button>
             </div>
         );
     }
 }
 const mapStateToProps = (state) => ({
-    orderList: state.cart
+    user: state.user,
+ //   products: state.products
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchItems: () => dispatch(fetchItems())
+    // fetchItems: () => dispatch(fetchItems())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
+
+//

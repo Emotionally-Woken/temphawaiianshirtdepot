@@ -26,9 +26,9 @@ export const AllProducts = (props) => {
       <div style={styles.root}>
         <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
-          <GridTile key={product.id}>
-            <ProductItem  product={product}/>
-          </GridTile>
+          (<GridTile key={product.id}>
+            <ProductItem  product={product} />
+          </GridTile>)
         )}
         </GridList>
       </div>

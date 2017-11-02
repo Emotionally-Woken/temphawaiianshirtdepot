@@ -6,6 +6,7 @@ import Divider from 'material-ui/Divider'
 
 function Cart(props) {
   const { cart, products, handleAmountChange, handleRemoveFromCart } = props;
+  let totalPrice = 0
   console.log(cart)
   if(cart.length && products.length) {
     return (
@@ -14,12 +15,14 @@ function Cart(props) {
           const item = products.find(item => item.id === orderDetail.productId)
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
-          return (<div  key={item.id} className='container'>
-                <div className='shoppingcart'>
+          const itemPrice = item.price * orderDetail.quantity
+          totalPrice += itemPrice
+          return (<div  key={item.id} className="container">
+                <div className="shoppingcart">
                   <img src={item.image} />
                   <Link to={`/item/${item.id}`}>{item.title}</Link>
                   <p>{orderDetail.quantity}</p>
-                  <p>Price: '$'{item.price * orderDetail.quantity}</p>
+                  <p>Price: '$'{itemPrice}</p>
                   <i className="fa fa-plus-square" aria-hidden="true"
                   onClick={() => {canIncrement && handleAmountChange(orderDetail, 'increment')}} />
                   <i className="fa fa-minus-square"
@@ -29,10 +32,11 @@ function Cart(props) {
                     aria-hidden="true"
                     onClick={()=>{handleRemoveFromCart(orderDetail)}}/>
                   </div>
-                <Divider className='dividerShoppingCart' inset={true} />
+                <Divider className="dividerShoppingCart" inset={true} />
               </div>
         )
         })}
+        <h4>Total: {totalPrice}</h4>
       </div>
     )
   } else {

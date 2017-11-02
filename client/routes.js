@@ -5,7 +5,10 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, SingleProduct, Cart, ReviewForm} from './components'
+import {
+  Main, Login, Signup, UserHome, 
+  AllProducts, SingleProduct, 
+  Cart, ReviewForm, Checkout} from './components'
 import {me, fetchAllProducts, fetchAllReviews} from './store'
 
 
@@ -35,6 +38,7 @@ class Routes extends Component {
 
             <Route path="/cart" component={Cart} />
             <Route path="/reviews" component={ReviewForm} />
+            <Route path="/checkout" component={Checkout} />
             {
               isLoggedIn &&
                 <Switch>

@@ -5,10 +5,10 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import ReviewList from './ReviewList'
 
-const SingleProduct = (props)=>{
+const SingleProduct = (props) => {
   let {products, productId} = props
   let selectedProduct
-  if(products){
+  if (products){
     selectedProduct = products.find(product => product.id === +productId)
   }
 
@@ -44,7 +44,7 @@ const SingleProduct = (props)=>{
     )
 }
 
-const MapState = (state, ownProps)=>{
+const MapState = (state, ownProps) => {
   return {
     products: state.products,
     productId: ownProps.match.params.productId

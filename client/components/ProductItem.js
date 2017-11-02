@@ -5,7 +5,7 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import {NavLink, Link} from 'react-router-dom';
 
-const ProductItem = (props)=>{
+const ProductItem = (props) => {
   const {product} = props
 
   return (
@@ -24,7 +24,7 @@ const ProductItem = (props)=>{
   )
 }
 
-const MapState = (state, ownProps)=>{
+const MapState = (state, ownProps) => {
   return {
     product: ownProps.product
   }
