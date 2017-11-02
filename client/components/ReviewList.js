@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import { Rating } from 'material-ui-rating'
 
 const ReviewList = (props)=>{
   let {reviews, productId} = props
@@ -17,10 +17,17 @@ const ReviewList = (props)=>{
       <List>
         <Subheader>Reviews</Subheader>
           { selectedReviews && selectedReviews.map(review => (
+            <div key={review.id}>
               <ListItem
                 primaryText= {review.user.email.slice(0,3)}
                 secondaryText={review.reviewContent}
               />
+              <Rating
+              value={review.stars}
+              max={5}
+              readOnly={true}
+              />
+            </div>
           ))}
      </List>
     </div>
