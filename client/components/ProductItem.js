@@ -20,7 +20,7 @@ const ProductItem = (props)=>{
         <FlatButton label="Put in Cart" 
         onClick={()=> {
           const orderDetail = cart.find(item => item.productId === product.id)
-          if(orderDetail) {
+          if (orderDetail) {
             orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
           } else {
             handleAddToCart(product)

@@ -4,9 +4,10 @@ import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import ReviewList from './ReviewList'
+import {addToCartThunk, changeQuantityAction} from '../store'
 
 const SingleProduct = (props)=>{
-  let {products, productId} = props
+  let {products, productId, cart, handleAddToCart, handleChangeQuantity} = props
   let selectedProduct
   if(products){
     selectedProduct = products.find(product => product.id === +productId)
@@ -35,7 +36,16 @@ const SingleProduct = (props)=>{
         Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
       </CardText>
       <CardActions>
-        <FlatButton label="Action1" />
+        <FlatButton label="Put in Cart"
+        onClick={() => {
+          const orderDetail = cart.find(item => item.productId === selectedProduct.id)
+          if (orderDetail) {
+            orderDetail.quantity < selectedProduct.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
+          } else {
+            handleAddToCart(product)
+          }
+        }}
+        />
         <FlatButton label="Action2" />
       </CardActions>
     </Card> }
@@ -47,8 +57,21 @@ const SingleProduct = (props)=>{
 const MapState = (state, ownProps)=>{
   return {
     products: state.products,
-    productId: ownProps.match.params.productId
+    productId: ownProps.match.params.productId,
+    cart: state.cart
   }
 }
 
-export default connect(MapState)(SingleProduct)
+const MapDispatch = (dispatch, ownProps)=> {
+  return {
+    handleAddToCart: (item) => {
+      dispatch(addToCartThunk(item))
+    },
+    handleChangeQuantity: (orderDetail) => {
+      dispatch(changeQuantityAction(orderDetail, 'increment'))
+      ownProps.history.push('/cart')
+    }
+  }
+}
+
+export default connect(MapState, MapDispatch)(SingleProduct)
