@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const {Review} = require('../db/models')
+const {User} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Review.findAll()
+  Review.findAll({include: [{model: User}]})
     .then(reviews => res.json(reviews))
     .catch(next)
 })

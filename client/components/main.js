@@ -32,7 +32,9 @@ class Main extends React.Component {
           </ToolbarGroup>
 
           <ToolbarGroup>
-            <ToolbarTitle text="HAWAIIAN HUT" />
+            <Link to='/' style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>
+              <ToolbarTitle text="HAWAIIAN - HUT 🍹" />
+            </Link>
             <FontIcon className="muidocs-icon-custom-sort" />
           </ToolbarGroup>
 

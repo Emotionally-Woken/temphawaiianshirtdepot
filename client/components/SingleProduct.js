@@ -5,6 +5,8 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import FlatButton from 'material-ui/FlatButton';
 import ReviewList from './ReviewList'
 import {addToCartThunk, changeQuantityAction} from '../store'
+import Paper from 'material-ui/Paper';
+
 
 const SingleProduct = (props)=>{
   let {products, productId, cart, handleAddToCart, handleChangeQuantity} = props
@@ -16,27 +18,22 @@ const SingleProduct = (props)=>{
   return (
     <div>
     { selectedProduct &&
+    <div>
       <Card>
         <CardHeader
-        title="URL Avatar"
-        subtitle="Subtitle"
+        title= {selectedProduct.category}
         avatar="http://travelskills.com/wp-content/uploads/2015/04/VirginAloha.gif"
       />
-      <CardMedia
-        overlay={<CardTitle title={selectedProduct.title}subtitle="Overlay subtitle" />}
-      >
+      <CardMedia>
         <img
         src="https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg" alt="" />
       </CardMedia>
-      <CardTitle title="Card title" subtitle="Card subtitle" />
+      <CardTitle title={selectedProduct.title} />
       <CardText>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-        Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-        Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+        {selectedProduct.description}
       </CardText>
       <CardActions>
-        <FlatButton label="Put in Cart"
+        <FlatButton label="Add to Cart"
         onClick={() => {
           const orderDetail = cart.find(item => item.productId === selectedProduct.id)
           if (orderDetail) {
@@ -46,10 +43,14 @@ const SingleProduct = (props)=>{
           }
         }}
         />
-        <FlatButton label="Action2" />
       </CardActions>
-    </Card> }
-  <ReviewList productId={productId} />
+    </Card>
+    <br />
+    <Paper>
+      <ReviewList productId={productId} />
+    </Paper>
+    </div>
+    }
   </div>
     )
 }
