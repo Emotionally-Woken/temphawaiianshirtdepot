@@ -17,12 +17,20 @@ const madLibNouns = ['shirt', 'masterpiece', 'shawl', 'tropical garb', 'armour',
 const madLibAdjectives = ['beautiful', 'awesome', 'amazing', 'confident', 'super tropical', 'unstoppable', 'taller', 'smarter']
 const madLibPronoun = ['my son', 'my wife', 'my mom', 'my dad', 'my dog', 'me', 'my neighbor']
 //Make Fake Users
-const makeFakeUsers = ( num ) => {
+const makeFakeUser s = ( num ) => {
   let fakeUsers = []
   for (let i = 0; i < num; i++) {
     fakeUsers.push({
+      firstName: chance.first(),
+      lastName: chance.last(),
       email: chance.email(),
-      password: '1'
+      admin: chance.bool(),
+      password: '1',
+      shippingAddress: chance.address(),
+      state: chance.state(),
+      city: chance.city(),
+      zip: chance.zip()
+      
     })
   }
   return fakeUsers;

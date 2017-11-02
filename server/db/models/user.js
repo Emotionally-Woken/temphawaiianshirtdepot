@@ -6,12 +6,10 @@ const chance = new Chance()
 //changed
 const User = db.define('user', {
   firstName: {
-    type: Sequelize.STRING,
-    defaultValue: chance.first()
+    type: Sequelize.STRING
   },
   lastName: {
     type: Sequelize.STRING,
-    defaultValue: chance.last()
   },
   email: {
     type: Sequelize.STRING,
@@ -22,20 +20,20 @@ const User = db.define('user', {
     }
   },
   city: {
-    type: Sequelize.STRING,
-    defaultValue: chance.city()
+    type: Sequelize.STRING
   },
   state: {
-    type: Sequelize.STRING,
-    defaultValue: chance.state()
+    type: Sequelize.STRING
   },
   zip: {
-    type: Sequelize.INTEGER,
-    defaultValue: chance.zip()
+    type: Sequelize.INTEGER
   },
   shippingAddress: {
-    type: Sequelize.STRING,
-    default: chance.address()
+    type: Sequelize.STRING
+    
+  },
+  admin: {
+    type: Sequelize.BOOLEAN
   },
   password: {
     type: Sequelize.STRING
