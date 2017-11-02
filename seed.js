@@ -21,9 +21,9 @@ const makeFakeUsers = ( num ) => {
   let fakeUsers = []
   for (let i = 0; i < num; i++) {
     fakeUsers.push({
-      name: chance.name(),
-      email: chance.email()
-    })  
+      email: chance.email(),
+      password: '1'
+    })
   }
   return fakeUsers;
 }
@@ -51,7 +51,7 @@ const makeFakeReviews = ( num ) => {
     fakeReviews.push({
       userId: chance.integer({min: 1, max: 10}),
       productId: chance.integer({min: 1, max: 10}),
-      stars: chance.integer({min: 0, max: 5}),
+      stars: chance.integer({min: 1, max: 5}),
       reviewContent: `This ${madLibNouns[chance.integer({min: 0, max: 6})]} made ${madLibPronoun[chance.integer({min: 0, max: 6})]} feel ${madLibAdjectives[chance.integer({min: 0, max: 7})]}!`
     })
   }
@@ -116,7 +116,7 @@ const populate = () => {
     .then(() => {
       // db.close()
       // return null
-    }) 
+    })
 
 }
 

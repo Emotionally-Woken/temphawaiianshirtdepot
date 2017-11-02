@@ -17,7 +17,7 @@ const ProductItem = (props)=>{
       <CardTitle title={product.title} titleStyle={{'fontSize':'12px'}}
 />
       <CardActions>
-        <FlatButton label="Put in Cart" 
+        <FlatButton label="Add to Cart"
         onClick={()=> {
           const orderDetail = cart.find(item => item.productId === product.id)
           if (orderDetail) {

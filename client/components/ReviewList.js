@@ -1,7 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import { Rating } from 'material-ui-rating'
 
 const ReviewList = (props)=>{
   let {reviews, productId} = props
@@ -12,16 +14,30 @@ const ReviewList = (props)=>{
 
   return (
     <div>
-     { selectedReviews && selectedReviews.map(review => (
-       <div>{review.reviewContent}</div>
-     ))}
+      <List>
+        <Subheader>Reviews</Subheader>
+          { selectedReviews && selectedReviews.map(review => (
+            <div key={review.id}>
+              <ListItem
+                primaryText= {review.user.email.slice(0,3)}
+                secondaryText={review.reviewContent}
+              />
+              <Rating
+              value={review.stars}
+              max={5}
+              readOnly={true}
+              />
+            </div>
+          ))}
+     </List>
     </div>
   )
 }
 
 const MapState = (state, ownProps) => ({
   reviews: state.reviews.allReviews,
-  productId: ownProps.productId
+  productId: ownProps.productId,
+  users: state.user
 })
 
 export default connect(MapState)(ReviewList)
