@@ -21,8 +21,8 @@ const makeFakeUsers = ( num ) => {
   let fakeUsers = []
   for (let i = 0; i < num; i++) {
     fakeUsers.push({
-      name: chance.name(),
-      email: chance.email()
+      email: chance.email(),
+      password: chance.integer({min: 0, max: 123})
     })
   }
   return fakeUsers;
