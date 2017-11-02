@@ -5,9 +5,10 @@ import { changeQuantityAction, removeFromCartAction } from '../store' //deleted 
 import Divider from 'material-ui/Divider'
 //changed
 function Cart(props) {
-  const { cart, products, handleAmountChange, handleRemoveFromCart } = props;
+  const { cart, products, handleAmountChange, handleRemoveFromCart, history } = props;
   let totalPrice = 0
-  const isCartLocation = props.history.location.pathname === '/cart'
+  console.log(history)
+  const isCartLocation = history.location.pathname === '/cart'
   if (cart.length && products.length) {
     return (
       <div>
