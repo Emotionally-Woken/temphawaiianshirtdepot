@@ -1,8 +1,18 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
-
+const Chance = require('chance')
+const chance = new Chance()
+//changed
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    defaultValue: chance.first()
+  },
+  lastName: {
+    type: Sequelize.STRING,
+    defaultValue: chance.last()
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
@@ -10,6 +20,22 @@ const User = db.define('user', {
     validate: {
       notEmpty: true
     }
+  },
+  city: {
+    type: Sequelize.STRING,
+    defaultValue: chance.city()
+  },
+  state: {
+    type: Sequelize.STRING,
+    defaultValue: chance.state()
+  },
+  zip: {
+    type: Sequelize.INTEGER,
+    defaultValue: chance.zip()
+  },
+  shippingAddress: {
+    type: Sequelize.STRING,
+    default: chance.address()
   },
   password: {
     type: Sequelize.STRING
@@ -24,6 +50,9 @@ const User = db.define('user', {
 
 module.exports = User
 
+User.prototype.name = function () {
+  return this.firstName + ' ' + this.lastName
+}
 /**
  * instanceMethods
  */
