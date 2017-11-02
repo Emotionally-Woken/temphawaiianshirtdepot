@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm} from './components'
+import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout} from './components'
 import {me, fetchAllProducts, fetchAllReviews} from './store'
 //this is f/collections branch
 /**
@@ -31,8 +31,8 @@ class Routes extends Component {
             <Route exact path="/collections" component={AllProducts} />
             <Route path="/collections/:category" component={Collections} />
             <Route path="/item/:productId" component={SingleProduct} />
-
-            <Route path="/cart" component={Cart} />
+            <Route path="/checkout" component={Checkout} />
+            <Route path="/cart" history={history} component={Cart} />
             <Route path="/reviews" component={ReviewForm} />
             {
               isLoggedIn &&
