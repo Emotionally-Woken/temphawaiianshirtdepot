@@ -1,13 +1,23 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
-import createLogger from 'redux-logger'; // https://github.com/evgenyrodionov/redux-logger
-import thunkMiddleware from 'redux-thunk'; // https://github.com/gaearon/redux-thunk
+import {createStore, combineReducers, applyMiddleware} from 'redux'
+import createLogger from 'redux-logger'
+import thunkMiddleware from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import user from './user'
+import products from './products'
+import cart from './cart'
+import reviews from './reviews'
 
-import user from '../components/user'
-import item from './components/orderDetails';
+const reducer = combineReducers({user, cart, products, reviews})
 
-const combinedReducers = combineReducers({
-  user,
-  item
-});
+const middleware = composeWithDevTools(applyMiddleware(
+  thunkMiddleware,
+  createLogger({collapsed: true})
+))
+const store = createStore(reducer, middleware)
 
-export default createStore(combinedReducers, applyMiddleware(thunkMiddleware, createLogger()))
+export default store
+export * from './user'
+export * from './products'
+export * from './cart'
+export * from './reviews'
+
