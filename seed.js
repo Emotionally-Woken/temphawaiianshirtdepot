@@ -17,7 +17,7 @@ const madLibNouns = ['shirt', 'masterpiece', 'shawl', 'tropical garb', 'armour',
 const madLibAdjectives = ['beautiful', 'awesome', 'amazing', 'confident', 'super tropical', 'unstoppable', 'taller', 'smarter']
 const madLibPronoun = ['my son', 'my wife', 'my mom', 'my dad', 'my dog', 'me', 'my neighbor']
 //Make Fake Users
-const makeFakeUser s = ( num ) => {
+const makeFakeUsers = ( num ) => {
   let fakeUsers = []
   for (let i = 0; i < num; i++) {
     fakeUsers.push({
