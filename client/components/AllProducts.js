@@ -4,11 +4,13 @@ import {connect} from 'react-redux'
 import ProductItem from './ProductItem'
 import {GridList, GridTile} from 'material-ui/GridList';
 
+import {addToCartThunk, changeQuantityAction} from '../store'
+
 /**
  * COMPONENT
  */
 export const AllProducts = (props) => {
- let {products} = props;
+ let {products, handleAddToCart, cart, handleChangeQuantity} = props;
  const styles = {
   root: {
     display: 'flex',
@@ -27,7 +29,11 @@ export const AllProducts = (props) => {
         <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
           <GridTile key={product.id}>
-            <ProductItem  product={product}/>
+            <ProductItem  
+              product={product}
+              cart={cart} 
+              handleAddToCart={handleAddToCart} 
+              handleChangeQuantity={handleChangeQuantity}/>
           </GridTile>
         )}
         </GridList>
@@ -40,12 +46,23 @@ export const AllProducts = (props) => {
  */
 const mapState = (state) => {
   return {
-    products: state.products
+    products: state.products,
+    cart: state.cart
   }
 }
 
+const MapDispatch = (dispatch, ownProps) => ({
+  handleAddToCart: (item) => {
+    dispatch(addToCartThunk(item))
+  },
+  handleChangeQuantity: (orderDetail) => {
+    dispatch(changeQuantityAction(orderDetail, 'increment'))
+    ownProps.history.push('/cart')
+  }
+})
+
 // export default connect(mapState)(GuestHome)
-export default connect(mapState)(AllProducts)
+export default connect(mapState, MapDispatch)(AllProducts)
 
 /**
  * PROP TYPES

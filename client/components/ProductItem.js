@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {NavLink, Link} from 'react-router-dom';
 
 const ProductItem = (props)=>{
-  const {product} = props
+  const {product, handleAddToCart, handleChangeQuantity, cart} = props
 
   return (
     <Card>
@@ -17,7 +17,15 @@ const ProductItem = (props)=>{
       <CardTitle title={product.title} titleStyle={{'fontSize':'12px'}}
 />
       <CardActions>
-        <FlatButton label="Put in Cart" />
+        <FlatButton label="Put in Cart" 
+        onClick={()=> {
+          const orderDetail = cart.find(item => item.productId === product.id)
+          if(orderDetail) {
+            orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
+          } else {
+            handleAddToCart(product)
+          }
+        } } />
         <FlatButton containerElement={<Link to={`/item/${product.id}`}/>}label="View Details" />
       </CardActions>
     </Card>
@@ -29,5 +37,6 @@ const MapState = (state, ownProps)=>{
     product: ownProps.product
   }
 }
+
 
 export default connect(MapState)(ProductItem)
