@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProductItem from './ProductItem'
+import SearchBar from './SearchBar'
 import {GridList, GridTile} from 'material-ui/GridList';
 
 import {addToCartThunk, changeQuantityAction} from '../store'
@@ -29,14 +30,15 @@ export const AllProducts = (props) => {
         <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
           <GridTile key={product.id}>
-            <ProductItem  
+            <ProductItem
               product={product}
-              cart={cart} 
-              handleAddToCart={handleAddToCart} 
+              cart={cart}
+              handleAddToCart={handleAddToCart}
               handleChangeQuantity={handleChangeQuantity}/>
           </GridTile>
         )}
         </GridList>
+        <SearchBar history={props.history} />
       </div>
   )
 }
