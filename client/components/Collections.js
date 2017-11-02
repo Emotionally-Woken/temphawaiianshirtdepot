@@ -4,8 +4,9 @@ import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { GridList, GridTile } from 'material-ui/GridList'
+import {addToCartThunk, handleAddToCart} from '../store'
 //this is f/collections branch
-export const Collections = ({ products, collectionType }) => {
+export const Collections = ({ products, cart, collectionType, handleAddToCart, handleChangeQuantity }) => {
   //Lets put this styles object in a separate file !
   const styles = {
   root: {
@@ -26,7 +27,7 @@ let filteredProducts
     filteredProducts = products.filter(product => product.category[0] === collectionType)
     console.log("FILTERED!!!", filteredProducts)
   }
-
+  console.log(handleAddToCart)
   return (
     <MuiThemeProvider>
       <div style={styles.root}>
@@ -34,7 +35,11 @@ let filteredProducts
           {
             filteredProducts.map(product => (
               <GridTile key={product.id}>
-                <ProductItem product={product} />
+                <ProductItem 
+                handleAddToCart={handleAddToCart} 
+                handleChangeQuantity={handleChangeQuantity} 
+                cart={cart} 
+                product={product} />
               </GridTile>
             ))
           }
@@ -49,7 +54,20 @@ let filteredProducts
 const MapState = (state, ownProps) => {
   return {
     products: state.products,
+    cart: state.cart,
     collectionType: ownProps.match.params.category
   }
 }
-export default connect(MapState)(Collections)
+
+const MapDispatch = (dispatch) => {
+  return {
+    handleAddToCart: (item) => {
+    dispatch(addToCartThunk(item))
+  },
+    handleChangeQuantity: (orderDetail) => {
+      dispatch(changeQuantityAction(orderDetail, 'increment'))
+      ownProps.history.push('/cart')
+    }
+  }
+}
+export default connect(MapState, MapDispatch)(Collections)
