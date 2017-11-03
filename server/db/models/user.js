@@ -3,6 +3,7 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 const Chance = require('chance')
 const chance = new Chance()
+const Order = require('./order')
 //changed
 const User = db.define('user', {
   firstName: {
@@ -44,7 +45,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   }
-})
+}, {defaultScope: {include: [{model: Order, where: {status: 'Created'}}]}})
 
 module.exports = User
 
