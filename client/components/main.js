@@ -8,6 +8,8 @@ import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './Drawer'
+import SearchBar from './SearchBar';
+
 class Main extends React.Component {
 
   constructor(props) {
@@ -21,8 +23,20 @@ class Main extends React.Component {
   handleChange = (event, index, value) => this.setState({value});
 
   render(){
-    const {children, handleClick, isLoggedIn} = this.props
+    const {children, handleClick, isLoggedIn, products, history} = this.props
 
+    let searchBarData;
+    const currentPath = history.location.pathname;
+    const collectionType = currentPath.slice(13);
+
+    if (currentPath === '/' || currentPath === '/collections' ) {
+      const allProductData = products;
+      searchBarData = allProductData;
+    }
+    if (currentPath === `/collections/${collectionType}`) {
+      const collectionData = products.filter(product => product.category[0] === collectionType);
+      searchBarData = collectionData;
+    }
     return (
       <div>
         <Toolbar>
@@ -30,6 +44,8 @@ class Main extends React.Component {
           <ToolbarGroup firstChild={true}>
             <Sidebar />
           </ToolbarGroup>
+
+          {searchBarData && <SearchBar products={searchBarData} history={history}/>}
 
           <ToolbarGroup>
             <Link to='/' style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>
@@ -72,7 +88,8 @@ class Main extends React.Component {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    products: state.products
   }
 }
 
@@ -96,19 +113,3 @@ Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
 }
-
-// <nav>
-//           {
-//             isLoggedIn
-//               ? <div>
-//                 {/* The navbar will show these links after you log in */}
-//                 <Link to="/home">Home</Link>
-//                 <a href="#" onClick={handleClick}>Logout</a>
-//               </div>
-//               : <div>
-//                 {/* The navbar will show these links before you log in */}
-//                 <Link to="/login">Login</Link>
-//                 <Link to="/signup">Sign Up</Link>
-//               </div>
-//           }
-//         </nav>

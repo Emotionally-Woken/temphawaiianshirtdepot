@@ -16,6 +16,7 @@ const OrderDetail = require('./orderDetail')
  Product.hasOne(Review)
  User.hasMany(Order)
  Product.belongsToMany(Order, {through: OrderDetail})
+ OrderDetail.belongsTo(Order)
  Order.hasMany(OrderDetail)
 
 /**
