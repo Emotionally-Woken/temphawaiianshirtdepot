@@ -70,7 +70,7 @@ class Main extends React.Component {
           }
 
             <IconButton iconClassName="muidocs-icon-custom-github" />
-            <i className="material-icons">add_shopping_cart</i>
+            <Link to={'/cart'}><i className="material-icons">add_shopping_cart</i></Link>
 
           </ToolbarGroup>
 

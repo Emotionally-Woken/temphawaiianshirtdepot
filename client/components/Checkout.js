@@ -43,9 +43,8 @@ class CheckoutForm extends Component {
     const { user } = this.props
     return (
       <div>
-        <h3>user.name</h3>
-        <p>user.shippingAddress</p>
-        <p>`${user.city}, ${user.state} ${user.zip}`</p>
+        <p>{user.shippingAddress}</p>
+        <p>{`${user.city}, ${user.state} ${user.zip}`}</p>
       </div>)
   }
 
@@ -79,9 +78,9 @@ class CheckoutForm extends Component {
           </button>
         </form>
         <h1>
-          Mahalo, {user.name || 'Surfer Dude!'}
+          Mahalo, {user.firstName || 'Surfer Dude!'}
         </h1>
-        <Cart history={history}/>
+        <Cart history={history} />
         <button disabled={!cart.length} onClick={() => {/*stripe */ }} >Pay!</button>
       </div>
     );
