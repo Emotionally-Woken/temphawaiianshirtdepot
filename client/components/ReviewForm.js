@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
-import Product from './ProductItem'
 import { Review, postReview, cancelReview } from '../store/reviews'
 
 class ReviewForm extends Component {
@@ -33,8 +31,6 @@ class ReviewForm extends Component {
   render() {
     return (
       <div>
-        {/* <Product {...this.props} setStars={this.setStars} /> */}
-
         { this.props.product &&
 
         <div className="review-marg">
@@ -77,5 +73,8 @@ class ReviewForm extends Component {
 }
 
 const mapDispatch = { postReview }
+const mapState = {
+
+}
 
 export default connect(null, mapDispatch)(ReviewForm)

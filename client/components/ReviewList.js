@@ -19,7 +19,8 @@ const ReviewList = (props)=>{
           { selectedReviews && selectedReviews.map(review => (
             <div key={review.id}>
               <ListItem
-                primaryText= {review.user.email.slice(0,3)}
+                disabled={true}
+                primaryText= {review.user.firstName}
                 secondaryText={review.reviewContent}
               />
               <Rating
