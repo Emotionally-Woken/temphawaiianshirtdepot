@@ -47,23 +47,20 @@ class SearchBar extends Component {
           // filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
           openOnFocus={true}
         />
-        <div>
-          <FlatButton
-            label="Submit"
-            onClick={() => this.handleClick(products, productTitleArray, this.state.searchText)}
-          />
-        </div>
+        <FlatButton
+          label="Submit"
+          onClick={() => this.handleClick(products, productTitleArray, this.state.searchText)}
+        />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  products: state.products,
-  cart: state.cart
-});
+// const mapStateToProps = state => ({
+//   products: state.products
+// });
 
-export default connect(mapStateToProps)(SearchBar);
+export default connect()(SearchBar);
 
 // const mapDispatchToProps = (dispatch, ownProps) => ({
 //   handleClick: (products, productTitles, searchText) => {
