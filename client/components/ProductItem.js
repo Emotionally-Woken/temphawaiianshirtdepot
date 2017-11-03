@@ -7,12 +7,12 @@ import {NavLink, Link} from 'react-router-dom';
 
 const ProductItem = (props)=>{
   const {product, handleAddToCart, handleChangeQuantity, cart} = props
-  console.log(product)
+
   return (
     <Card>
       <CardMedia>
         <img
-        src="https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg" alt="" />
+        src={product.image} alt="" />
       </CardMedia>
       <CardTitle title={product.title} titleStyle={{'fontSize':'12px'}}/>
       <CardActions>

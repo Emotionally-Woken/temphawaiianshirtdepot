@@ -26,7 +26,7 @@ const SingleProduct = (props) => {
             />
             <CardMedia>
               <img
-                src="https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg" alt="" />
+                src={selectedProduct.image} alt="" />
             </CardMedia>
             <CardTitle title={selectedProduct.title} />
             <CardText>
