@@ -38,9 +38,6 @@ class CheckoutForm extends Component {
     this.props.history.push(`/order/${id}`);
 
   }
-  handlePay() {
-
-  }
 
   renderUserAddress() {
     const { user } = this.props
@@ -55,13 +52,14 @@ class CheckoutForm extends Component {
   renderLoginOrSignUp() {
     return (
       <div id='checkoutShippingField'>
-        <button>Login</button>
-        <button>Sign Up</button>
-        <button>Guest Check Out</button>
+        <h4>Login</h4>
+        <h4>Or Sign up</h4>
+        <button>No mahalo, guest check out</button>
       </div>)
   }
   render() {
     const { cart, user, history } = this.props
+    console.log(this.props)
     return (
       <div>
         {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
@@ -78,19 +76,20 @@ class CheckoutForm extends Component {
           <button
             type="submit">
             Enter a coupon
-                    </button>
+          </button>
         </form>
         <h1>
           Mahalo, {user.name || 'Surfer Dude!'}
         </h1>
         <Cart history={history}/>
-        <button onClick={() => {/*stripe */ }} >Pay!</button>
+        <button disabled={!cart.length} onClick={() => {/*stripe */ }} >Pay!</button>
       </div>
     );
   }
 }
 const mapStateToProps = (state) => ({
   user: state.user,
+  cart: state.cart
   //   products: state.products
 });
 
