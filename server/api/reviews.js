@@ -10,7 +10,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:reviewId', (req, res, next) => {
-  Review.findOne({where: {id: req.params.reviewId}})
+  Review.findById(req.params.reviewId)
     .then(review => res.json(review))
     .catch(next)
 })

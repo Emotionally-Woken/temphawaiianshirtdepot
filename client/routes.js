@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 
 import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout} from './components'
-import {me, fetchAllProducts, fetchAllReviews} from './store'
+import {me, fetchAllProducts, fetchAllReviews, fetchSelectOrders} from './store'
 //this is f/collections branch
 /**
  * COMPONENT
