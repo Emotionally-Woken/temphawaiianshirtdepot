@@ -5,8 +5,8 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout} from './components'
-import {me, fetchAllProducts, fetchAllReviews} from './store'
+import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder} from './components'
+import {me, fetchAllProducts, fetchAllReviews, fetchSelectOrders} from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -39,6 +39,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/order/:orderId" component={SingleOrder} />
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
