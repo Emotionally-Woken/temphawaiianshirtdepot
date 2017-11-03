@@ -4,18 +4,18 @@ import { connect } from 'react-redux'
 import { changeQuantityAction, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
 //changed
-function Cart({cart, products, handleAmountChange, handleRemoveFromCart, history}) {
+function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
   
   const isCartLocation = history.location.pathname === '/cart'
   let totalPrice = 0
   let stringifiedCart = JSON.stringify(cart)
+  if(!user.id){
   localStorage.setItem('cart', stringifiedCart)
-  
-  if (cart.length && products.length) {
+  }
+  if (products.length && cart.length) {
     return (
       <div>
         {cart.map(orderDetail => {
-         
           const item = products.find(product => product.id === orderDetail.productId)
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
@@ -66,6 +66,7 @@ function Cart({cart, products, handleAmountChange, handleRemoveFromCart, history
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
+  user: state.user,
   products: state.products
 })
 
