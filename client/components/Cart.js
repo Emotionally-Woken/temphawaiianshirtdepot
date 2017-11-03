@@ -12,7 +12,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
   if(!user.id){
   localStorage.setItem('cart', stringifiedCart)
   }
-  if (products.length && cart.length) {
+  if (products.length && cart.length) { 
     return (
       <div>
         {cart.map(orderDetail => {
