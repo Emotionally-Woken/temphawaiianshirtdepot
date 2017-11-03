@@ -28,19 +28,19 @@ export const AllProducts = (props) => {
       <div style={styles.root}>
         <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
-          <GridTile key={product.id}>
-            <ProductItem  
+          (<GridTile key={product.id}>
+            <ProductItem
               product={product}
-              cart={cart} 
-              handleAddToCart={handleAddToCart} 
-              handleChangeQuantity={handleChangeQuantity}/>
-          </GridTile>
+              cart={cart}
+              handleAddToCart={handleAddToCart}
+              handleChangeQuantity={handleChangeQuantity}
+            />
+          </GridTile>)
         )}
         </GridList>
       </div>
   )
 }
-
 /**
  * CONTAINER
  */

@@ -10,9 +10,10 @@ const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 //Action Creators
 
 //initial state for testing only!!!
+let localCart = JSON.parse(localStorage.getItem('cart'))
 
 
-const initialState = []
+const initialState = localCart || [];
 
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
 export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })

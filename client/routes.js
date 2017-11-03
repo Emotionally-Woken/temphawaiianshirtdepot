@@ -22,7 +22,7 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        <Main>
+        <Main history={history}>
         <div className='container'>
           <Switch>
             {/* Routes placed here are available to all visitors */}
