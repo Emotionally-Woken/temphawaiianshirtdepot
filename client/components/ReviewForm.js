@@ -73,8 +73,5 @@ class ReviewForm extends Component {
 }
 
 const mapDispatch = { postReview }
-const mapState = {
-
-}
 
 export default connect(null, mapDispatch)(ReviewForm)
