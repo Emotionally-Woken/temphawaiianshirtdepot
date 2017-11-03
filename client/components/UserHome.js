@@ -1,30 +1,51 @@
-import React from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-
+import PastOrder from './PastOrder'
+import {fetchSelectOrders} from '../store/orders'
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
-  const {email} = props
+class UserHome extends Component {
+  componentDidMount(){
+    this.props.loadInitialData()
+  }
 
-  return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
-  )
+  render(){
+    const {email, orders} = this.props
+
+    return (
+      <div>
+        <h3>Welcome, {email}</h3>
+        <div>
+          <PastOrder orders={orders}/>
+        </div>
+      </div>
+    )
+  }
 }
 
 /**
  * CONTAINER
  */
+let userId;
 const mapState = (state) => {
+  userId = state.user.id
   return {
-    email: state.user.email
+    email: state.user.email,
+    orders: state.orders[userId]
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatch = (dispatch) => {
+  return {
+      loadInitialData () {
+        dispatch(fetchSelectOrders(userId))
+      }
+    }
+}
+
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES

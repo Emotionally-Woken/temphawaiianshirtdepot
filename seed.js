@@ -7,6 +7,15 @@ const statuses = ['created', 'processing', 'canceled', 'completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
 const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10]
 
+const images = [
+  'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
+  'https://hawaiishirtcompany.com/wp-content/uploads/w412o_yd_black.jpg',
+  'https://hawaiishirtcompany.com/wp-content/uploads/102c_018_blue.jpg',
+  'https://hawaiishirtcompany.com/wp-content/uploads/w415s_275_pink.jpg',
+  'https://hawaiishirtcompany.com/wp-content/uploads/w415s_275_blue.jpg',
+  'https://hawaiishirtcompany.com/wp-content/uploads/w415s_un_blue.jpg','https://hawaiishirtcompany.com/wp-content/uploads/w415s_un_coral.jpg'
+]
+
 //Words to create fake shirts
 const hawaiianWords = ['Island Dreamin in ', 'Paradise of ', 'The Aloha in ', 'Wave Catchin on ', 'Hangin ten with ', 'Volcano of ', 'Sunshine on ']
 const locationWords = ['the Long Beach', 'my Many Dreams', 'the Lovely Sunshine', 'a Cool Breeze', 'a Nice Wave', 'a Quart of Friendly Lava', 'Some Grains of Cool Sand']
@@ -30,7 +39,7 @@ const makeFakeUsers = ( num ) => {
       state: chance.state(),
       city: chance.city(),
       zip: chance.zip()
-      
+
     })
   }
   return fakeUsers;
@@ -38,6 +47,7 @@ const makeFakeUsers = ( num ) => {
 //Make fake products
 const makeFakeProducts = ( num ) => {
   let fakeProducts = []
+  let imageLength = images.length-1
   for (let i = 0; i < num; i++) {
     fakeProducts.push({
       title: `${hawaiianWords[chance.integer({min: 0, max: 6})]}${locationWords[chance.integer({min: 0, max: 6})]}`,
@@ -45,7 +55,7 @@ const makeFakeProducts = ( num ) => {
       price: chance.floating({min: 15, max: 50, fixed: 2}),
       category: [category[chance.integer({min: 0, max: 4})]],
       quantity: chance.integer({min: 5, max: 15}),
-      image: chance.avatar({ protocol: 'https' })
+      image: images[chance.integer({ min:0, max: imageLength})]
     })
   }
   return fakeProducts

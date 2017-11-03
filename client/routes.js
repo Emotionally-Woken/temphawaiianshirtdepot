@@ -5,8 +5,8 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout} from './components'
-import {me, fetchAllProducts, fetchAllReviews} from './store'
+import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder} from './components'
+import {me, fetchAllProducts, fetchAllReviews, fetchSelectOrders} from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -22,10 +22,11 @@ class Routes extends Component {
 
     return (
       <Router history={history}>
-        <Main>
+        <Main history={history}>
         <div className='container'>
           <Switch>
             {/* Routes placed here are available to all visitors */}
+            <Route exact path="/" component={AllProducts} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route exact path="/collections" component={AllProducts} />
@@ -33,15 +34,14 @@ class Routes extends Component {
             <Route path="/item/:productId" component={SingleProduct} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/cart" component={Cart} />
-            <Route path="/reviews" component={ReviewForm} />
             {
               isLoggedIn &&
                 <Switch>
-                  {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
+                  <Route path="/order/:orderId" component={SingleOrder} />
+                  <Route path="/reviews" component={ReviewForm} />
                 </Switch>
             }
-            {/* Displays our Login component as a fallback */}
             <Route component={AllProducts}/>
           </Switch>
         </div>

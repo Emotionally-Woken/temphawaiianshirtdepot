@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { GridList, GridTile } from 'material-ui/GridList'
-import {addToCartThunk, handleAddToCart} from '../store'
+import {addToCartThunk, changeQuantityAction} from '../store'
 //this is f/collections branch
 export const Collections = ({ products, cart, collectionType, handleAddToCart, handleChangeQuantity }) => {
   //Lets put this styles object in a separate file !
@@ -59,7 +59,7 @@ const MapState = (state, ownProps) => {
   }
 }
 
-const MapDispatch = (dispatch) => {
+const MapDispatch = (dispatch, ownProps) => {
   return {
     handleAddToCart: (item) => {
     dispatch(addToCartThunk(item))
