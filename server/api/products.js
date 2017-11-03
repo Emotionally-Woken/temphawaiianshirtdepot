@@ -10,3 +10,9 @@ router.get('/', (req, res, next) => {
     .then(products => res.json(products))
     .catch(next)
 })
+
+router.post('/', (req, res, next) => {
+  Product.create(req.body)
+    .then(product => res.json(product))
+    .catch(next)
+})
