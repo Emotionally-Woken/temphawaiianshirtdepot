@@ -10,6 +10,7 @@ import TextField from 'material-ui/TextField';
 import { postReview } from '../store/reviews'
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { Rating } from 'material-ui-rating'
 
 const styles = {
   root: {
@@ -100,7 +101,15 @@ class SingleOrderDetail extends Component {
             <ListItem insetChildren={true} disabled={true} primaryText={`Unit Price: $${detail.price}`} />
             <ListItem insetChildren={true} disabled={true} primaryText={`Quantity: ${detail.quantity}`} />
             { productReview ?
-            <ListItem insetChildren={true} disabled={true} primaryText={`Review: ${productReview}`} /> :
+            <div>
+            <ListItem insetChildren={true} disabled={true} primaryText={`Review: ${productReview.reviewContent}`} />
+            <ListItem insetChildren={true} disabled={true} >
+            <Rating
+              value={productReview.stars}
+              max={5}
+              readOnly={true}
+              /></ListItem></div>
+             :
             <ListItem insetChildren={true} disabled={true}>
               <div>
                 <RaisedButton label="Review" onClick={this.handleOpen} />
@@ -139,8 +148,8 @@ const mapState = (state, ownProps) => {
   return {
     detail: ownProps.detail,
     products: state.products,
-    reviews: state.reviews,
-    userId: ownProps.userId
+    reviews: state.reviews.allReviews,
+    userId: +ownProps.userId
   }
 }
 
