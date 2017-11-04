@@ -26,7 +26,6 @@ export const AllProducts = (props) => {
       overflowY: 'auto',
     },
   };
-  console.log("USERRR", user)
   if (user) {
      isAdmin = user.id && user.admin
   }

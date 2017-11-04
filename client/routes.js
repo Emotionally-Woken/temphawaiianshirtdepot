@@ -1,51 +1,53 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Router } from 'react-router'
+import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct} from './components'
-import {me, fetchAllProducts, fetchAllReviews, fetchSelectOrders} from './store'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct } from './components'
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData()
   }
 
-  render () {
-    const {isLoggedIn, products} = this.props
+  render() {
+    const { isLoggedIn, products } = this.props
     //console.log("thisisProducts: ", products)
 
     return (
       <Router history={history}>
         <Main history={history}>
-        <div className='container'>
-          <Switch>
-            {/* Routes placed here are available to all visitors */}
-            <Route exact path="/" component={AllProducts} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route exact path="/collections" component={AllProducts} />
-            <Route path="/collections/:category" component={Collections} />
-            <Route path="/item/:productId" component={SingleProduct} />
-            <Route path="/checkout" component={Checkout} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/createProduct" component={AddNewProduct} />
-            {
-              isLoggedIn &&
+          <div className='container'>
+            <Switch>
+              {/* Routes placed here are available to all visitors */}
+              <Route exact path="/" component={AllProducts} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route exact path="/collections" component={AllProducts} />
+              <Route path="/collections/:category" component={Collections} />
+              <Route path="/item/:productId" component={SingleProduct} />
+              <Route path="/checkout" component={Checkout} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/createProduct" component={AddNewProduct} />
+              <Route path="/editProduct/:productId" component={EditProduct} />
+
+              {
+                isLoggedIn &&
                 <Switch>
                   <Route path="/home" component={UserHome} />
                   <Route path="/order/:orderId" component={SingleOrder} />
                   <Route path="/reviews" component={ReviewForm} />
                 </Switch>
-            }
-            <Route component={AllProducts}/>
-          </Switch>
-        </div>
+              }
+              <Route component={AllProducts} />
+            </Switch>
+          </div>
         </Main>
       </Router>
     )
@@ -65,7 +67,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
       dispatch(fetchAllProducts())
       dispatch(fetchAllReviews())

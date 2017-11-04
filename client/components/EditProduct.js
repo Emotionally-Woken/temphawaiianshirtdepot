@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { addProduct } from '../store'
+import { changeProduct } from '../store'
 import TextField from 'material-ui/TextField'
 import { orange500, blue500 } from 'material-ui/styles/colors'
 import FlatButton from 'material-ui/FlatButton'
 
-class AddNewProduct extends Component {
+class EditProduct extends Component {
 
   constructor(props) {
     super(props)
@@ -52,6 +52,10 @@ class AddNewProduct extends Component {
         color: blue500,
       },
     }
+    const products = this.props.products
+    const productId = +this.props.match.params.productId
+    const selectedProduct = products.length ? products.find(product => product.id === productId) : {}
+
     return (
       <form name="myForm" onSubmit={this.props.emptyState}>
         <fieldset>
@@ -64,6 +68,8 @@ class AddNewProduct extends Component {
             hintText="Title"
             errorText="This field is required."
             errorStyle={styles.errorStyle}
+            defaultValue={selectedProduct.title}
+
           /><br />
           <TextField
             value={this.state.description}
@@ -73,6 +79,7 @@ class AddNewProduct extends Component {
             hintText="Description"
             errorText="This field is required."
             errorStyle={styles.errorStyle}
+            defaultValue={selectedProduct.description}
           /><br />
           <TextField
             value={this.state.price}
@@ -82,6 +89,7 @@ class AddNewProduct extends Component {
             hintText="$$$"
             errorText="This field is required."
             errorStyle={styles.errorStyle}
+            defaultValue={selectedProduct.price}
           /><br />
           <TextField
             value={this.state.image}
@@ -91,6 +99,7 @@ class AddNewProduct extends Component {
             hintText="Image Url"
             errorText=""
             errorStyle={styles.errorStyle}
+            defaultValue={selectedProduct.image}
           /><br />
 
             <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Create Product" primary={true} />
@@ -101,6 +110,12 @@ class AddNewProduct extends Component {
 
 }
 
+const mapState = state => {
+  return {
+    products: state.products
+  }
+}
+
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit: (event) => {
@@ -108,11 +123,11 @@ const mapDispatch = (dispatch) => {
       const description = event.target.description.value
       const price = event.target.price.value
       const image = event.target.image.value
-      const newProduct = { title, description, price, image }
-      dispatch(addProduct(newProduct))
+      const updatedProduct = { title, description, price, image }
+      dispatch(changeProduct(updatedProduct))
 
     }
   }
 }
 
-export default connect(null, mapDispatch)(AddNewProduct)
+export default connect(mapState, mapDispatch)(EditProduct)
