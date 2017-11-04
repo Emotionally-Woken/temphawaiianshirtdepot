@@ -1,34 +1,39 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 
-import {addToCartThunk, changeQuantityAction} from '../store'
+import { addToCartThunk, changeQuantityAction } from '../store'
 
 /**
  * COMPONENT
  */
 export const AllProducts = (props) => {
- let {products, handleAddToCart, cart, handleChangeQuantity} = props;
- const styles = {
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-  },
-  gridList: {
-    width: 1000,
-    height: 600,
-    overflowY: 'auto',
-  },
-};
+  let isAdmin
+  let { products, handleAddToCart, cart, handleChangeQuantity, user } = props;
+  const styles = {
+    root: {
+      display: 'flex',
+      flexWrap: 'wrap',
+      justifyContent: 'space-around',
+    },
+    gridList: {
+      width: 1000,
+      height: 450,
+      overflowY: 'auto',
+    },
+  };
+  console.log("USERRR", user)
+  if (user) {
+     isAdmin = user.id && user.admin
+  }
 
   return (
-      <div style={styles.root}>
-        <GridList cellHeight={500} style={styles.gridList} cols={4}>
+    <div style={styles.root}>
+      <GridList cellHeight={500} style={styles.gridList} cols={4}>
         {products && products.map(product =>
           (<GridTile key={product.id}>
             <ProductItem
@@ -39,11 +44,16 @@ export const AllProducts = (props) => {
             />
           </GridTile>)
         )}
-        </GridList>
+      </GridList>
+
+      {
+
+        isAdmin &&
         <Link to={'/createProduct'} >
           <FlatButton label="Add New Product" />
         </Link>
-      </div>
+      }
+    </div>
   )
 }
 /**
@@ -52,7 +62,8 @@ export const AllProducts = (props) => {
 const mapState = (state) => {
   return {
     products: state.products,
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 

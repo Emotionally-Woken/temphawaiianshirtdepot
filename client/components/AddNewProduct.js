@@ -93,7 +93,7 @@ class AddNewProduct extends Component {
             errorStyle={styles.errorStyle}
           /><br />
 
-            <FlatButton type="submit" label="Create Product" primary={true} />
+            <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Create Product" primary={true} />
         </fieldset>
       </form>
     )
