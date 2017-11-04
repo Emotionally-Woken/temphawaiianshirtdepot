@@ -31,7 +31,7 @@ const User = db.define('user', {
   },
   shippingAddress: {
     type: Sequelize.STRING
-    
+
   },
   admin: {
     type: Sequelize.BOOLEAN
@@ -45,7 +45,7 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   }
-}, {defaultScope: {include: [{model: Order, where: {status: 'Created'}}]}})
+}, {defaultScope: {include: [{model: Order}]}})
 
 module.exports = User
 
