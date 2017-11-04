@@ -26,7 +26,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           return (
             <div key={item.id} className="container">
               <div className="shoppingcart">
-                <img src={item.image} />
+                <img className='thumbnail' src={item.image} />
                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                 <p>{orderDetail.quantity}</p>
                 <p>Price: '$'{itemPrice}</p>
