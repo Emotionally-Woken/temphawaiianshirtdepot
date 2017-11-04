@@ -21,7 +21,7 @@ export const AllProducts = (props) => {
   },
   gridList: {
     width: 1000,
-    height: 450,
+    height: 600,
     overflowY: 'auto',
   },
 };
