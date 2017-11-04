@@ -39,7 +39,7 @@ describe('thunk creators', () => {
     })
   })
   describe('addProduct', () => {
-    it.only('eventually dispatches the CREATE_PRODUCT action', () => {
+    it('eventually dispatches the CREATE_PRODUCT action', () => {
       const fakeProduct = { name: 'Ro', description: 'cool', price: '5', image: 'https://i.pinimg.com/736x/41/d9/ee/41d9eea837285880b6164b10b7e2e8a9--cool-fish-fishing.jpg' }
       mockAxios.onPost('/api/products').replyOnce(201, fakeProduct)
       return store.dispatch(addProduct(fakeProduct))

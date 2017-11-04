@@ -7,12 +7,14 @@ import history from '../history'
 
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS'
 const CREATE_PRODUCT = 'CREATE_PRODUCT'
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
 
 /**
  * ACTION CREATORS
  */
 const getAllProducts = products => ({ type: GET_ALL_PRODUCTS, products })
 const createProduct = product => ({ type: CREATE_PRODUCT, product })
+const updateProduct = product => ({ type: UPDATE_PRODUCT, product })
 
 /* THUNK CREATORS*/
 
@@ -27,11 +29,16 @@ export const addProduct = product =>
   dispatch =>
     axios.post('/api/products', product)
       .then(res => res.data)
-      .then(newProduct => {
-        console.log("post thunk error")
-        dispatch(createProduct(newProduct))
-      })
+      .then(newProduct => dispatch(createProduct(newProduct))
+      )
       .catch(err => console.log(err))
+
+export const changeProduct = (id, product) =>
+  dispatch =>
+      axios.put(`/api/products/${id}`, product)
+        .then(res => res.data)
+        .then(updatedProduct => dispatch(updateProduct(updatedProduct)))
+        .catch(err => console.log(err))
 
 /**
  * REDUCER
@@ -42,6 +49,10 @@ export default function (products = [], action) {
       return action.products
     case CREATE_PRODUCT:
       return [action.product, ...products]
+    case UPDATE_PRODUCT:
+      return products.map(product => (
+        action.product.id === product.id ? action.product : product
+      ))
     default:
       return products
   }
