@@ -26,7 +26,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           return (
             <div key={item.id} className="container">
               <div className="shoppingcart">
-                <img src={item.image} />
+                <img className='thumbnail' src={item.image} />
                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                 <p>{orderDetail.quantity}</p>
                 <p>Price: '$'{itemPrice}</p>
@@ -49,7 +49,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           </div>
           )
         })}
-        <h4>Total: {totalPrice}</h4>
+        <h4>Total: {totalPrice.toFixed(2)}</h4>
         {isCartLocation && <Link to={'/checkout'}><button>checkout</button></Link>}
       </div>
     )

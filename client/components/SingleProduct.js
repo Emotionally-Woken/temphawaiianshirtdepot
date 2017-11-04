@@ -37,7 +37,7 @@ const SingleProduct = (props) => {
               {selectedProduct.description}
             </CardText>
             <CardActions>
-              <FlatButton label="Add to Cart"
+              <FlatButton primary={true} label="Add to Cart"
                 onClick={() => {
                   const orderDetail = cart.find(item => item.productId === selectedProduct.id)
                   if (orderDetail) {

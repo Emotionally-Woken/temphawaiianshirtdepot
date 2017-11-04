@@ -13,13 +13,13 @@ class ReviewForm extends Component {
   }
 
   setStars(stars) {
-    this.setState({ starsRating: stars })
+    this.setState({ rating: stars })
   }
 
   writeReview(evt) {
     evt.preventDefault()
     this.props.postReview({
-      stars: this.state.starsRating,
+      stars: this.state.rating,
       reviewContent: evt.target.reviewContent.value,
       userId: this.props.user.id,
       productId: this.props.product.id
@@ -73,8 +73,5 @@ class ReviewForm extends Component {
 }
 
 const mapDispatch = { postReview }
-const mapState = {
-
-}
 
 export default connect(null, mapDispatch)(ReviewForm)
