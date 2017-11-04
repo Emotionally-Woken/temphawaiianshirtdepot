@@ -49,7 +49,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           </div>
           )
         })}
-        <h4>Total: {totalPrice}</h4>
+        <h4>Total: {totalPrice.toFixed(2)}</h4>
         {isCartLocation && <Link to={'/checkout'}><button>checkout</button></Link>}
       </div>
     )
