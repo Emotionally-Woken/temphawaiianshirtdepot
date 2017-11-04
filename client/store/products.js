@@ -27,7 +27,10 @@ export const addProduct = product =>
   dispatch =>
     axios.post('/api/products', product)
       .then(res => res.data)
-      .then(newProduct => dispatch(createProduct(newProduct)))
+      .then(newProduct => {
+        console.log("post thunk error")
+        dispatch(createProduct(newProduct))
+      })
       .catch(err => console.log(err))
 
 /**

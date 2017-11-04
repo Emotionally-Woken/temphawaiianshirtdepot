@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder} from './components'
+import {Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct} from './components'
 import {me, fetchAllProducts, fetchAllReviews, fetchSelectOrders} from './store'
 //this is f/collections branch
 /**
@@ -34,6 +34,7 @@ class Routes extends Component {
             <Route path="/item/:productId" component={SingleProduct} />
             <Route path="/checkout" component={Checkout} />
             <Route path="/cart" component={Cart} />
+            <Route path="/createProduct" component={AddNewProduct} />
             {
               isLoggedIn &&
                 <Switch>

@@ -12,6 +12,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+  console.log("reqBody: ", req.body)
   Product.create(req.body)
     .then(product => res.json(product))
     .catch(next)

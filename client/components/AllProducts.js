@@ -1,8 +1,10 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import ProductItem from './ProductItem'
 import {GridList, GridTile} from 'material-ui/GridList';
+import FlatButton from 'material-ui/FlatButton';
 
 import {addToCartThunk, changeQuantityAction} from '../store'
 
@@ -38,6 +40,9 @@ export const AllProducts = (props) => {
           </GridTile>)
         )}
         </GridList>
+        <Link to={'/createProduct'} >
+          <FlatButton label="Add New Product" />
+        </Link>
       </div>
   )
 }

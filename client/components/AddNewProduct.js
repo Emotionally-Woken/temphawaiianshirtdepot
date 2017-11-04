@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addProduct } from '../store'
 import TextField from 'material-ui/TextField';
 import { orange500, blue500 } from 'material-ui/styles/colors';
+import FlatButton from 'material-ui/FlatButton';
 
 class AddNewProduct extends Component {
 
@@ -10,11 +11,13 @@ class AddNewProduct extends Component {
     super(props)
 
     this.state = {
-      name: '',
+      title: '',
       description: '',
-      price: 0,
+      price: '',
       image: ''
     }
+
+    this.handleChange = this.handleChange.bind(this);
 
   }
 
@@ -39,15 +42,15 @@ class AddNewProduct extends Component {
       },
     }
     return (
-      <form>
+      <form onSubmit={this.props.handleSubmit}>
         <div>
           <label>Enter a new product, Hawaiian Style!</label>
           <TextField
-            value={this.state.name}
+            value={this.state.title}
             onChange={this.handleChange}
             type="text"
-            name="name"
-            hintText="Name"
+            name="title"
+            hintText="Title"
             errorText="This field is required."
             errorStyle={styles.errorStyle}
           /><br />
@@ -65,20 +68,22 @@ class AddNewProduct extends Component {
             onChange={this.handleChange}
             type="text"
             name="price"
-            hintText="Price"
+            hintText="$$$"
             errorText="This field is required."
             errorStyle={styles.errorStyle}
           /><br />
           <TextField
             value={this.state.image}
             onChange={this.handleChange}
-            type="image"
+            type="text"
             name="image"
             hintText="Image Url"
             errorText=""
             errorStyle={styles.errorStyle}
           /><br />
-
+          <div>
+            <FlatButton type="submit" label="Create Product" primary={true} />
+          </div>
         </div>
 
       </form>
@@ -93,9 +98,9 @@ const mapDispatch = dispatch => {
     handleSubmit: event => {
       event.preventDefault()
       const newProduct = {
-        name: [event.target.name.value],
+        title: [event.target.title.value],
         description: [event.target.description.value],
-        price: [event.target.price.value],
+        price: +[event.target.price.value],
         image: [event.target.image.value]
       }
       dispatch(addProduct(newProduct))
