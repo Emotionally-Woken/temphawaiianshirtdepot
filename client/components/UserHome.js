@@ -33,7 +33,7 @@ const mapState = (state) => {
   userId = state.user.id
   return {
     email: state.user.email,
-    orders: state.orders[userId]
+    orders: state.orders
   }
 }
 
