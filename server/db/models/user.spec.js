@@ -1,6 +1,7 @@
 /* global describe beforeEach it */
-
 const {expect} = require('chai')
+var chai = require('chai')
+chai.use(require('chai-things'))
 const db = require('../index')
 const User = db.model('user')
 
@@ -32,4 +33,45 @@ describe('User model', () => {
       })
     }) // end describe('correctPassword')
   }) // end describe('instanceMethods')
+
+  describe('defaultValue set correctly', () => {
+    describe('isAdmin', () => {
+      let cody
+
+      beforeEach(() => {
+        return User.create({
+          email: 'cody@puppybook.com',
+          password: 'bones'
+        })
+          .then(user => {
+            cody = user
+          })
+      })
+
+      it('isAdmin false by default', () => {
+        expect(cody.getDataValue('isAdmin')).to.be.equal(false)
+      })
+    }) // end describe('correctPassword')
+  }) // end describe('instanceMethods') 
+  describe('defaultValue set correctly', () => {
+    
+      describe('Validations', function () {
+        let cody
+    
+        beforeEach(() => {
+          return User.create({
+            email: 'cody@puppybook.com',
+            password: 'bones'
+          })
+              .then(user => {
+                cody = user
+              })
+        })
+        it('errors with a duplicate email', function () {
+          var user = User.build({
+            email: 'cody@puppybook.com'
+          })
+        })
+      })
+    })    
 }) // end describe('User model')

@@ -24,13 +24,13 @@ describe('Collections', () => {
     collectionsFail = shallow(<Collections products={productsFail} collectionType={"Performance"} />)
   })
 
-  it('renders a collection', () => {
+  xit('renders a collection', () => {
     expect(collections.find('GridTile')).to.have.length(2)
   })
-  it('renders a collection', () => {
+  xit('renders a collection', () => {
     expect(collections1.find('GridTile')).to.not.have.length(1)
   })
-  it.only('renders a collection', () => {
+  xit('renders a collection', () => {
     expect(collectionsFail.find('GridTile')).to.not.have.length(2)
   })
 
