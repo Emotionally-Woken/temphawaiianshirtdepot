@@ -6,7 +6,7 @@ import ProductItem from './ProductItem'
 import { GridList, GridTile } from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 
-import { addToCartThunk, changeQuantityAction } from '../store'
+import {addToCartThunk, changeQuantityThunk} from '../store'
 
 /**
  * COMPONENT
@@ -67,11 +67,11 @@ const mapState = (state) => {
 }
 
 const MapDispatch = (dispatch, ownProps) => ({
-  handleAddToCart: (item) => {
-    dispatch(addToCartThunk(item))
+  handleAddToCart: (item, cart) => {
+    dispatch(addToCartThunk(item, cart))
   },
   handleChangeQuantity: (orderDetail) => {
-    dispatch(changeQuantityAction(orderDetail, 'increment'))
+    dispatch(changeQuantityThunk(orderDetail, 'increment'))
     ownProps.history.push('/cart')
   }
 })

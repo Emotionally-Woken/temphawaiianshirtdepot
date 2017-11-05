@@ -5,12 +5,14 @@ import { connect } from 'react-redux'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import ReviewList from './ReviewList'
-import { addToCartThunk, changeQuantityAction } from '../store'
+import { addToCartThunk, changeQuantityThunk } from '../store'
 import Paper from 'material-ui/Paper';
+
 
 const SingleProduct = (props) => {
   let isAdmin
   let { products, productId, cart, handleAddToCart, handleChangeQuantity, user } = props
+  
   let selectedProduct
   if (products) {
     selectedProduct = products.find(product => product.id === +productId)
@@ -39,11 +41,11 @@ const SingleProduct = (props) => {
             <CardActions>
               <FlatButton primary={true} label="Add to Cart"
                 onClick={() => {
-                  const orderDetail = cart.find(item => item.productId === selectedProduct.id)
+                  const orderDetail = cart.orderDetails.find(item => item.productId === selectedProduct.id)
                   if (orderDetail) {
                     orderDetail.quantity < selectedProduct.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
                   } else {
-                    handleAddToCart(selectedProduct)
+                    handleAddToCart(selectedProduct, cart)
                   }
                 }}
               />
@@ -78,11 +80,11 @@ const MapState = (state, ownProps) => {
 
 const MapDispatch = (dispatch, ownProps) => {
   return {
-    handleAddToCart: (item) => {
-      dispatch(addToCartThunk(item))
+    handleAddToCart: (item, cart) => {
+      dispatch(addToCartThunk(item, cart))
     },
     handleChangeQuantity: (orderDetail) => {
-      dispatch(changeQuantityAction(orderDetail, 'increment'))
+      dispatch(changeQuantityThunk(orderDetail, 'increment'))
       ownProps.history.push('/cart')
     }
   }

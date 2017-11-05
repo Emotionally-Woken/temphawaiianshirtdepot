@@ -1,5 +1,6 @@
 import axios from 'axios';
 import history from '../history';
+import {userOrderUpdate} from './index'
 
 //Action Types
 
@@ -14,58 +15,117 @@ const USER_LOGS_OUT_REMOVE_CART = 'USER_LOGS_OUT_REMOVE_CART'
 //initial state for testing only!!!
 //let localCart = JSON.parse(localStorage.getItem('cart'))
 
-const initialState = []//localCart || [];
+const initialState = localCart || {id: 0, orderDetails: []};
 
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
 export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
-export const changeQuantityAction = (orderDetail, delta) => ({type: CHANGE_QUANTITY, orderDetail, delta})
-export const userLogsInAddCartAction = (usersCart) => ({type: USER_LOGS_IN_ADD_CART, usersCart})
+export const changeQuantityAction = (orderDetail) => ({type: CHANGE_QUANTITY, orderDetail})
+export const userLogsInAddCartAction = (usersCart, orderId) => ({type: USER_LOGS_IN_ADD_CART, usersCart, orderId})
 export const userLogsOutRemoveCartAction = () => ({type: USER_LOGS_OUT_REMOVE_CART})
 
 //Thunk Creators
 
-
-export const addToCartThunk = item =>
+export const removeFromCartThunk = orderDetail =>
   dispatch => {
+    axios.delete(`api/orderDetail/remove/${orderDetail.orderId}/${orderDetail.productId}`)
+    .then(() => {
+      dispatch(removeFromCartAction(orderDetail))
+    })
+    .catch()
+  }
+
+export const changeQuantityThunk = (orderDetail, delta) =>
+  dispatch => {
+    
+    orderDetail.quantity = delta === 'increment' ? orderDetail.quantity + 1 : orderDetail.quantity - 1
+    
+    dispatch(changeQuantityAction(orderDetail))
+    
+    if (orderDetail.orderId) {
+    axios.put(`api/orderDetail/update/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
+    .catch()
+    }
+  }
+
+export const addToCartThunk = (item, cart) =>
+  dispatch => {
+    
     const orderDetail = {}
     orderDetail.productId = item.id;
     orderDetail.price = item.price;
     orderDetail.quantity = 1;
-    dispatch(addToCartAction(orderDetail));
-    history.push('/cart');
+    orderDetail.orderId = cart.id;
+    if (cart.id) {
+      console.log(orderDetail, 'OD in add to cart thunk')
+      axios.post(`api/orderDetail/${cart.id}/new`, orderDetail)
+      .then(res => {
+        const updatedCart = Object.assign({}, cart)
+        updatedCart.orderDetails = [...updatedCart.orderDetails, res.data]
+        console.log(updatedCart, 'updatedCart')
+        console.log(res.data, 'res data')
+        dispatch(userOrderUpdate(updatedCart))
+      })
+      .catch()
+    }
+      dispatch(addToCartAction(orderDetail));
+      history.push('/cart');
 }
+
+const createBulkOrderDetailsThunk = (cart) => 
+  dispatch => {
+    axios.post(`/api/orderDetail/bulkNew`, cart)
+    .catch()
+  }
+
+export const userLogsInCreateCartThunk = user =>
+  dispatch => {
+    axios.post(`/api/orders/${user.id}/create`, user)
+    .then(res => {
+      const newCart = res.data
+      console.log(localStorage, 'in logs in create cart thunk')
+      localCart = JSON.parse(localStorage.getItem('cart'))
+      localCart.id = newCart.id
+      dispatch(userLogsInAddCartAction([], newCart.id))
+      if(localCart.orderDetails.length) dispatch(createBulkOrderDetailsThunk(localCart))
+      localStorage.setItem('cart', JSON.stringify({ id: 0, orderDetails: [] }))
+    })
+    .catch()
+  }
 
 //Reducer
 
 export default function (state = initialState, action) {
-  const newState = Array.from(state)
+  const newState = Object.assign({}, state)
   switch (action.type) {
     case ADD_TO_CART:
-      return [...newState, action.orderDetail]
+      newState.orderDetails = [...newState.orderDetails, action.orderDetail]
+      return newState
     case REMOVE_FROM_CART:
-      return newState.filter(orderDetail => orderDetail.productId !== action.itemToRemove.productId)
+      newState.orderDetails = newState.orderDetails.filter( orderDetail => orderDetail.productId !== action.itemToRemove.productId)
+      return newState
     case CHANGE_QUANTITY:
-      return newState.map(orderDetail => {
-      const newOrderDetail = {...orderDetail}
-      if (newOrderDetail.productId === action.orderDetail.productId) {
-        action.delta === 'increment' ? newOrderDetail.quantity++ : newOrderDetail.quantity--
-      }
-      return newOrderDetail;
+      newState.orderDetails = newState.orderDetails.map( orderDetail => {
+        const newOrderDetail = {...orderDetail}
+         return newOrderDetail.productId === action.orderDetail.productId ? action.orderDetail : newOrderDetail
+          // action.delta === 'increment' ? newOrderDetail.quantity++ : newOrderDetail.quantity--    
       })
+      return newState;
     case USER_LOGS_IN_ADD_CART:
       const concattedCarts = {}
-      newState.concat(action.usersCart).forEach(orderDetail => {
+      newState.orderDetails.concat(action.usersCart).forEach(orderDetail => {
         if (!concattedCarts[orderDetail.productId]) {
           concattedCarts[orderDetail.productId] = orderDetail
         }
         else concattedCarts[orderDetail.productId].quantity += concattedCarts[orderDetail.productId].quantity
       })
 
-      return Object.keys(concattedCarts).map(i => {
+      newState.orderDetails = Object.keys(concattedCarts).map(i => {
         return concattedCarts[i]
       })
+      newState.id = action.orderId
+      return newState
     case USER_LOGS_OUT_REMOVE_CART:
-      return []
+      return {id: 0, orderDetails: []}
     default:
       return state;
   }

@@ -18,11 +18,11 @@ const ProductItem = (props)=>{
       <CardActions>
         <FlatButton label="Add to Cart"
         onClick={()=> {
-          const orderDetail = cart.find(item => item.productId === product.id)
+          const orderDetail = cart.orderDetails.find(item => item.productId === product.id)
           if (orderDetail) {
             orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
           } else {
-            handleAddToCart(product)
+            handleAddToCart(product, cart)
           }
         } } />
         <FlatButton containerElement={<Link to={`/item/${product.id}`}/>}label="View Details" />

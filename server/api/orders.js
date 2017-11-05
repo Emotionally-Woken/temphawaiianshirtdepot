@@ -7,3 +7,12 @@ router.get('/:userId', (req, res, next) => {
     .then(orders => res.json(orders))
     .catch(next)
 })
+
+router.post('/:userId/create', (req, res, next) => {
+  Order.create({status: 'Created'})
+  .then((newOrder => {
+    newOrder.setUser(req.params.userId)
+    res.json(newOrder)
+  }))
+  .catch(next)
+})
