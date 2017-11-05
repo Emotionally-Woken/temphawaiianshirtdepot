@@ -33,10 +33,14 @@ const User = db.define('user', {
     type: Sequelize.STRING
 
   },
-  isAdmin: {
+  admin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
 },
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: chance.bool()
+  },
   password: {
     type: Sequelize.STRING
   },
