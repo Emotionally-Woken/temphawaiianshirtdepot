@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { changeQuantityThunk, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
+import { changeQuantityThunk, removeFromCartThunk } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
 //changed
 function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
@@ -75,7 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeQuantityThunk(orderDetail, delta))
   },
   handleRemoveFromCart: (itemToRemove) => {
-    dispatch(removeFromCartAction(itemToRemove))
+    dispatch(removeFromCartThunk(itemToRemove))
   }
 })
 

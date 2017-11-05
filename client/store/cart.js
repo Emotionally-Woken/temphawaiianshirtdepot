@@ -25,6 +25,15 @@ export const userLogsOutRemoveCartAction = () => ({type: USER_LOGS_OUT_REMOVE_CA
 
 //Thunk Creators
 
+export const removeFromCartThunk = orderDetail =>
+  dispatch => {
+    axios.delete(`api/orderDetail/remove/${orderDetail.orderId}/${orderDetail.productId}`)
+    .then(() => {
+      dispatch(removeFromCartAction(orderDetail))
+    })
+    .catch()
+  }
+
 export const changeQuantityThunk = (orderDetail, delta) =>
   dispatch => {
     console.log('got here', orderDetail)
@@ -34,6 +43,7 @@ export const changeQuantityThunk = (orderDetail, delta) =>
     .then(() => {
       dispatch(changeQuantityAction(orderDetail, delta))
     })
+    .catch()
   }
 
 export const addToCartThunk = (item, cart) =>
