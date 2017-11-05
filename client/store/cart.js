@@ -36,14 +36,15 @@ export const removeFromCartThunk = orderDetail =>
 
 export const changeQuantityThunk = (orderDetail, delta) =>
   dispatch => {
-    console.log('got here', orderDetail)
+    
     orderDetail.quantity = delta === 'increment' ? orderDetail.quantity + 1 : orderDetail.quantity - 1
-    console.log(orderDetail.quantity, 'now here')
+    
+    dispatch(changeQuantityAction(orderDetail))
+    
+    if (orderDetail.orderId) {
     axios.put(`api/orderDetail/update/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
-    .then(() => {
-      dispatch(changeQuantityAction(orderDetail, delta))
-    })
     .catch()
+    }
   }
 
 export const addToCartThunk = (item, cart) =>
