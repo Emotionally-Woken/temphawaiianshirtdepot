@@ -128,7 +128,7 @@ const mapDispatch = (dispatch, ownProps) => {
       const price = +event.target.price.value
       const image = event.target.image.value
       const updatedProduct = { title, price, description, image }
-      dispatch(changeProduct(productId, updatedProduct))
+      dispatch(changeProduct(productId, updatedProduct, ownProps.history))
 
     }
   }

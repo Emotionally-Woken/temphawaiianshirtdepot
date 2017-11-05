@@ -53,7 +53,7 @@ class AddNewProduct extends Component {
       },
     }
     return (
-      <form name="myForm" onSubmit={this.props.emptyState}>
+      <form name="myForm" onSubmit={this.emptyState}>
         <fieldset>
           <label>Enter a new product, Hawaiian Style!</label>
           <TextField
@@ -101,7 +101,7 @@ class AddNewProduct extends Component {
 
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     handleSubmit: (event) => {
       const title = event.target.title.value
@@ -109,7 +109,7 @@ const mapDispatch = (dispatch) => {
       const price = event.target.price.value
       const image = event.target.image.value
       const newProduct = { title, description, price, image }
-      dispatch(addProduct(newProduct))
+      dispatch(addProduct(newProduct, ownProps.history))
 
     }
   }
