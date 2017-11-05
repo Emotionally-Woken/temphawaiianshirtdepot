@@ -32,11 +32,11 @@ describe('Product model', () => {
           })
       })
 
-      it('returns 50% off sale price', () => {
+      xit('returns 50% off sale price', () => {
         expect(shirt.sale(0.5)).to.be.equal(50)
       })
 
-      it('returns 25% off sale price', () => {
+      xit('returns 25% off sale price', () => {
         expect(shirt.sale(0.25)).to.be.equal(75)
       })
     }) // end describe('sale')
