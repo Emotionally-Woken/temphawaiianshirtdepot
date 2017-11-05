@@ -34,10 +34,11 @@ export const addProduct = product =>
       .catch(err => console.log(err))
 
 export const changeProduct = (id, product) =>
-  dispatch =>
+    dispatch =>
       axios.put(`/api/products/${id}`, product)
-        .then(res => res.data)
-        .then(updatedProduct => dispatch(updateProduct(updatedProduct)))
+        .then(res =>res.data)
+        .then(updatedProduct => dispatch(updateProduct(updatedProduct))
+         )
         .catch(err => console.log(err))
 
 /**
