@@ -25,9 +25,11 @@ export const userLogsOutRemoveCartAction = () => ({type: USER_LOGS_OUT_REMOVE_CA
 
 //Thunk Creators
 
-export const changeQuantityThunk = (orderDetail, delta) => 
+export const changeQuantityThunk = (orderDetail, delta) =>
   dispatch => {
-    orderDetail.quantity = delta === 'increment' ? orderDetail.quantity++ : orderDetail.quantity--
+    console.log('got here', orderDetail)
+    orderDetail.quantity = delta === 'increment' ? orderDetail.quantity + 1 : orderDetail.quantity - 1
+    console.log(orderDetail.quantity, 'now here')
     axios.put(`api/orderDetail/update/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
     .then(() => {
       dispatch(changeQuantityAction(orderDetail, delta))
@@ -41,6 +43,7 @@ export const addToCartThunk = (item, cart) =>
     orderDetail.productId = item.id;
     orderDetail.price = item.price;
     orderDetail.quantity = 1;
+    orderDetail.orderId = cart.id;
     if (cart.id) {
       console.log(orderDetail, 'OD in add to cart thunk')
       axios.post(`api/orderDetail/${cart.id}/new`, orderDetail)
