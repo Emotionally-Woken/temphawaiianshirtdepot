@@ -12,8 +12,8 @@ const USER_LOGS_OUT_REMOVE_CART = 'USER_LOGS_OUT_REMOVE_CART'
 
 //Action Creators
 
-//initial state for testing only!!!
-//let localCart = JSON.parse(localStorage.getItem('cart'))
+
+let localCart = JSON.parse(localStorage.getItem('cart'))
 
 const initialState = localCart || {id: 0, orderDetails: []};
 
