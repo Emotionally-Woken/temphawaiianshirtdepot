@@ -30,7 +30,7 @@ describe('Collections', () => {
   it('renders a collection', () => {
     expect(collections1.find('GridTile')).to.not.have.length(1)
   })
-  it.only('renders a collection', () => {
+  it('renders a collection', () => {
     expect(collectionsFail.find('GridTile')).to.not.have.length(2)
   })
 

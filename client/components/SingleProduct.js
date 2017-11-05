@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
@@ -8,10 +9,16 @@ import { addToCartThunk, changeQuantityThunk } from '../store'
 import Paper from 'material-ui/Paper';
 
 
-const SingleProduct = ({ products, productId, cart, handleAddToCart, handleChangeQuantity }) => {
+const SingleProduct = (props) => {
+  let isAdmin
+  let { products, productId, cart, handleAddToCart, handleChangeQuantity, user } = props
+  
   let selectedProduct
   if (products) {
     selectedProduct = products.find(product => product.id === +productId)
+  }
+  if (user) {
+    isAdmin = user.id && user.admin
   }
 
   return (
@@ -50,6 +57,14 @@ const SingleProduct = ({ products, productId, cart, handleAddToCart, handleChang
           </Paper>
         </div>
       }
+
+      {
+
+        isAdmin &&
+        <Link to={`/editProduct/${productId}`} >
+          <FlatButton label="Edit Product" />
+        </Link>
+      }
     </div>
   )
 }
@@ -58,7 +73,8 @@ const MapState = (state, ownProps) => {
   return {
     products: state.products,
     productId: ownProps.match.params.productId,
-    cart: state.cart
+    cart: state.cart,
+    user: state.user
   }
 }
 
@@ -75,4 +91,3 @@ const MapDispatch = (dispatch, ownProps) => {
 }
 
 export default connect(MapState, MapDispatch)(SingleProduct)
-
