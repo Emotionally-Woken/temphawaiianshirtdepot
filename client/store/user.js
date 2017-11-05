@@ -1,12 +1,13 @@
 import axios from 'axios'
 import history from '../history'
-import {userLogsOutRemoveCartAction, userLogsInAddCartAction} from './index'
+import {userLogsOutRemoveCartAction, userLogsInAddCartAction, userLogsInCreateCartThunk} from './index'
 
 /**
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const USER_ORDER_UPDATE = 'USER_ORDER_UPDATE'
 
 /**
  * INITIAL STATE
@@ -18,6 +19,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+export const userOrderUpdate = cart => ({type: USER_ORDER_UPDATE, cart})
 
 /**
  * THUNK CREATORS
@@ -27,8 +29,9 @@ export const me = () =>
     axios.get('/auth/me')
       .then(res => {
         dispatch(getUser(res.data || defaultUser))
-        res.data.orders.length ? dispatch(userLogsInAddCartAction(res.data.orders[0].orderDetails)) : console.log('default user, cart is local storage')
-        localStorage.clear()
+        if (res.data.id) {
+          res.data.orders.length ? dispatch(userLogsInAddCartAction(res.data.orders[0].orderDetails, res.data.orders[0].id)) : dispatch(userLogsInCreateCartThunk(res.data))
+        }
         }
       )
       .catch(err => console.log(err))
@@ -37,7 +40,9 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
+        console.log('this is a sign in event!')
         dispatch(getUser(res.data))
+        res.data.orders.length ? dispatch(userLogsInAddCartAction(res.data.orders[0].orderDetails, res.data.orders[0].id)) : dispatch(userLogsInCreateCartThunk(res.data))
         history.push('/home')
       })
       .catch(error =>
@@ -49,7 +54,7 @@ export const logout = () =>
       .then(_ => {
         dispatch(removeUser())
         dispatch(userLogsOutRemoveCartAction())
-        localStorage.clear()
+        localStorage.setItem('cart', JSON.stringify({ id: 0, orderDetails: [] }))
         history.push('/login')
       })
       .catch(err => console.log(err))
@@ -63,6 +68,10 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case USER_ORDER_UPDATE:
+      const newState = Object.assign({}, state)
+      newState.orders = action.cart
+      return newState
     default:
       return state
   }

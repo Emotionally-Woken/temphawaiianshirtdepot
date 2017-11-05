@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { changeQuantityAction, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
+import { changeQuantityThunk, removeFromCartAction } from '../store' //deleted cart import, wasn't sure why it was there before
 import Divider from 'material-ui/Divider'
 //changed
 function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
@@ -12,10 +12,10 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
   if(!user.id){
   localStorage.setItem('cart', stringifiedCart)
   }
-  if (products.length && cart.length) { 
+  if (products.length && cart.orderDetails.length) { 
     return (
       <div>
-        {cart.map(orderDetail => {
+        {cart.orderDetails.map(orderDetail => {
           const item = products.find(product => product.id === orderDetail.productId)
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
@@ -72,7 +72,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleAmountChange: (orderDetail, delta) => {
-    dispatch(changeQuantityAction(orderDetail, delta))
+    dispatch(changeQuantityThunk(orderDetail, delta))
   },
   handleRemoveFromCart: (itemToRemove) => {
     dispatch(removeFromCartAction(itemToRemove))
