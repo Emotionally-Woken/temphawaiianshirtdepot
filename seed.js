@@ -3,9 +3,9 @@ const chance = new Chance()
 const db = require('./server/db/')
 const { User, Product, Order, OrderDetail, Review } = require('./server/db/models/index.js')
 
-const statuses = ['created', 'processing', 'canceled', 'completed']
+const statuses = [ 'Active', 'Created', 'Processing', 'Canceled', 'Completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
-const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10]
+const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const images = [
   'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
@@ -78,6 +78,7 @@ const makeFakeReviews = ( num ) => {
 
 const makeFakeOrders = ( num ) => {
   let orderIdNumber = numbersForPop.slice(0)
+  let orderDetailNumbers = numbersForPop.slice(0)
   let fakeOrders = []
   let fakeOrdersDetails = []
   for (let i = 1; i <= num; i++){
@@ -86,9 +87,9 @@ const makeFakeOrders = ( num ) => {
       status: statuses[chance.integer({num: 0, max: 3})],
       orderDetailId: orderIdNumber.shift()
     })}
-      fakeOrders.forEach((order, idx) => {
+      fakeOrders.forEach(order => {
           let orderDetail = {
-          orderId: idx,
+          orderId: orderDetailNumbers.shift(),
           quantity: chance.integer({ min: 1, max: 3 }),
           productId: chance.integer({ min: 1, max: 10 }),
           price: chance.floating({ min: 15, max: 50, fixed: 2 })
