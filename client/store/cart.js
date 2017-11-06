@@ -13,17 +13,66 @@ const USER_LOGS_OUT_REMOVE_CART = 'USER_LOGS_OUT_REMOVE_CART'
 //Action Creators
 
 
-let localCart = JSON.parse(localStorage.getItem('cart'))
+const localCart = () => JSON.parse(localStorage.getItem('cart'))
+const resetLocalCart = () => localStorage.setItem('cart', JSON.stringify({ id: 0, orderDetails: [] }))
 
-const initialState = localCart || {id: 0, orderDetails: []};
+const initialState = localCart() || {id: 0, orderDetails: []};
 
 const addToCartAction = orderDetail => ({type: ADD_TO_CART, orderDetail });
 export const removeFromCartAction = itemToRemove => ({type: REMOVE_FROM_CART, itemToRemove })
 export const changeQuantityAction = (orderDetail) => ({type: CHANGE_QUANTITY, orderDetail})
-export const userLogsInAddCartAction = (usersCart, orderId) => ({type: USER_LOGS_IN_ADD_CART, usersCart, orderId})
+export const userLogsInAddCartAction = (usersCartOrderDetails, orderId) => ({ type: USER_LOGS_IN_ADD_CART, usersCartOrderDetails, orderId})
 export const userLogsOutRemoveCartAction = () => ({type: USER_LOGS_OUT_REMOVE_CART})
 
 //Thunk Creators
+
+//write a thunk for when user has a cart and stuff in local state, clearing local storage.
+
+const uniqueToBulkAddDuplicateToChangeQuantity = (usersCartOrderDetails, cartToAdd) => {
+  const uniqueForBulkToAdd = []
+  const duplicatesForChangeQuantity = []
+  const productsInUsersCart = usersCartOrderDetails.map(orderDetail => {
+    return orderDetail.productId
+  })
+  cartToAdd.orderDetails.forEach(orderDetail => {
+    productsInUsersCart.includes(orderDetail.productId) ? duplicatesForChangeQuantity.push(orderDetail) : uniqueForBulkToAdd.push(orderDetail)
+  })
+
+  return [duplicatesForChangeQuantity, uniqueForBulkToAdd]
+
+}
+
+const createBulkOrderDetailsThunk = (cart) =>
+  dispatch => {
+    axios.post(`/api/orderDetail/bulkNew`, cart)
+      .catch()
+  }
+
+const changeBulkQuantityThunk = (cart) =>
+  dispatch => {
+    axios.put('/api/orderDetail/bulkUpdate', cart)
+    .catch()
+  }
+
+
+export const userLogsInAddCartThunk = (usersCartOrderDetails, orderId) =>
+  dispatch => {
+   
+    const bulkAdd = {id: orderId}
+    const changeQuantity = {id: orderId}
+    const cartToAdd = localCart()
+    const [forChangeQuantityOrderDetails, forBulkAddOrderDetails] = uniqueToBulkAddDuplicateToChangeQuantity(usersCartOrderDetails, cartToAdd)
+   
+    bulkAdd.orderDetails = forBulkAddOrderDetails
+    changeQuantity.orderDetails = forChangeQuantityOrderDetails
+   
+    dispatch(userLogsInAddCartAction(usersCartOrderDetails, orderId))
+    if (bulkAdd.orderDetails.length) dispatch(createBulkOrderDetailsThunk(bulkAdd))
+    if (changeQuantity.orderDetails.length) dispatch(changeBulkQuantityThunk(changeQuantity))
+   
+    resetLocalCart()
+  }
+
 
 export const removeFromCartThunk = orderDetail =>
   dispatch => {
@@ -56,13 +105,12 @@ export const addToCartThunk = (item, cart) =>
     orderDetail.quantity = 1;
     orderDetail.orderId = cart.id;
     if (cart.id) {
-      console.log(orderDetail, 'OD in add to cart thunk')
+  
       axios.post(`api/orderDetail/${cart.id}/new`, orderDetail)
       .then(res => {
         const updatedCart = Object.assign({}, cart)
         updatedCart.orderDetails = [...updatedCart.orderDetails, res.data]
-        console.log(updatedCart, 'updatedCart')
-        console.log(res.data, 'res data')
+        
         dispatch(userOrderUpdate(updatedCart))
       })
       .catch()
@@ -71,23 +119,16 @@ export const addToCartThunk = (item, cart) =>
       history.push('/cart');
 }
 
-const createBulkOrderDetailsThunk = (cart) => 
-  dispatch => {
-    axios.post(`/api/orderDetail/bulkNew`, cart)
-    .catch()
-  }
-
 export const userLogsInCreateCartThunk = user =>
   dispatch => {
     axios.post(`/api/orders/${user.id}/create`, user)
     .then(res => {
       const newCart = res.data
-      console.log(localStorage, 'in logs in create cart thunk')
-      localCart = JSON.parse(localStorage.getItem('cart'))
-      localCart.id = newCart.id
+      const cartToAdd = localCart()
+      cartToAdd.id = newCart.id
       dispatch(userLogsInAddCartAction([], newCart.id))
-      if(localCart.orderDetails.length) dispatch(createBulkOrderDetailsThunk(localCart))
-      localStorage.setItem('cart', JSON.stringify({ id: 0, orderDetails: [] }))
+      if (cartToAdd.orderDetails.length) dispatch(createBulkOrderDetailsThunk(cartToAdd))
+      resetLocalCart()
     })
     .catch()
   }
@@ -106,17 +147,16 @@ export default function (state = initialState, action) {
     case CHANGE_QUANTITY:
       newState.orderDetails = newState.orderDetails.map( orderDetail => {
         const newOrderDetail = {...orderDetail}
-         return newOrderDetail.productId === action.orderDetail.productId ? action.orderDetail : newOrderDetail
-          // action.delta === 'increment' ? newOrderDetail.quantity++ : newOrderDetail.quantity--    
+         return newOrderDetail.productId === action.orderDetail.productId ? action.orderDetail : newOrderDetail  
       })
       return newState;
     case USER_LOGS_IN_ADD_CART:
       const concattedCarts = {}
-      newState.orderDetails.concat(action.usersCart).forEach(orderDetail => {
+      newState.orderDetails.concat(action.usersCartOrderDetails).forEach(orderDetail => {
         if (!concattedCarts[orderDetail.productId]) {
           concattedCarts[orderDetail.productId] = orderDetail
         }
-        else concattedCarts[orderDetail.productId].quantity += concattedCarts[orderDetail.productId].quantity
+        else concattedCarts[orderDetail.productId].quantity += orderDetail.quantity
       })
 
       newState.orderDetails = Object.keys(concattedCarts).map(i => {
@@ -130,8 +170,6 @@ export default function (state = initialState, action) {
       return state;
   }
 }
-
-
 
 
 // return Array.from(concattedCarts)
