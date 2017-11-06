@@ -45,7 +45,7 @@ class Routes extends Component {
                   isAdmin &&
                   <Switch>
                     <Route path="/admin/orders" component={adminOrders} />
-                    <Route path="/admin/users" component={allUsers} />
+                    <Route path="/admin/users" component={AllUsers} />
                     />
                   </Switch>
                 }
