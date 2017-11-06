@@ -139,6 +139,7 @@ export default function (state = initialState, action) {
   const newState = Object.assign({}, state)
   switch (action.type) {
     case ADD_TO_CART:
+      action.orderDetail.orderId = newState.id
       newState.orderDetails = [...newState.orderDetails, action.orderDetail]
       return newState
     case REMOVE_FROM_CART:
@@ -151,8 +152,10 @@ export default function (state = initialState, action) {
       })
       return newState;
     case USER_LOGS_IN_ADD_CART:
+      newState.id = action.orderId
       const concattedCarts = {}
       newState.orderDetails.concat(action.usersCartOrderDetails).forEach(orderDetail => {
+        orderDetail.orderId = newState.id
         if (!concattedCarts[orderDetail.productId]) {
           concattedCarts[orderDetail.productId] = orderDetail
         }
@@ -162,7 +165,6 @@ export default function (state = initialState, action) {
       newState.orderDetails = Object.keys(concattedCarts).map(i => {
         return concattedCarts[i]
       })
-      newState.id = action.orderId
       return newState
     case USER_LOGS_OUT_REMOVE_CART:
       return {id: 0, orderDetails: []}
