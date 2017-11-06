@@ -89,7 +89,7 @@ const makeFakeOrders = ( num ) => {
     })}
       fakeOrders.forEach((order, i ) => {
           let orderDetail = {
-          orderId: orderDetailNumbers.shift()
+          orderId: orderDetailNumbers.shift(),
           quantity: chance.integer({ min: 1, max: 3 }),
           productId: chance.integer({ min: 1, max: 10 }),
           price: chance.floating({ min: 15, max: 50, fixed: 2 })
