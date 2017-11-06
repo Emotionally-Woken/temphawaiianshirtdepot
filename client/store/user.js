@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {userLogsOutRemoveCartAction, userLogsInAddCartAction, userLogsInCreateCartThunk} from './index'
+import {userLogsOutRemoveCartAction, userLogsInAddCartThunk, userLogsInCreateCartThunk} from './index'
 
 /**
  * ACTION TYPES
@@ -30,7 +30,8 @@ export const me = () =>
       .then(res => {
         dispatch(getUser(res.data || defaultUser))
         if (res.data.id) {
-          res.data.orders.length ? dispatch(userLogsInAddCartAction(res.data.orders[0].orderDetails, res.data.orders[0].id)) : dispatch(userLogsInCreateCartThunk(res.data))
+          const userCart = res.data.orders.find(order => order.status === 'Created')
+          userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
         }
         }
       )
@@ -42,7 +43,9 @@ export const auth = (email, password, method) =>
       .then(res => {
         console.log('this is a sign in event!')
         dispatch(getUser(res.data))
-        res.data.orders.length ? dispatch(userLogsInAddCartAction(res.data.orders[0].orderDetails, res.data.orders[0].id)) : dispatch(userLogsInCreateCartThunk(res.data))
+        const userCart = res.data.orders.find(order => order.status === 'Created')
+        console.log(userCart, 'User cart XXXXXX')
+        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
         history.push('/home')
       })
       .catch(error =>

@@ -22,6 +22,23 @@ router.post('/bulkNew', (req, res, next) => {
     .catch(next)
 })
 
+router.put('/bulkUpdate', (req, res, next) => {
+  Promise.all(req.body.orderDetails.map(orderDetail => {
+    OrderDetail.find({
+      where: {
+        orderId: req.body.id,
+        $and: {productId: orderDetail.productId}
+      }
+    })
+    .then(foundOrderDetail => {
+      foundOrderDetail.update({quantity: orderDetail.quantity})
+    })
+    .catch()
+  }))
+  .then(res.json.bind(res))
+  .catch()
+})
+
 router.put('/update/:orderId/:productId', (req, res, next) => {
   OrderDetail.find({
     where: {
