@@ -37,7 +37,7 @@ const PastOrder = ({orders}) => {
 const mapState = (state, ownProps)=>{
 
   return {
-    orders: ownProps.orders
+    orders: ownProps.orders.filter(order => order.status !== 'Active Cart')
   }
 }
 
