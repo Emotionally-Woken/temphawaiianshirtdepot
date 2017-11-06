@@ -1,16 +1,39 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import AutoComplete from 'material-ui/AutoComplete';
 import FlatButton from 'material-ui/FlatButton';
+//import Checkbox from 'material-ui/Checkbox';
+
+// const styles = {
+//   block: {
+//     maxWidth: 250,
+//   },
+//   checkbox: {
+//     marginBottom: 16,
+//   },
+// };
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      searchText: ''
+      searchText: '',
+      // allProducts: false
     }
+
+    this.handleUpdateInput = this.handleUpdateInput.bind(this);
+    // this.updateCheck = this.updateCheck.bind(this);
   }
+
+  // updateCheck = () => {
+  //   this.setState((oldState) => {
+  //     return {
+  //       allProducts: !oldState.allProducts,
+  //     };
+  //   });
+  // }
 
   handleUpdateInput = searchText => {
     this.setState({
@@ -25,15 +48,41 @@ class SearchBar extends Component {
   };
 
   handleClick = (products, productTitles, searchText) => {
+    const {history} = this.props;
     const selectedItem = products.find(item => item.title === searchText)
     if (selectedItem) {
-      this.props.history.push(`/item/${selectedItem.id}`);
+      this.handleNewRequest();
+      history.push(`/item/${selectedItem.id}`);
     }
   };
 
   render() {
     const {products} = this.props;
-    const productTitleArray = products.map(item => item.title);
+    const productTitleArray = products.map(item => item.title)
+    // let searchBarData;
+    // let productTitleArray;
+    // let checkbox = false;
+    // const currentPath = history.location.pathname;
+    // const collectionType = currentPath.slice(13);
+
+    // if (currentPath === '/' || currentPath === '/collections' ) {
+    //   const allProductData = products;
+    //   searchBarData = allProductData;
+    //   productTitleArray = products.map(item => item.title);
+    // }
+    // if (currentPath === `/collections/${collectionType}`) {
+    //   checkbox = true;
+    //   const collectionData = products.filter(product => product.category[0] === collectionType);
+    //   searchBarData = collectionData;
+    //   productTitleArray = collectionData.map(item => item.title);
+    // }
+    // if (this.state.allProducts) {
+    //   searchBarData = products;
+    //   productTitleArray = products.map(item => item.title)
+    // } else {
+    //   searchBarData = products;
+    //   productTitleArray = products.map(item => item.title)
+    // }
 
     return (
       <div>
@@ -56,11 +105,11 @@ class SearchBar extends Component {
   }
 }
 
-// const mapStateToProps = state => ({
-//   products: state.products
-// });
+const mapStateToProps = state => ({
+  products: state.products
+});
 
-export default connect()(SearchBar);
+export default withRouter(connect(mapStateToProps)(SearchBar));
 
 // const mapDispatchToProps = (dispatch, ownProps) => ({
 //   handleClick: (products, productTitles, searchText) => {
@@ -70,3 +119,12 @@ export default connect()(SearchBar);
 //         }
 //       }
 // })
+
+// {checkbox &&
+//   <Checkbox
+//     label="All"
+//     checked={this.state.allProducts}
+//     onCheck={this.updateCheck.bind(this)}
+//     style={styles.checkbox}
+//   />
+// }
