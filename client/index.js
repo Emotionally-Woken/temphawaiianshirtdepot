@@ -12,7 +12,7 @@ import './socket'
 ReactDOM.render(
   <Provider store={store}>
     <MuiThemeProvider>
-    <Routes />
+      <Routes />
     </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')

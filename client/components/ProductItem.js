@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/FlatButton';
 import {NavLink, Link} from 'react-router-dom';
 
 const ProductItem = (props)=>{
@@ -16,16 +16,21 @@ const ProductItem = (props)=>{
       </CardMedia>
       <CardTitle title={product.title} titleStyle={{'fontSize':'12px'}}/>
       <CardActions>
-        <FlatButton label="Add to Cart"
-        onClick={()=> {
-          const orderDetail = cart.orderDetails.find(item => item.productId === product.id)
-          if (orderDetail) {
-            orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
+        <RaisedButton
+          label="Add to Cart"
+          primary={true}
+          onClick={()=> {
+            const orderDetail = cart.orderDetails.find(item => item.productId === product.id)
+            if (orderDetail) {
+              orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
           } else {
             handleAddToCart(product, cart)
           }
         } } />
-        <FlatButton containerElement={<Link to={`/item/${product.id}`}/>}label="View Details" />
+        <RaisedButton
+          label="Product Details"
+          secondary={true}
+          containerElement={<Link to={`/item/${product.id}`}/>} />
       </CardActions>
     </Card>
   )

@@ -19,10 +19,12 @@ export const AllProducts = (props) => {
       display: 'flex',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
+      height: '100vh',
+      width: '100%',
     },
     gridList: {
-      width: 1000,
-      height: 450,
+      width: '100vw',
+      height: '100vh',
       overflowY: 'auto',
     },
   };
@@ -60,7 +62,7 @@ export const AllProducts = (props) => {
  */
 const mapState = (state) => {
   return {
-    products: state.products,
+    products: state.products.filter(product => +product.quantity > 0),
     cart: state.cart,
     user: state.user
   }

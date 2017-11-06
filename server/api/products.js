@@ -16,9 +16,7 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.get('/', (req, res, next) => {
-  Product.findAll({ where: {quantity: {[Op.gt]: 0}}
-
-  })
+  Product.findAll()
     .then(products => res.json(products))
     .catch(next)
 })
