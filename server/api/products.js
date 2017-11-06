@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
 const Op = require('sequelize').Op
-const http = require('http')
 module.exports = router
 
 router.param('id', function (req, res, next, id) {
@@ -9,7 +8,6 @@ router.param('id', function (req, res, next, id) {
   .then(product =>  {
     if (!product) res.sendStatus(404)
     req.product = product
-    console.log("reqProduct", req.product)
     next()
   })
   .catch(next)

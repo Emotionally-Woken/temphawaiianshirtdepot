@@ -1,17 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux'
+
 import { NavLink } from 'react-router-dom'
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 //this is f/collections branch
-export default class Sidebar extends React.Component {
+class Sidebar extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       open: false,
-      collectionsArray: ['Performance', 'Pets', 'Sleepwear', 'Casual', 'Business']
-    };
+    }
   }
 
   handleToggle = () => this.setState({ open: !this.state.open });
@@ -19,6 +20,15 @@ export default class Sidebar extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   render() {
+    //console.log("isthisAnArray", Array.isArray(this.props.collectionsArray.data))
+    let collectionItems = []
+    let collectionTitles = []
+
+    collectionItems = this.props.collectionsArray.data
+
+    if (collectionItems) {
+      collectionTitles = collectionItems.map(collection => collection.title)
+    }
 
     return (
       <div>
@@ -34,7 +44,7 @@ export default class Sidebar extends React.Component {
           onRequestChange={(open) => this.setState({ open })}
         >
           {
-            this.state.collectionsArray.map((collection, index) => (
+            collectionTitles.map((collection, index) => (
               <NavLink key={index} to={`/collections/${collection}`}>
                 <MenuItem onClick={this.handleClose}>{`${collection}`}</MenuItem>
               </NavLink>
@@ -47,22 +57,10 @@ export default class Sidebar extends React.Component {
   }
 }
 
-          //  <NavLink to={`/collections/Performance`}>
-          //   <MenuItem onClick={this.handleClose}>Performance</MenuItem>
-          // </NavLink>
+const mapState = (state) => {
+  return {
+    collectionsArray: state.categories
+  }
+}
 
-          // <NavLink to={`/collections/Pets`}>
-          //   <MenuItem onClick={this.handleClose}>Pets</MenuItem>
-          // </NavLink>
-
-          // <NavLink to={`/collections/Sleepwear`}>
-          //   <MenuItem onClick={this.handleClose}>Sleepwear</MenuItem>
-          // </NavLink>
-
-          // <NavLink to={`/collections/Casual`}>
-          //   <MenuItem onClick={this.handleClose}>Casual</MenuItem>
-          // </NavLink>
-
-          // <NavLink to={`/collections/Business`}>
-          //   <MenuItem onClick={this.handleClose}>Business</MenuItem>
-          // </NavLink>
+export default connect(mapState, null)(Sidebar)
