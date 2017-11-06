@@ -86,7 +86,7 @@ const makeFakeOrders = ( num ) => {
       status: statuses[chance.integer({num: 0, max: 3})],
       orderDetailId: orderIdNumber.shift()
     })}
-      fakeOrders.forEach(order => {
+      fakeOrders.forEach(order, i => {
           let orderDetail = {
           orderId: i,
           quantity: chance.integer({ min: 1, max: 3 }),
