@@ -9,7 +9,7 @@ router.get('/:userId', (req, res, next) => {
 })
 
 router.post('/:userId/create', (req, res, next) => {
-  Order.create({status: 'Created'})
+  Order.create({status: 'Active Cart'})
   .then((newOrder => {
     newOrder.setUser(req.params.userId)
     res.json(newOrder)
