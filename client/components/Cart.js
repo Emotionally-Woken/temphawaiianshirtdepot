@@ -20,7 +20,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
           let tooMany = item.quantity < orderDetail.quantity
-          const itemPrice = item.price.toFixed(2) * orderDetail.quantity
+          const itemPrice = item.price * orderDetail.quantity
 
           if (tooMany) orderDetail.quantity = item.quantity;
          
@@ -32,7 +32,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
                 <img className='thumbnail' src={item.image} />
                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                 <p>{orderDetail.quantity}</p>
-                <p>Price: '$'{itemPrice}</p>
+                <p>Price: '$'{itemPrice.toFixed(2)}</p>
                 <i className="fa fa-plus-square" aria-hidden="true"
                   onClick={() => { 
                     canIncrement && handleAmountChange(orderDetail, 'increment') 
