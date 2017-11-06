@@ -20,7 +20,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           let canDecrement = orderDetail.quantity !== 1;
           let canIncrement = item.quantity !== orderDetail.quantity
           let tooMany = item.quantity < orderDetail.quantity
-          const itemPrice = item.price * orderDetail.quantity
+          const itemPrice = item.price.toFixed(2) * orderDetail.quantity
 
           if (tooMany) orderDetail.quantity = item.quantity;
          
