@@ -32,7 +32,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
                 <img className='thumbnail' src={item.image} />
                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                 <p>{orderDetail.quantity}</p>
-                <p>Price: '$'{itemPrice}</p>
+                <p>Price: '$'{itemPrice.toFixed(2)}</p>
                 <i className="fa fa-plus-square" aria-hidden="true"
                   onClick={() => { 
                     canIncrement && handleAmountChange(orderDetail, 'increment') 
