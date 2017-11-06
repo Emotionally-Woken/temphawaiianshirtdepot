@@ -5,7 +5,7 @@ const { User, Product, Order, OrderDetail, Review } = require('./server/db/model
 
 const statuses = [ 'Active', 'Created', 'Processing', 'Canceled', 'Completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
-const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10]
+const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 const images = [
   'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
