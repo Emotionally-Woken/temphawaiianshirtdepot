@@ -2,10 +2,10 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Category = db.define('category', {
-  titles: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+  title: {
+    type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: ['Classic']
+    unique: true
   }
 })
 

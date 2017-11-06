@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Category} = require('../db/models')
 const Op = require('sequelize').Op
 const http = require('http')
 module.exports = router
@@ -16,7 +16,7 @@ router.param('id', function (req, res, next, id) {
 });
 
 router.get('/', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({include: [{model: Category}]})
     .then(products => res.json(products))
     .catch(next)
 })
@@ -42,5 +42,11 @@ router.put('/:id', (req, res, next) => {
       console.log("updatedddd", updatedProduct)
       res.json(updatedProduct)
     })
+    .catch(next)
+})
+
+router.get('/:categoryId', (req, res, next) => {
+  Category.findById(req.params.categoryId, {include: [{model: Product}]})
+    .then(products => res.json(products))
     .catch(next)
 })

@@ -15,8 +15,10 @@ const Tag = require('./tag')
  Product.belongsToMany(Order, {through: OrderDetail})
  OrderDetail.belongsTo(Order)
  Order.hasMany(OrderDetail)
- Category.belongsToMany(Product, {through: 'Tag'})
- Product.belongsToMany(Category, {through: 'Tag'})
+ Category.belongsToMany(Product, {through: Tag})
+ Product.belongsToMany(Category, {through: Tag})
+//  Tag.belongsTo(Product)
+//  Product.hasMany(Tag)
 
 module.exports = {
   User, Review, Order, Product, OrderDetail, Category, Tag
