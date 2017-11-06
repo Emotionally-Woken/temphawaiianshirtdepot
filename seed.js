@@ -77,23 +77,25 @@ const makeFakeReviews = ( num ) => {
 }
 
 const makeFakeOrders = ( num ) => {
-  let orderDetailNumbers = numbersForPop.slice(0)
   let orderIdNumber = numbersForPop.slice(0)
   let fakeOrders = []
   let fakeOrdersDetails = []
   for (let i = 1; i <= num; i++){
     fakeOrders.push({
+      id: i,
       userId: chance.integer({min: 1, max: 5}),
       status: statuses[chance.integer({num: 0, max: 3})],
       orderDetailId: orderIdNumber.shift()
-    })
-    fakeOrdersDetails.push({
-      orderId: orderDetailNumbers.shift(),
-      quantity: chance.integer({ min: 1, max: 3 }),
-      productId: chance.integer({ min: 1, max: 10 }),
-      price: chance.floating({ min: 15, max: 50, fixed: 2 })
-    })
-  }
+    })}
+      fakeOrders.forEach(order => {
+          let orderDetail = {
+          orderId: order.id,
+          quantity: chance.integer({ min: 1, max: 3 }),
+          productId: chance.integer({ min: 1, max: 10 }),
+          price: chance.floating({ min: 15, max: 50, fixed: 2 })
+          }
+          fakeOrdersDetails.push(orderDetail)
+      })
   return [fakeOrders, fakeOrdersDetails];
 }
 
@@ -116,7 +118,7 @@ const seed = () => {
   .then(()=> {
     Promise.all(orderDetails.map(orderDetail => OrderDetail.create(orderDetail)))
   })
-  .catch(console.error)
+  .catch('error',console.error)
 }
 
 
@@ -127,13 +129,12 @@ const populate = () => {
       console.log('...data-ing... data-ing... data.')
       return seed()
     })
+    .then()
     .catch(err => {
       console.log('...error while data-ing.')
       console.log(err.stack)
     })
     .then(() => {
-      // db.close()
-      // return null
     })
 
 }
