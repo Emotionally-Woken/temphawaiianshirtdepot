@@ -17,7 +17,6 @@ router.get('/:reviewId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   let {stars, reviewContent, userId, productId} = req.body
-  console.log(req.body)
   Review.create({stars, reviewContent, userId, productId})
     .then(createdReview => res.json(createdReview))
     .catch(next)
