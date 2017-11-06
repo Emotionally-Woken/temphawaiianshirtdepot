@@ -31,7 +31,8 @@ router.put('/bulkUpdate', (req, res, next) => {
       }
     })
     .then(foundOrderDetail => {
-      foundOrderDetail.update({quantity: orderDetail.quantity})
+      const newQuantity = foundOrderDetail.quantity + orderDetail.quantity
+      foundOrderDetail.update({quantity: newQuantity}) //quantity+= orderDetail.quantity
     })
     .catch()
   }))

@@ -57,15 +57,20 @@ const changeBulkQuantityThunk = (cart) =>
 
 export const userLogsInAddCartThunk = (usersCartOrderDetails, orderId) =>
   dispatch => {
+   
     const bulkAdd = {id: orderId}
     const changeQuantity = {id: orderId}
     const cartToAdd = localCart()
     const [forChangeQuantityOrderDetails, forBulkAddOrderDetails] = uniqueToBulkAddDuplicateToChangeQuantity(usersCartOrderDetails, cartToAdd)
+   
     bulkAdd.orderDetails = forBulkAddOrderDetails
     changeQuantity.orderDetails = forChangeQuantityOrderDetails
+   
     dispatch(userLogsInAddCartAction(usersCartOrderDetails, orderId))
     if (bulkAdd.orderDetails.length) dispatch(createBulkOrderDetailsThunk(bulkAdd))
     if (changeQuantity.orderDetails.length) dispatch(changeBulkQuantityThunk(changeQuantity))
+   
+    resetLocalCart()
   }
 
 

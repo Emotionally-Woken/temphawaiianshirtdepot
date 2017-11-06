@@ -31,7 +31,7 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser))
         if (res.data.id) {
           const userCart = res.data.orders.find(order => order.status === 'Created')
-          userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
+          if (userCart) dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id))
         }
         }
       )
