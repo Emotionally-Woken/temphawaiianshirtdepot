@@ -25,18 +25,19 @@ class Main extends React.Component {
   render(){
     const {children, handleClick, isLoggedIn, products, history} = this.props
 
-    let searchBarData;
-    const currentPath = history.location.pathname;
-    const collectionType = currentPath.slice(13);
+    // let searchBarData;
+    // const currentPath = history.location.pathname;
+    // const collectionType = currentPath.slice(13);
 
-    if (currentPath === '/' || currentPath === '/collections' ) {
-      const allProductData = products;
-      searchBarData = allProductData;
-    }
-    if (currentPath === `/collections/${collectionType}`) {
-      const collectionData = products.filter(product => product.category[0] === collectionType);
-      searchBarData = collectionData;
-    }
+    // if (currentPath === '/' || currentPath === '/collections' ) {
+    //   const allProductData = products;
+    //   searchBarData = allProductData;
+    // }
+    // if (currentPath === `/collections/${collectionType}`) {
+    //   const collectionData = products.filter(product => product.category[0] === collectionType);
+    //   searchBarData = collectionData;
+    // }
+    // products={searchBarData} history={history}
     return (
       <div>
         <Toolbar>
@@ -45,7 +46,7 @@ class Main extends React.Component {
             <Sidebar />
           </ToolbarGroup>
 
-          {searchBarData && <SearchBar products={searchBarData} history={history}/>}
+          <SearchBar />
 
           <ToolbarGroup>
             <Link to='/' style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>
