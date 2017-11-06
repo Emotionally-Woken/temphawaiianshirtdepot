@@ -12,7 +12,7 @@ const GET_SELECT_ORDERS = 'GET_SELECT_ORDERS'
  * ACTION CREATORS
  */
 
-const getSelectOrders = (orders) => ({ type: GET_SELECT_ORDERS, orders})
+export const getSelectOrders = (orders) => ({ type: GET_SELECT_ORDERS, orders})
 
 /* THUNK CREATORS*/
 
