@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct } from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, adminOrders } from './components'
 import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders } from './store'
 //this is f/collections branch
 /**
@@ -17,8 +17,7 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn, products } = this.props
-    //console.log("thisisProducts: ", products)
+    const { isLoggedIn, isAdmin } = this.props
 
     return (
       <Router history={history}>
@@ -36,13 +35,19 @@ class Routes extends Component {
               <Route path="/cart" component={Cart} />
               <Route path="/createProduct" component={AddNewProduct} />
               <Route path="/editProduct/:productId" component={EditProduct} />
-
               {
                 isLoggedIn &&
                 <Switch>
                   <Route path="/home" component={UserHome} />
                   <Route path="/order/:orderId" component={SingleOrder} />
                   <Route path="/reviews" component={ReviewForm} />
+                {
+                  isAdmin &&
+                  <Switch>
+                    <Route path="/admin/orders" component={adminOrders} />
+                    />
+                  </Switch>
+                }
                 </Switch>
               }
               <Route component={AllProducts} />
@@ -62,6 +67,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 

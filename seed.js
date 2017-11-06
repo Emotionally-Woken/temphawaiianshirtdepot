@@ -33,7 +33,7 @@ const makeFakeUsers = ( num ) => {
       firstName: chance.first(),
       lastName: chance.last(),
       email: chance.email(),
-      admin: chance.bool(),
+      isAdmin: chance.bool(),
       password: '1',
       shippingAddress: chance.address(),
       state: chance.state(),
@@ -47,7 +47,7 @@ const makeFakeUsers = ( num ) => {
 //Make fake products
 const makeFakeProducts = ( num ) => {
   let fakeProducts = []
-  let imageLength = images.length-1
+  let imageLength = images.length -1
   for (let i = 0; i < num; i++) {
     fakeProducts.push({
       title: `${hawaiianWords[chance.integer({min: 0, max: 6})]}${locationWords[chance.integer({min: 0, max: 6})]}`,
@@ -105,7 +105,7 @@ const products = makeFakeProducts(10)
 const reviews = makeFakeReviews(20)
 
 const seed = () => {
-  Promise.all(users.map(user=> User.create(user)))
+  Promise.all(users.map(user => User.create(user)))
   .then(() => {
     Promise.all(products.map(product => Product.create(product)))
   })
