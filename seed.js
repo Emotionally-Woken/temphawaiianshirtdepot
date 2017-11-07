@@ -50,7 +50,6 @@ const makeFakeProducts = (num) => {
   let imageLength = images.length - 1
   for (let i = 0; i < num; i++) {
     fakeProducts.push({
-      id: i + 1,
       title: `${hawaiianWords[chance.integer({ min: 0, max: 6 })]}${locationWords[chance.integer({ min: 0, max: 6 })]}`,
       description: chance.paragraph({ sentences: 4 }),
       price: chance.floating({ min: 15, max: 50, fixed: 2 }),
