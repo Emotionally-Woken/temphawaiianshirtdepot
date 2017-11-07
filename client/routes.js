@@ -5,8 +5,8 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, AddNewCollection, EditProduct, adminOrders } from './components'
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories } from './store'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AddNewCollection } from './components'
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -18,7 +18,8 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, isAdmin } = this.props
-
+    console.log('isLoggedIn', isLoggedIn )
+    console.log('isLoggedIn', isAdmin )
     return (
       <Router history={history}>
         <Main history={history}>

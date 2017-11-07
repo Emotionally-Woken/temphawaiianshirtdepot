@@ -3,10 +3,16 @@ const chance = new Chance()
 const db = require('./server/db/')
 const { User, Product, Order, OrderDetail, Review, Category, Tag } = require('./server/db/models/index.js')
 
+<<<<<<< HEAD
 const statuses = ['created', 'processing', 'canceled', 'completed']
 //const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
 const categories = ['Performance', 'Pets', 'Sleepwear', 'Casual', 'Business']
 const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10]
+=======
+const statuses = [ 'Active', 'Created', 'Processing', 'Canceled', 'Completed']
+const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
+const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+>>>>>>> master
 
 const images = [
   'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
@@ -80,6 +86,7 @@ const makeFakeCategories = () => {
     return fakeCategories
 }
 
+<<<<<<< HEAD
   //fake review maker.
   const makeFakeReviews = (num) => {
     let fakeReviews = []
@@ -89,6 +96,27 @@ const makeFakeCategories = () => {
         productId: chance.integer({ min: 1, max: 10 }),
         stars: chance.integer({ min: 1, max: 5 }),
         reviewContent: `This ${madLibNouns[chance.integer({ min: 0, max: 6 })]} made ${madLibPronoun[chance.integer({ min: 0, max: 6 })]} feel ${madLibAdjectives[chance.integer({ min: 0, max: 7 })]}!`
+=======
+const makeFakeOrders = ( num ) => {
+  let orderIdNumber = numbersForPop.slice(0)
+  let orderDetailNumbers = numbersForPop.slice(0)
+  let fakeOrders = []
+  let fakeOrdersDetails = []
+  for (let i = 1; i <= num; i++){
+    fakeOrders.push({
+      userId: chance.integer({min: 1, max: 5}),
+      status: statuses[chance.integer({num: 0, max: 3})],
+      orderDetailId: orderIdNumber.shift()
+    })}
+      fakeOrders.forEach((order, i ) => {
+          let orderDetail = {
+          orderId: orderDetailNumbers.shift(),
+          quantity: chance.integer({ min: 1, max: 3 }),
+          productId: chance.integer({ min: 1, max: 10 }),
+          price: chance.floating({ min: 15, max: 50, fixed: 2 })
+          }
+          fakeOrdersDetails.push(orderDetail)
+>>>>>>> master
       })
     }
     return fakeReviews;
