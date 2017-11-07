@@ -30,6 +30,9 @@ export const me = () =>
         if (res.data.id) {
           const userCart = res.data.orders.find(order => order.status === 'Active Cart')
           if (userCart) dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id))
+          else {
+            dispatch(userLogsInCreateCartThunk(res.data))
+          }
         }
         }
       )

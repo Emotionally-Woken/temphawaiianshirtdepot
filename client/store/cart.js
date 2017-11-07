@@ -110,7 +110,7 @@ export const addToCartThunk = (item, cart) =>
         const updatedCart = Object.assign({}, cart)
         updatedCart.orderDetails = [...updatedCart.orderDetails, res.data]
       })
-      .catch()
+      .catch(console.error)
     }
       dispatch(addToCartAction(orderDetail));
       history.push('/cart');
@@ -127,7 +127,7 @@ export const userLogsInCreateCartThunk = user =>
       if (cartToAdd.orderDetails.length) dispatch(createBulkOrderDetailsThunk(cartToAdd))
       resetLocalCart()
     })
-    .catch()
+    .catch(console.error)
   }
 
 //Reducer
