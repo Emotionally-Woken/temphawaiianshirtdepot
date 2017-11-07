@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getUserThunk, removeUserThunk, updateUserThunk, getAllUsersThunk} from '../store'
+import { fetchUserThunk, deleteUserThunk, updateUserThunk, fetchAllUsersThunk} from '../store'
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -34,13 +34,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   handleGetAllUsers () {
-    dispatch(getAllUsersThunk())
+    dispatch(fetchAllUsersThunk())
   },
   handleGetUser (user) {
-    dispatch(getUserThunk(user))
+    dispatch(fetchUserThunk(user))
   },
   handleRemoveUser (user) {
-    dispatch(removeUserThunk(user))
+    dispatch(deleteUserThunk(user))
   },
   handleUpdateUser (user) {
     dispatch(updateUserThunk(user))

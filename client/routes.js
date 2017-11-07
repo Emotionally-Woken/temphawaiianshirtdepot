@@ -7,7 +7,7 @@ import history from './history'
 
 import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AllUsers } from './components'
 
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, getAllUsersThunk } from './store'
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllUsersThunk } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -80,7 +80,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchAllProducts())
       dispatch(fetchAllReviews())
-      dispatch(getAllUsersThunk())
+      dispatch(fetchAllUsersThunk())
     }
   }
 }

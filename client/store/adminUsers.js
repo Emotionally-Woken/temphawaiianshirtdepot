@@ -4,10 +4,10 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_ALL_USERS = 'GET_ALL_USERS';
-const REMOVE_USER = 'REMOVE_USER';
+const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
+const DELETE_USER = 'DELETE_USER';
 const UPDATE_USER = 'UPDATE_USER';
-const GET_USER = 'GET_USER';
+const FETCH_USER = 'FETCH_USER';
 
 /**
  * INITIAL STATE
@@ -17,28 +17,28 @@ const defaultUsers = [];
 /**
  * ACTION CREATORS
  */
-const getAllUsers = users => ({type: GET_ALL_USERS, users});
-const removeUser = user => ({type: REMOVE_USER, user});
-const getUser = user => ({type: GET_USER, user})
+const fetchAllUsers = users => ({type: FETCH_ALL_USERS, users});
+const deleteUser = user => ({type: DELETE_USER, user});
+const fetchUser = user => ({type: FETCH_USER, user})
 const updateUser = user => ({type: UPDATE_USER, user});
 
 /**
  * THUNK CREATORS
  */
-export const getAllUsersThunk = () =>
+export const fetchAllUsersThunk = () =>
   dispatch => {
     axios.get('/api/users')
       .then(res => res.data)
-      .then(users => dispatch(getAllUsers(users)))
+      .then(users => dispatch(fetchAllUsers(users)))
       .catch(err => console.error(err))
   }
 
-export const removeUserThunk = (user) =>
+export const deleteUserThunk = (user) =>
   dispatch => {
     axios.delete(`/api/users/${user.id}`)
       .then(() => {
         history.push(`/users`)
-        dispatch(removeUser(user))
+        dispatch(deleteUser(user))
       })
       .catch(err => console.error(err))
   }
@@ -54,13 +54,13 @@ export const updateUserThunk = (user) =>
       .catch(err => console.error(err))
   }
 
-export const getUserThunk = (user) =>
+export const fetchUserThunk = (user) =>
   dispatch => {
     axios.post(`/api/users/`, user)
       .then(res => res.data)
       .then(({user, bool}) => {
         if (bool) {
-          dispatch(getUser(user));
+          dispatch(fetchUser(user));
         }
         history.push(`/users/${user.id}`)
       })
@@ -73,13 +73,13 @@ export const getUserThunk = (user) =>
 export default function (state = defaultUsers, action) {
   switch (action.type) {
 
-    case GET_ALL_USERS:
+    case FETCH_ALL_USERS:
       return action.users;
 
-    case GET_USER:
+    case FETCH_USER:
       return [...state, action.user];
 
-    case REMOVE_USER: {
+    case DELETE_USER: {
       const filteredUserArr = state.filter(user => user.id !== action.user.id);
       return filteredUserArr;
     }
