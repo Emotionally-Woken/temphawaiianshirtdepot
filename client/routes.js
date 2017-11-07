@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import history from './history'
 
 import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AddNewCollection } from './components'
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders } from './store'
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -45,7 +45,7 @@ class Routes extends Component {
                   {
                     isAdmin &&
                     <Switch>
-                      <Route path="/admin/orders" component={adminOrders} />
+                      <Route path="/admin/orders" component={AdminOrders} />
                       <Route path="/createProduct" component={AddNewProduct} />
                       <Route path="/editProduct/:productId" component={EditProduct} />
                       <Route path="/createCollection" component={AddNewCollection} />

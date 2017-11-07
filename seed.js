@@ -3,16 +3,9 @@ const chance = new Chance()
 const db = require('./server/db/')
 const { User, Product, Order, OrderDetail, Review, Category, Tag } = require('./server/db/models/index.js')
 
-<<<<<<< HEAD
-const statuses = ['created', 'processing', 'canceled', 'completed']
-//const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
-const categories = ['Performance', 'Pets', 'Sleepwear', 'Casual', 'Business']
-const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 7, 8, 9, 10]
-=======
 const statuses = [ 'Active', 'Created', 'Processing', 'Canceled', 'Completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
 const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
->>>>>>> master
 
 const images = [
   'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
@@ -86,65 +79,42 @@ const makeFakeCategories = () => {
     return fakeCategories
 }
 
-<<<<<<< HEAD
-  //fake review maker.
-  const makeFakeReviews = (num) => {
-    let fakeReviews = []
-    for (let i = 0; i < num; i++) {
-      fakeReviews.push({
-        userId: chance.integer({ min: 1, max: 10 }),
-        productId: chance.integer({ min: 1, max: 10 }),
-        stars: chance.integer({ min: 1, max: 5 }),
-        reviewContent: `This ${madLibNouns[chance.integer({ min: 0, max: 6 })]} made ${madLibPronoun[chance.integer({ min: 0, max: 6 })]} feel ${madLibAdjectives[chance.integer({ min: 0, max: 7 })]}!`
-=======
-const makeFakeOrders = ( num ) => {
+const makeFakeReviews = (num) => {
+  let fakeReviews = []
+  for (let i = 0; i < num; i++) {
+    fakeReviews.push({
+      userId: chance.integer({ min: 1, max: 10 }),
+      productId: chance.integer({ min: 1, max: 10 }),
+      stars: chance.integer({ min: 1, max: 5 }),
+      reviewContent: `This ${madLibNouns[chance.integer({ min: 0, max: 6 })]} made ${madLibPronoun[chance.integer({ min: 0, max: 6 })]} feel ${madLibAdjectives[chance.integer({ min: 0, max: 7 })]}!`
+    })
+  }
+  return fakeReviews;
+}
+
+const makeFakeOrders = (num) => {
   let orderIdNumber = numbersForPop.slice(0)
   let orderDetailNumbers = numbersForPop.slice(0)
   let fakeOrders = []
   let fakeOrdersDetails = []
-  for (let i = 1; i <= num; i++){
+  for (let i = 1; i <= num; i++) {
     fakeOrders.push({
-      userId: chance.integer({min: 1, max: 5}),
-      status: statuses[chance.integer({num: 0, max: 3})],
+      userId: chance.integer({ min: 1, max: 5 }),
+      status: statuses[chance.integer({ num: 0, max: 3 })],
       orderDetailId: orderIdNumber.shift()
-    })}
-      fakeOrders.forEach((order, i ) => {
-          let orderDetail = {
-          orderId: orderDetailNumbers.shift(),
-          quantity: chance.integer({ min: 1, max: 3 }),
-          productId: chance.integer({ min: 1, max: 10 }),
-          price: chance.floating({ min: 15, max: 50, fixed: 2 })
-          }
-          fakeOrdersDetails.push(orderDetail)
->>>>>>> master
-      })
-    }
-    return fakeReviews;
-  }
-
-  const makeFakeOrders = (num) => {
-    let orderIdNumber = numbersForPop.slice(0)
-    let fakeOrders = []
-    let fakeOrdersDetails = []
-    for (let i = 1; i <= num; i++) {
-      fakeOrders.push({
-        id: i,
-        userId: chance.integer({ min: 1, max: 5 }),
-        status: statuses[chance.integer({ num: 0, max: 3 })],
-        orderDetailId: orderIdNumber.shift()
-      })
-    }
-    fakeOrders.forEach(order => {
-      let orderDetail = {
-        orderId: order.id,
-        quantity: chance.integer({ min: 1, max: 3 }),
-        productId: chance.integer({ min: 1, max: 10 }),
-        price: chance.floating({ min: 15, max: 50, fixed: 2 })
-      }
-      fakeOrdersDetails.push(orderDetail)
     })
-    return [fakeOrders, fakeOrdersDetails];
   }
+  fakeOrders.forEach((order, i) => {
+    let orderDetail = {
+      orderId: orderDetailNumbers.shift(),
+      quantity: chance.integer({ min: 1, max: 3 }),
+      productId: chance.integer({ min: 1, max: 10 }),
+      price: chance.floating({ min: 15, max: 50, fixed: 2 })
+    }
+    fakeOrdersDetails.push(orderDetail)
+  })
+  return [fakeOrders, fakeOrdersDetails];
+}
 
   const [orders, orderDetails] = makeFakeOrders(10)
   const users = makeFakeUsers(10)
@@ -153,26 +123,25 @@ const makeFakeOrders = ( num ) => {
   const genCategories = makeFakeCategories()
 
   const seed = () => {
-    Promise.all(users.map(user => User.create(user)))
+    return Promise.all(users.map(user => User.create(user)))
       .then(() => {
-        Promise.all(products.map(product => Product.create(product)))
+        return Promise.all(products.map(product => Product.create(product)))
       })
       .then(() => {
-        Promise.all(reviews.map(review => Review.create(review)))
+        return Promise.all(reviews.map(review => Review.create(review)))
       })
       .then(() => {
-        Promise.all(orders.map(order => Order.create(order)))
+        return Promise.all(orders.map(order => Order.create(order)))
       })
       .then(() => {
-        Promise.all(orderDetails.map(orderDetail => OrderDetail.create(orderDetail)))
+        return Promise.all(orderDetails.map(orderDetail => OrderDetail.create(orderDetail)))
       })
       .then(() => {
-        Promise.all(genCategories.map(category => Category.create(category)))
+        return Promise.all(genCategories.map(category => Category.create(category)))
       })
       .then(() => {
-        Promise.all(joinTable.map(tag => Tag.create(tag)))
+        return Promise.all(joinTable.map(tag => Tag.create(tag)))
       })
-      .catch('error', console.error)
   }
 
   const populate = () => {
@@ -182,12 +151,13 @@ const makeFakeOrders = ( num ) => {
         console.log('...data-ing... data-ing... data.')
         return seed()
       })
-      .then()
       .catch(err => {
         console.log('...error while data-ing.')
         console.log(err.stack)
       })
       .then(() => {
+        db.close()
+        return null;
       })
 
   }
