@@ -17,7 +17,7 @@ const defaultUsers = [];
 /**
  * ACTION CREATORS
  */
-const getUsers = users => ({type: GET_ALL_USERS, users});
+const getAllUsers = users => ({type: GET_ALL_USERS, users});
 const removeUser = user => ({type: REMOVE_USER, user});
 const getUser = user => ({type: GET_USER, user})
 const updateUser = user => ({type: UPDATE_USER, user});
@@ -25,11 +25,11 @@ const updateUser = user => ({type: UPDATE_USER, user});
 /**
  * THUNK CREATORS
  */
-export const getUsersThunk = () =>
+export const getAllUsersThunk = () =>
   dispatch => {
     axios.get('/')
       .then(res => res.data)
-      .then(users => dispatch(getUsers(users)))
+      .then(users => dispatch(getAllUsers(users)))
       .catch(err => console.error(err))
   }
 
@@ -54,7 +54,7 @@ dispatch => {
     .catch(err => console.error(err))
 }
 
-export const addUserThunk = (user) =>
+export const getUserThunk = (user) =>
 dispatch => {
   axios.post(`/api/users/`, user)
     .then(res => res.data)
@@ -90,7 +90,7 @@ export default function (state = defaultUsers, action) {
 
     case UPDATE_USER: {
       const updateUserArr = state.map(user => {
-        if (user.is === action.user.is) {
+        if (user.id === action.user.id) {
           return action.user;
         }
         return user;
