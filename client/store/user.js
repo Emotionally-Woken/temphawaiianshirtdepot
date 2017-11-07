@@ -30,7 +30,7 @@ export const me = () =>
       .then(res => {
         dispatch(getUser(res.data || defaultUser))
         if (res.data.id) {
-          const userCart = res.data.orders.find(order => order.status === 'Created')
+          const userCart = res.data.orders.find(order => order.status === 'Active Cart')
           if (userCart) dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id))
         }
         }
@@ -43,7 +43,7 @@ export const auth = (email, password, method) =>
       .then(res => {
         console.log('this is a sign in event!')
         dispatch(getUser(res.data))
-        const userCart = res.data.orders.find(order => order.status === 'Created')
+        const userCart = res.data.orders.find(order => order.status === 'Active Cart')
         console.log(userCart, 'User cart XXXXXX')
         userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
         history.push('/home')
