@@ -49,7 +49,7 @@ export const updateUserThunk = (user) =>
       .then(res => res.data)
       .then(updatedUser => {
         dispatch(updateUser(updatedUser))
-        history.push(`/admin/users/${user.id}`)
+        history.push('/admin/users')
       })
       .catch(err => console.error(err))
   }
@@ -62,7 +62,7 @@ export const fetchUserThunk = (user) =>
         if (bool) {
           dispatch(fetchUser(user));
         }
-        history.push(`/admin/users/${user.id}`)
+        history.push(`/admin/users`)
       })
       .catch(err => console.error(err))
   }

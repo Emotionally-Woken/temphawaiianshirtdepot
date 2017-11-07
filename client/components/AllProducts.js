@@ -1,10 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import { GridList, GridTile } from 'material-ui/GridList';
-import FlatButton from 'material-ui/FlatButton';
 
 import {addToCartThunk, changeQuantityThunk} from '../store'
 
@@ -12,7 +10,6 @@ import {addToCartThunk, changeQuantityThunk} from '../store'
  * COMPONENT
  */
 export const AllProducts = (props) => {
-  let isAdmin
   let { products, handleAddToCart, cart, handleChangeQuantity, user } = props;
   const styles = {
     root: {
@@ -28,9 +25,6 @@ export const AllProducts = (props) => {
       overflowY: 'auto',
     },
   };
-  if (user) {
-     isAdmin = user.id && user.isAdmin
-  }
 
   return (
     <div style={styles.root}>
@@ -46,19 +40,6 @@ export const AllProducts = (props) => {
           </GridTile>)
         )}
       </GridList>
-
-      {
-        isAdmin &&
-        <div>
-          <Link to={'/createProduct'} >
-            <FlatButton label="Add New Product" />
-          </Link>
-          <Link to={'/admin/users'} >
-            <FlatButton label="Admin User" />
-          </Link>
-        </div>
-      }
-
     </div>
   )
 }
