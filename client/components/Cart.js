@@ -9,6 +9,13 @@ import Divider from 'material-ui/Divider'
 const style = {
   marginRight: 20,
 }
+
+const pstyle = {
+  alignItems: "flex-start"
+}
+
+
+
 //changed
 function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
   
@@ -35,20 +42,23 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           return (
             <div key={item.id} className="container">
               <div className="shoppingcart">
-              <img style={style} className='thumbnail' src={item.image} />
-                  <div style={style} className='cartinfo'>
+              <img style={style} className="thumbnail" src={item.image} />
+                  <div className="cartinfo">
                     <Link to={`/item/${item.id}`}>{item.title}</Link>
-                    <p>This much aloha: {orderDetail.quantity}</p>
-                    <p>The price of aloha: '$'{itemPrice.toFixed(2)}</p>
+                      <div className="quantityPrice">
+                        <p>this much aloha: {orderDetail.quantity}</p>
+                        <p>the price of aloha: '$'{itemPrice.toFixed(2)}</p>
+                      </div>
                   </div>
-                  <div>
-                    <FloatingActionButton mini={true} style={style}>
+                  <div className="spacer"/>
+                  <div className="cartbuttons">
+                    <FloatingActionButton disabled={!canIncrement} mini={true} style={style}>
                       <FontIcon className="fa fa-plus-square" aria-hidden="true"
                         onClick={() => { 
                           canIncrement && handleAmountChange(orderDetail, 'increment') 
                         }} />
                     </FloatingActionButton>
-                    <FloatingActionButton mini={true} style={style}>
+                    <FloatingActionButton disabled={!canDecrement} mini={true} style={style}>
                       <FontIcon className="fa fa-minus-square"
                         aria-hidden="true"
                         onClick={() => { 
