@@ -35,17 +35,6 @@ class EditUser extends Component {
   emptyState (event) {
     event.preventDefault()
     this.props.handleSubmit(event);
-    // this.setState({
-    //   firstName: '',
-    //   lastName: '',
-    //   email: '',
-    //   city: '',
-    //   state: '',
-    //   zip: '',
-    //   shippingAddress: '',
-    //   isAdmin: '',
-    //   password: ''
-    // })
   }
 
   render() {
@@ -71,7 +60,8 @@ class EditUser extends Component {
     return (
       <form name="UserForm" onSubmit={this.emptyState}>
         <fieldset>
-          <label>Update User:</label>
+          <h3>Update User:</h3>
+          <label>First Name:</label>
           <TextField
             defaultValue={selectedUser.firstName}
             onChange={this.handleChange}
@@ -81,6 +71,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>Last Name:</label>
           <TextField
             defaultValue={selectedUser.lastName}
             onChange={this.handleChange}
@@ -90,6 +81,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>E-mail:</label>
           <TextField
             defaultValue={selectedUser.email}
             onChange={this.handleChange}
@@ -99,6 +91,7 @@ class EditUser extends Component {
             errorText="This field is required."
             errorStyle={styles.errorStyle}
           /><br />
+          <label>City:</label>
           <TextField
             defaultValue={selectedUser.city}
             onChange={this.handleChange}
@@ -108,6 +101,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>State:</label>
           <TextField
             defaultValue={selectedUser.state}
             onChange={this.handleChange}
@@ -117,6 +111,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>Zip:</label>
           <TextField
             defaultValue={selectedUser.zip}
             onChange={this.handleChange}
@@ -126,6 +121,7 @@ class EditUser extends Component {
             errorText="This field is required."
             errorStyle={styles.errorStyle}
           /><br />
+          <label>Shipping Address:</label>
           <TextField
             defaultValue={selectedUser.shippingAddress}
             onChange={this.handleChange}
@@ -135,6 +131,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>Admin Rights:</label>
           <TextField
             defaultValue={selectedUser.isAdmin}
             onChange={this.handleChange}
@@ -144,6 +141,7 @@ class EditUser extends Component {
             // errorText="This field is required."
             // errorStyle={styles.errorStyle}
           /><br />
+          <label>Password:</label>
           <TextField
             defaultValue={selectedUser.password}
             onChange={this.handleChange}

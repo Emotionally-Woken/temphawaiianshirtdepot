@@ -66,7 +66,7 @@ class AddNewUser extends Component {
     return (
       <form name="UserForm" onSubmit={this.emptyState}>
         <fieldset>
-          <label>Create New User:</label>
+          <h3>Create New User:</h3>
           <TextField
             value={this.state.firstName}
             onChange={this.handleChange}

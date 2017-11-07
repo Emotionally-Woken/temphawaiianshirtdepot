@@ -7,6 +7,7 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import { blue100 } from 'material-ui/styles/colors'
 
 const styles = {
   root: {
@@ -24,8 +25,6 @@ const styles = {
  */
 export const AllUsers = ({users, me, handleRemoveUser}) => {
 
-  console.log('XXXX', me);
-
   return (
       <div>
         <div>
@@ -35,7 +34,6 @@ export const AllUsers = ({users, me, handleRemoveUser}) => {
               <FontIcon
                 className="material-icons"
                 style={styles.child}
-                // onClick={handleGetUser}
               >add_box</FontIcon>
             </IconButton>
           </Link>
@@ -47,26 +45,27 @@ export const AllUsers = ({users, me, handleRemoveUser}) => {
               (
                 <ListItem
                   key={user.id}
+                  hoverColor={blue100}
                   primaryText={`${user.firstName} ${user.lastName}`}
-                  style={styles.root}>
-                  <IconButton
-                    tooltip="Font Icon"
-                    disabled={me.id === user.id}
-                    onClick={() => handleRemoveUser(user)}>
-                    <FontIcon
-                      className="material-icons"
-                      style={styles.child}
-                    >delete</FontIcon>
-                  </IconButton>
-                  <Link to={`/admin/users/${user.id}`}>
-                    <IconButton tooltip="Font Icon" >
+                  rightIcon={
+                    <IconButton
+                      tooltip="Font Icon"
+                      disabled={me.id === user.id}
+                      onClick={() => handleRemoveUser(user)}>
                       <FontIcon
                         className="material-icons"
-                        style={styles.child}
-                      >settings</FontIcon>
+                      >delete</FontIcon>
                     </IconButton>
-                  </Link>
-                </ListItem>
+                  }
+                  leftIcon={
+                    <Link to={`/admin/users/${user.id}`}>
+                      <IconButton tooltip="Font Icon" >
+                        <FontIcon
+                          className="material-icons"
+                        >settings</FontIcon>
+                      </IconButton>
+                    </Link>
+                  } />
               )
             )
           }
