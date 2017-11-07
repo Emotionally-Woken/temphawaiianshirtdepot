@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, adminOrders } from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, AddNewCollection, EditProduct, adminOrders } from './components'
 import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories } from './store'
 //this is f/collections branch
 /**
@@ -33,21 +33,23 @@ class Routes extends Component {
               <Route path="/item/:productId" component={SingleProduct} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/cart" component={Cart} />
-              <Route path="/createProduct" component={AddNewProduct} />
-              <Route path="/editProduct/:productId" component={EditProduct} />
+
               {
                 isLoggedIn &&
                 <Switch>
                   <Route path="/home" component={UserHome} />
                   <Route path="/order/:orderId" component={SingleOrder} />
                   <Route path="/reviews" component={ReviewForm} />
-                {
-                  isAdmin &&
-                  <Switch>
-                    <Route path="/admin/orders" component={adminOrders} />
-                    />
-                  </Switch>
-                }
+
+                  {
+                    isAdmin &&
+                    <Switch>
+                      <Route path="/admin/orders" component={adminOrders} />
+                      <Route path="/createProduct" component={AddNewProduct} />
+                      <Route path="/editProduct/:productId" component={EditProduct} />
+                      <Route path="/createCollection" component={AddNewCollection} />
+                    </Switch>
+                  }
                 </Switch>
               }
               <Route component={AllProducts} />

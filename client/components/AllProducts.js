@@ -29,7 +29,7 @@ export const AllProducts = (props) => {
     },
   };
   if (user) {
-     isAdmin = user.id && user.admin
+     isAdmin = user.id && user.isAdmin
   }
 
   return (

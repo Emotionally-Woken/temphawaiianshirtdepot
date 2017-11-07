@@ -54,7 +54,7 @@ const MapState = (state, ownProps) => {
   return {
     products: state.products,
     cart: state.cart,
-    collectionType: ownProps.match.params.category
+    collectionType: state.categories
   }
 }
 
