@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser, AdminSingleOrder} from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser} from './components'
 
 import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories, fetchAllUsersThunk } from './store'
 //this is f/collections branch
@@ -48,8 +48,7 @@ class Routes extends Component {
                   {
                     isAdmin &&
                     <Switch>
-                      <Route exact path="/admin/orders" component={AdminOrders} />
-                      <Route path="/admin/orders/:orderId" component={AdminSingleOrder} />
+                      <Route path="/admin/orders" component={AdminOrders} />
                       <Route path="/admin/products" component={AdminProducts} />
                       <Route exact path="/admin/users" component={AllUsers} />
                       <Route path="/createProduct" component={AddNewProduct} />
