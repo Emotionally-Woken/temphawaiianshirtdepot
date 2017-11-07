@@ -7,9 +7,11 @@ import products from './products'
 import cart from './cart'
 import reviews from './reviews'
 import orders from './orders'
+import categories from './categories'
+
 import adminOrders from './adminOrders'
 
-const reducer = combineReducers({user, cart, products, reviews, orders, adminOrders})
+const reducer = combineReducers({user, cart, products, reviews, orders, adminOrders, categories})
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -22,5 +24,6 @@ export * from './user'
 export * from './products'
 export * from './cart'
 export * from './reviews'
+export * from './categories'
 export * from './adminOrders'
 export * from './orders'
