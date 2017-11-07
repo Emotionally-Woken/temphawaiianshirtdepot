@@ -49,15 +49,14 @@ export const AllProducts = (props) => {
 
       {
         isAdmin &&
-        <Link to={'/createProduct'} >
-          <FlatButton label="Add New Product" />
-        </Link>
-      }
-      {
-        isAdmin &&
-        <Link to={'/admin/users'} >
-          <FlatButton label="Site Users" />
-        </Link>
+        <div>
+          <Link to={'/createProduct'} >
+            <FlatButton label="Add New Product" />
+          </Link>
+          <Link to={'/admin/users'} >
+            <FlatButton label="Admin User" />
+          </Link>
+        </div>
       }
 
     </div>

@@ -27,7 +27,7 @@ const updateUser = user => ({type: UPDATE_USER, user});
  */
 export const getAllUsersThunk = () =>
   dispatch => {
-    axios.get('/')
+    axios.get('/api/users')
       .then(res => res.data)
       .then(users => dispatch(getAllUsers(users)))
       .catch(err => console.error(err))
@@ -44,32 +44,28 @@ export const removeUserThunk = (user) =>
   }
 
 export const updateUserThunk = (user) =>
-dispatch => {
-  axios.put(`/api/users/${user.id}`, user)
-    .then(res => res.data)
-    .then(updatedUser => {
-      dispatch(updateUser(updatedUser))
-      history.push(`/users/${user.id}`)
-    })
-    .catch(err => console.error(err))
-}
+  dispatch => {
+    axios.put(`/api/users/${user.id}`, user)
+      .then(res => res.data)
+      .then(updatedUser => {
+        dispatch(updateUser(updatedUser))
+        history.push(`/users/${user.id}`)
+      })
+      .catch(err => console.error(err))
+  }
 
 export const getUserThunk = (user) =>
-dispatch => {
-  axios.post(`/api/users/`, user)
-    .then(res => res.data)
-    .then(({user, bool}) => {
-      if (bool) {
-        dispatch(getUser(user));
-      }
-      history.push(`/users/${user.id}`)
-    })
-    .then(updatedUser => {
-      dispatch(updateUser(updatedUser))
-      history.push(`/users/${user.id}`)
-    })
-    .catch(err => console.error(err))
-}
+  dispatch => {
+    axios.post(`/api/users/`, user)
+      .then(res => res.data)
+      .then(({user, bool}) => {
+        if (bool) {
+          dispatch(getUser(user));
+        }
+        history.push(`/users/${user.id}`)
+      })
+      .catch(err => console.error(err))
+  }
 
 /**
 * REDUCER

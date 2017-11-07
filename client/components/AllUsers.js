@@ -15,12 +15,13 @@ export const AllUsers = ({users}) => {
       <div>
         <List>
           <Subheader>Site Users</Subheader>
-          {users && users.map(user =>
+          {
+            users.map(user =>
             (<ListItem
               key={user.id}
               primaryText={`${user.firstName} ${user.lastName}`}
-            />)
-          )}
+            />))
+          }
         </List>
       </div>
   )

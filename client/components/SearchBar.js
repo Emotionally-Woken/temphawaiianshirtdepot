@@ -58,7 +58,6 @@ class SearchBar extends Component {
   };
 
   render() {
-    console.log('RENDER RUNS')
     const {products, history} = this.props;
     //const productTitleArray = products.map(item => item.title)
     let searchBarData;
