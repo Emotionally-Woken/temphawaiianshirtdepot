@@ -1,5 +1,5 @@
 import axios from 'axios'
-//import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -25,8 +25,8 @@ export const fetchAllProducts = () =>
       .then(products => dispatch(getAllProducts(products)))
       .catch(err => console.log(err))
 
-export const addProduct = (product, history) =>
-  dispatch =>
+export const addProduct = (product) =>
+  (dispatch) =>
     axios.post('/api/products', product)
       .then(res => res.data)
       .then(newProduct => {
@@ -35,7 +35,7 @@ export const addProduct = (product, history) =>
       })
       .catch(err => console.log(err))
 
-export const changeProduct = (id, product, history) =>
+export const changeProduct = (id, product) =>
     dispatch =>
       axios.put(`/api/products/${id}`, product)
         .then(res =>res.data)

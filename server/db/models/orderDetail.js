@@ -9,10 +9,10 @@ const OrderDetail = db.define('orderDetail', {
       min: 1
     }
   },
-  price: Sequelize.DECIMAL
+  price: Sequelize.INTEGER
 })
 
-OrderDetail.beforeCreate((orderDetail, options)=>{
+OrderDetail.beforeCreate((orderDetail) => {
   Product.findById(orderDetail.productId)
   .then(product => {
     if (orderDetail.quantity > product.quantity) {

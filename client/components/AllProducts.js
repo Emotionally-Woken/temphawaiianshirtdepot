@@ -29,7 +29,7 @@ export const AllProducts = (props) => {
     },
   };
   if (user) {
-     isAdmin = user.id && user.admin
+     isAdmin = user.id && user.isAdmin
   }
 
   return (
@@ -48,15 +48,23 @@ export const AllProducts = (props) => {
       </GridList>
 
       {
-
         isAdmin &&
-        <Link to={'/createProduct'} >
-          <FlatButton label="Add New Product" />
-        </Link>
+        <div>
+          <Link to={'/createProduct'} >
+            <FlatButton label="Add New Product" />
+          </Link>
+          <Link to={'/admin/users'} >
+            <FlatButton label="Admin User" />
+          </Link>
+        </div>
       }
+
     </div>
   )
 }
+
+
+
 /**
  * CONTAINER
  */

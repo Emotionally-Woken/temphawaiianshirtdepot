@@ -24,7 +24,8 @@ export const Collections = ({ products, cart, collectionType, handleAddToCart, h
 let filteredProducts
 
   if (products) {
-    filteredProducts = products.filter(product => product.category[0] === collectionType)
+
+    filteredProducts = products.filter(product => product.categories.find(category => category.title === collectionType))
   }
   return (
     <MuiThemeProvider>
@@ -33,10 +34,10 @@ let filteredProducts
           {
             filteredProducts.map(product => (
               <GridTile key={product.id}>
-                <ProductItem 
-                handleAddToCart={handleAddToCart} 
-                handleChangeQuantity={handleChangeQuantity} 
-                cart={cart} 
+                <ProductItem
+                handleAddToCart={handleAddToCart}
+                handleChangeQuantity={handleChangeQuantity}
+                cart={cart}
                 product={product} />
               </GridTile>
             ))
@@ -54,6 +55,7 @@ const MapState = (state, ownProps) => {
     products: state.products,
     cart: state.cart,
     collectionType: ownProps.match.params.category
+
   }
 }
 

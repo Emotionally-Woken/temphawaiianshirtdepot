@@ -58,7 +58,6 @@ class SearchBar extends Component {
   };
 
   render() {
-    console.log('RENDER RUNS')
     const {products, history} = this.props;
     //const productTitleArray = products.map(item => item.title)
     let searchBarData;
@@ -70,7 +69,8 @@ class SearchBar extends Component {
     if (currentPath === `/collections/${collectionType}`) {
       //console.log('IN A')
       checkbox = true;
-      const collectionData = products.filter(product => product.category[0] === collectionType);
+      //const collectionData = products.filter(product => product.category[0] === collectionType);
+      const collectionData = products.filter(product => product.categories.find(category => category.title === collectionType))
       searchBarData = collectionData;
       productTitleArray = collectionData.map(item => item.title);
     } else {
@@ -104,7 +104,7 @@ class SearchBar extends Component {
         />
         { checkbox &&
           <Checkbox
-            label="All"
+            label="Search All"
             checked={this.state.allProducts}
             onCheck={this.updateCheck.bind(this)}
             style={styles.checkbox}
@@ -129,5 +129,3 @@ export default withRouter(connect(mapStateToProps)(SearchBar));
 //         }
 //       }
 // })
-
-
