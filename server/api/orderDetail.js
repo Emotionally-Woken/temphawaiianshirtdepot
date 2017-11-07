@@ -2,27 +2,27 @@ const router = require('express').Router()
 const { Order, OrderDetail } = require('../db/models')
 module.exports = router
 
-router.post('/:orderId/new', (req, res, next) => {
-  req.body.orderId = req.params.orderId
+router.post('/', (req, res, next) => {
   OrderDetail.create(req.body)
     .then(createdOrderDetail => {
-      res.json(createdOrderDetail)
+      res.status(201).json(createdOrderDetail)
     })
     .catch(next)
 })
 
-router.post('/bulkNew', (req, res, next) => {
-  Promise.all(req.body.orderDetails.map(orderDetail => {
+router.post('/localCart', (req, res, next) => {
+  console.log(req.body.orderDetails)
+  return Promise.all(req.body.orderDetails.map(orderDetail => {
     orderDetail.orderId = req.body.id
     OrderDetail.create(orderDetail)
-      .then()
-      .catch(next)
   }))
-    .then(res.json.bind(res))
+    .then(createdOrderDetails => {
+      res.status(201).json(createdOrderDetails)
+    })
     .catch(next)
 })
 
-router.put('/bulkUpdate', (req, res, next) => {
+router.put('/quantities', (req, res, next) => {
   Promise.all(req.body.orderDetails.map(orderDetail => {
     OrderDetail.find({
       where: {
@@ -40,7 +40,7 @@ router.put('/bulkUpdate', (req, res, next) => {
   .catch()
 })
 
-router.put('/update/:orderId/:productId', (req, res, next) => {
+router.put('/:orderId/:productId', (req, res, next) => {
   OrderDetail.find({
     where: {
       orderId: req.params.orderId,
@@ -50,20 +50,20 @@ router.put('/update/:orderId/:productId', (req, res, next) => {
     .then(orderDetail => {
       orderDetail.update({ quantity: req.body.quantity })
         .then(updatedOrderDetail => {
-          res.sendStatus(201).end()
+          res.sendStatus(200).end()
         })
     })
     .catch(next)
 })
 
-router.delete(`/remove/:orderId/:productId`, (req, res, next) => {
+router.delete(`/:orderId/:productId`, (req, res, next) => {
   OrderDetail.destroy({
     where: {
       orderId: req.params.orderId,
       $and: { productId: req.params.productId }
     }
   })
-    .then(destroyed => {
+    .then(() => {
       res.sendStatus(200).end()
     })
     .catch(next)

@@ -25,8 +25,4 @@ const Product = db.define('product', {
   },
 });
 
-Product.prototype.sale = function(percentage) {
-  this.salePrice = this.price - (this.price * percentage);
-};
-
 module.exports = Product;
