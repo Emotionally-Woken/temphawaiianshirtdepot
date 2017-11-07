@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAllOrders } from '../store'
+import { fetchAllOrders, updateOrder } from '../store'
 import {
   Table,
   TableBody,
@@ -35,28 +35,31 @@ class AdminOrders extends Component {
       <div>
         <h3>All Orders</h3>
       <Table>
-        <TableHeader>
+        <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
             <TableHeaderColumn>ID</TableHeaderColumn>
             <TableHeaderColumn>User ID</TableHeaderColumn>
             <TableHeaderColumn>
               <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                 <MenuItem value={'All'} primaryText="All" />
+                <MenuItem value={'Active Cart'} primaryText="Active Cart" />
                 <MenuItem value={'Created'} primaryText="Created" />
                 <MenuItem value={'Processing'} primaryText="Processing" />
                 <MenuItem value={'Canceled'} primaryText="Canceled" />
                 <MenuItem value={'Completed'} primaryText="Completed" />
               </DropDownMenu>
             </TableHeaderColumn>
+            <TableHeaderColumn>Modify</TableHeaderColumn>
           </TableRow>
         </TableHeader>
-        <TableBody>
+        <TableBody displayRowCheckbox={false}>
           {
             orders && orders.map(order => (
               <TableRow key={order.id}>
                 <TableRowColumn>{order.id}</TableRowColumn>
                 <TableRowColumn>{order.userId}</TableRowColumn>
                 <TableRowColumn>{order.status}</TableRowColumn>
+                <TableRowColumn><Link to={`/admin/orders/${order.id}`}>Edit Order Status</Link></TableRowColumn>
               </TableRow>
             ))
           }

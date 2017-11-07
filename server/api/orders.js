@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, OrderDetail} = require('../db/models')
 module.exports = router
 
-router.get('/all', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Order.findAll({include: [{model: OrderDetail}]})
     .then(orders => res.json(orders))
     .catch(next)
@@ -19,6 +19,14 @@ router.post('/:userId/create', (req, res, next) => {
   .then((newOrder => {
     newOrder.setUser(req.params.userId)
     res.json(newOrder)
+  }))
+  .catch(next)
+})
+
+router.put('/', (req, res, next) => {
+  Order.update({status: req.body.status}, {where: {id: req.body.id}})
+  .then((updatedOrder => {
+    res.json(updatedOrder)
   }))
   .catch(next)
 })
