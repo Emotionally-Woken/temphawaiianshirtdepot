@@ -13,6 +13,3 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/:userId/cart', (req, res, next) => {
-  
-})
