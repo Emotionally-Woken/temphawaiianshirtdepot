@@ -7,7 +7,6 @@ import {userLogsOutRemoveCartAction, userLogsInAddCartThunk, userLogsInCreateCar
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-const USER_ORDER_UPDATE = 'USER_ORDER_UPDATE'
 
 /**
  * INITIAL STATE
@@ -19,7 +18,6 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-export const userOrderUpdate = cart => ({type: USER_ORDER_UPDATE, cart})
 
 /**
  * THUNK CREATORS
@@ -71,10 +69,6 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
-    case USER_ORDER_UPDATE:
-      const newState = Object.assign({}, state)
-      newState.orders = action.cart
-      return newState
     default:
       return state
   }
