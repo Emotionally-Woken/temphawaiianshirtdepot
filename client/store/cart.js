@@ -1,6 +1,5 @@
 import axios from 'axios';
 import history from '../history';
-import {userOrderUpdate} from './index'
 
 //Action Types
 
@@ -110,8 +109,6 @@ export const addToCartThunk = (item, cart) =>
       .then(res => {
         const updatedCart = Object.assign({}, cart)
         updatedCart.orderDetails = [...updatedCart.orderDetails, res.data]
-        
-        dispatch(userOrderUpdate(updatedCart))
       })
       .catch()
     }
