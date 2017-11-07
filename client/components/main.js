@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
-import Sidebar from './Drawer'
+import Sidebar from './drawer'
 import SearchBar from './SearchBar';
 
 class Main extends React.Component {
