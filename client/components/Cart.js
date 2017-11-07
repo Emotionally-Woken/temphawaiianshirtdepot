@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changeQuantityThunk, removeFromCartThunk } from '../store' //deleted cart import, wasn't sure why it was there before
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider'
+
+const style = {
+  marginRight: 20,
+}
 //changed
 function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
   
@@ -29,24 +35,34 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           return (
             <div key={item.id} className="container">
               <div className="shoppingcart">
-                <img className='thumbnail' src={item.image} />
-                <Link to={`/item/${item.id}`}>{item.title}</Link>
-                <p>{orderDetail.quantity}</p>
-                <p>Price: '$'{itemPrice.toFixed(2)}</p>
-                <i className="fa fa-plus-square" aria-hidden="true"
-                  onClick={() => { 
-                    canIncrement && handleAmountChange(orderDetail, 'increment') 
-                  }} />
-                <i className="fa fa-minus-square"
-                  aria-hidden="true"
-                  onClick={() => { 
-                    canDecrement && handleAmountChange(orderDetail, 'decrement') 
-                  }} />
-                <i className="fa fa-times-circle"
-                  aria-hidden="true"
-                  onClick={() => { 
-                    handleRemoveFromCart(orderDetail) 
-                  }} />
+              <img style={style} className='thumbnail' src={item.image} />
+                  <div style={style} className='cartinfo'>
+                    <Link to={`/item/${item.id}`}>{item.title}</Link>
+                    <p>This much aloha: {orderDetail.quantity}</p>
+                    <p>The price of aloha: '$'{itemPrice.toFixed(2)}</p>
+                  </div>
+                  <div>
+                    <FloatingActionButton mini={true} style={style}>
+                      <FontIcon className="fa fa-plus-square" aria-hidden="true"
+                        onClick={() => { 
+                          canIncrement && handleAmountChange(orderDetail, 'increment') 
+                        }} />
+                    </FloatingActionButton>
+                    <FloatingActionButton mini={true} style={style}>
+                      <FontIcon className="fa fa-minus-square"
+                        aria-hidden="true"
+                        onClick={() => { 
+                          canDecrement && handleAmountChange(orderDetail, 'decrement') 
+                        }} />
+                    </FloatingActionButton>
+                    <FloatingActionButton mini={true}style={style}>
+                      <FontIcon className="fa fa-times-circle"
+                      aria-hidden="true"
+                      onClick={() => { 
+                        handleRemoveFromCart(orderDetail) 
+                      }} />
+                    </FloatingActionButton>
+                  </div>
               </div>
               <Divider className="dividerShoppingCart" inset={true} />
           </div>
