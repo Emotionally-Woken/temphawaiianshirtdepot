@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AllUsers } from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AllUsers, AddNewUser, SingleUser } from './components'
 
 import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllUsersThunk } from './store'
 //this is f/collections branch
@@ -37,6 +37,9 @@ class Routes extends Component {
               <Route path="/cart" component={Cart} />
               <Route path="/createProduct" component={AddNewProduct} />
               <Route path="/editProduct/:productId" component={EditProduct} />
+              <Route exact path="/admin/users/createUser" component={AddNewUser} />
+              <Route exact path="/admin/users/:userId" component={SingleUser} />
+
               {
                 isLoggedIn &&
                 <Switch>
@@ -48,7 +51,6 @@ class Routes extends Component {
                   <Switch>
                     <Route path="/admin/orders" component={AdminOrders} />
                     <Route path="/admin/users" component={AllUsers} />
-                    />
                   </Switch>
                 }
                 </Switch>

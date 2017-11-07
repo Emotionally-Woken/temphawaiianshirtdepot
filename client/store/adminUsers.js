@@ -37,7 +37,7 @@ export const deleteUserThunk = (user) =>
   dispatch => {
     axios.delete(`/api/users/${user.id}`)
       .then(() => {
-        history.push(`/users`)
+        history.push(`/admin/users`)
         dispatch(deleteUser(user))
       })
       .catch(err => console.error(err))
@@ -49,7 +49,7 @@ export const updateUserThunk = (user) =>
       .then(res => res.data)
       .then(updatedUser => {
         dispatch(updateUser(updatedUser))
-        history.push(`/users/${user.id}`)
+        history.push(`/admin/users/${user.id}`)
       })
       .catch(err => console.error(err))
   }
@@ -62,7 +62,7 @@ export const fetchUserThunk = (user) =>
         if (bool) {
           dispatch(fetchUser(user));
         }
-        history.push(`/users/${user.id}`)
+        history.push(`/admin/users/${user.id}`)
       })
       .catch(err => console.error(err))
   }

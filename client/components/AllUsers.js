@@ -5,29 +5,63 @@ import { fetchUserThunk, deleteUserThunk, updateUserThunk, fetchAllUsersThunk} f
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+
+const styles = {
+  root: {
+    display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-around'
+  },
+  child: {
+    dislpay: 'flex'
+  }
+}
 
 /**
  * COMPONENT
  */
-export const AllUsers = ({users}) => {
+export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUsers, handleRemoveUser}) => {
 
   return (
       <div>
+        <div>
+        <Subheader>Add User</Subheader>
+          <Link to="/admin/users/createUser">
+            <IconButton tooltip="Font Icon" >
+              <FontIcon
+                className="material-icons"
+                style={styles.child}
+                // onClick={handleGetUser}
+              >add_box</FontIcon>
+            </IconButton>
+          </Link>
+        </div>
         <List>
           <Subheader>Site Users</Subheader>
           {
             users.map(user =>
-            (<ListItem
-              key={user.id}
-              primaryText={`${user.firstName} ${user.lastName}`}
-            />))
+              (<Link key={user.id} to={`/admin/users/${user.id}`}>
+                <ListItem
+                  primaryText={`${user.firstName} ${user.lastName}`}
+                  style={styles.root}>
+                  <IconButton tooltip="Font Icon" >
+                    <FontIcon
+                      className="material-icons"
+                      style={styles.child}
+                      onClick={() => handleRemoveUser(user)}
+                    >delete</FontIcon>
+                  </IconButton>
+                </ListItem>
+              </Link>)
+            )
           }
         </List>
       </div>
   )
 }
-//leftAvatar={<Avatar src="images/ok-128.jpg" />}
-//rightIcon={<CommunicationChatBubble />}
+
 const mapStateToProps = (state) => ({
   users: state.adminUsers
 })

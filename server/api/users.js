@@ -41,7 +41,7 @@ router.param('userId', (req, res, next, id) => {
 
 //GET - api/users/:userId
 router.get('/:userId', (req, res) => {
-  res.json(req.campus);
+  res.json(req.user);
 })
 
 //PUT - api/users/:userId
@@ -57,4 +57,3 @@ router.delete('/:userId', (req, res, next) => {
     .then(() => res.status(204).end())
     .catch(next);
 })
-
