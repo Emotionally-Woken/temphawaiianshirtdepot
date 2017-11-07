@@ -58,9 +58,9 @@ const makeFakeProducts = (num) => {
     })
 
   }
-  fakeProducts.forEach(product => {
+  fakeProducts.forEach((product, i) => {
     fakeCategoryJoinTable.push({
-      productId: product.id,
+      productId: i + 1,
       categoryId: chance.integer({ min: 1, max: categories.length })
     })
 
