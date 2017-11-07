@@ -14,11 +14,11 @@ describe('Review model', () => {
 
     beforeEach(() => {
       review = Review.build({
-        reviewContent: 'short review that is less than 10 words'
+        reviewContent: 'short'
       })
     })
 
-    xit('throw an validation error when review is less than 10 words', () => {
+    it('throw an validation error when review is less than 10 words', () => {
       return review.validate()
         .then(() => {
           throw new Error('validation should fail when content is less than 10 words')

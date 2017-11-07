@@ -7,8 +7,7 @@ import {Link} from 'react-router-dom'
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 
 
-const PastOrder = ({orders}) => {
-  console.log(orders)
+export const PastOrder = ({orders}) => {
   return (
     <Paper>
       <List>

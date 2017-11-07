@@ -3,9 +3,11 @@ const request = require('supertest')
 const db = require('../db')
 const app = require('../index')
 const Review = db.model('review')
+const Product = db.model('product')
+const User = db.model('user')
 import supertest from 'supertest';
 
-describe('User routes', () => {
+describe('Review routes', () => {
   let agent;
   beforeEach(() => {
     agent = supertest(app);
@@ -16,13 +18,27 @@ describe('User routes', () => {
     const review = 'awesome shirt'
 
     beforeEach(() => {
-      return Review.create({
-        reviewContent: review,
-        stars: 3,
-        userId: 2,
-        productId: 5
+      return Promise.all([
+        User.create({
+          email: 'cody@email.com'
+        }),
+        Product.create({
+          title: 'title',
+          description: 'description',
+          image: 'testimage.url',
+          price: '40'
+        })
+      ])
+      .then(([createdUser, createdProduct]) => {
+        return Review.create({
+          reviewContent: review,
+          stars: 3,
+          productId: 1,
+          userId: 1
+        })
       })
     })
+
 
     it('GET /api/reviews', () => {
       return request(app)

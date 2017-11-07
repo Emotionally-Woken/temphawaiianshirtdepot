@@ -7,7 +7,6 @@ import {userLogsOutRemoveCartAction, userLogsInAddCartThunk, userLogsInCreateCar
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
-const USER_ORDER_UPDATE = 'USER_ORDER_UPDATE'
 
 /**
  * INITIAL STATE
@@ -19,7 +18,6 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-export const userOrderUpdate = cart => ({type: USER_ORDER_UPDATE, cart})
 
 /**
  * THUNK CREATORS
@@ -43,10 +41,9 @@ export const auth = (email, password, method) =>
       .then(res => {
         console.log('this is a sign in event!')
         dispatch(getUser(res.data))
-        const userCart = res.data.orders.find(order => order.status === 'Active Cart')
-        console.log(userCart, 'User cart XXXXXX')
-        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
         history.push('/home')
+        const userCart = res.data.orders.find(order => order.status === 'Active Cart')
+        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
       })
       .catch(error =>
         dispatch(getUser({error})))
@@ -71,10 +68,6 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
-    case USER_ORDER_UPDATE:
-      const newState = Object.assign({}, state)
-      newState.orders = action.cart
-      return newState
     default:
       return state
   }

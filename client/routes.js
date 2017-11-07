@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AllUsers, AddNewUser, SingleUser } from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser} from './components'
 
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllUsersThunk } from './store'
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories, fetchAllUsersThunk } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -35,8 +35,6 @@ class Routes extends Component {
               <Route path="/item/:productId" component={SingleProduct} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/cart" component={Cart} />
-              <Route path="/createProduct" component={AddNewProduct} />
-              <Route path="/editProduct/:productId" component={EditProduct} />
               <Route exact path="/admin/users/createUser" component={AddNewUser} />
               <Route exact path="/admin/users/:userId" component={SingleUser} />
 
@@ -46,13 +44,17 @@ class Routes extends Component {
                   <Route path="/home" component={UserHome} />
                   <Route path="/order/:orderId" component={SingleOrder} />
                   <Route path="/reviews" component={ReviewForm} />
-                {
-                  isAdmin &&
-                  <Switch>
-                    <Route path="/admin/orders" component={AdminOrders} />
-                    <Route path="/admin/users" component={AllUsers} />
-                  </Switch>
-                }
+
+                  {
+                    isAdmin &&
+                    <Switch>
+                      <Route path="/admin/orders" component={AdminOrders} />
+                      <Route path="/admin/products" component={AdminProducts} />
+                      <Route path="/createProduct" component={AddNewProduct} />
+                      <Route path="/editProduct/:productId" component={EditProduct} />
+                      <Route path="/createCollection" component={AddNewCollection} />
+                    </Switch>
+                  }
                 </Switch>
               }
               <Route component={AllProducts} />
@@ -82,6 +84,7 @@ const mapDispatch = (dispatch) => {
       dispatch(me())
       dispatch(fetchAllProducts())
       dispatch(fetchAllReviews())
+      dispatch(fetchAllCategories())
       dispatch(fetchAllUsersThunk())
     }
   }

@@ -13,17 +13,14 @@ describe('PastOrder', () => {
   let pastOrder
 
   beforeEach(() => {
-    pastOrder = shallow(<pastOrder order={[{id:1, status:'Processing', orderDetails: [{
+    pastOrder = shallow(<PastOrder order={[{id:1, status:'Processing', orderDetails: [{
       quantity: 2,
       price: 45
     }]}, {id:2, status:'Created'}, {id:2, status:'Processing'}]}/>)
   })
 
-  xit('renders all orders in the List', () => {
-    expect(pastOrder.find('List')).to.have.length(2)
+  it('renders all orders in the List', () => {
+    expect(pastOrder.find('Subheader')).to.have.length(1)
   })
 
-  xit('calculate correct total cost', () => {
-    expect(pastOrder.contains('Total Cost: $90')).to.equal(true)
-  })
 })
