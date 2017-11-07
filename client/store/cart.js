@@ -43,13 +43,13 @@ const uniqueToBulkAddDuplicateToChangeQuantity = (usersCartOrderDetails, cartToA
 
 const createBulkOrderDetailsThunk = (cart) =>
   dispatch => {
-    axios.post(`/api/orderDetail/bulkNew`, cart)
+    axios.post(`/api/orderDetail/localCart`, cart)
       .catch(console.error)
   }
 
 const changeBulkQuantityThunk = (cart) =>
   dispatch => {
-    axios.put('/api/orderDetail/bulkUpdate', cart)
+    axios.put('/api/orderDetail/quantities', cart)
     .catch(console.error)
   }
 
@@ -75,7 +75,7 @@ export const userLogsInAddCartThunk = (usersCartOrderDetails, orderId) =>
 
 export const removeFromCartThunk = orderDetail =>
   dispatch => {
-    axios.delete(`api/orderDetail/remove/${orderDetail.orderId}/${orderDetail.productId}`)
+    axios.delete(`api/orderDetail/${orderDetail.orderId}/${orderDetail.productId}`)
     .then(() => {
       dispatch(removeFromCartAction(orderDetail))
     })
@@ -90,7 +90,7 @@ export const changeQuantityThunk = (orderDetail, delta) =>
     dispatch(changeQuantityAction(orderDetail))
     
     if (orderDetail.orderId) {
-    axios.put(`api/orderDetail/update/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
+    axios.put(`api/orderDetail/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
     .catch(console.error)
     }
   }
@@ -105,7 +105,7 @@ export const addToCartThunk = (item, cart) =>
     orderDetail.orderId = cart.id;
     if (cart.id) {
   
-      axios.post(`api/orderDetail/${cart.id}/new`, orderDetail)
+      axios.post(`api/orderDetail/`, orderDetail)
       .then(res => {
         const updatedCart = Object.assign({}, cart)
         updatedCart.orderDetails = [...updatedCart.orderDetails, res.data]
