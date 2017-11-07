@@ -6,10 +6,18 @@ const OrderDetail = require('./orderDetail')
 const Category = require('./category')
 const Tag = require('./tag')
 
- User.hasMany(Review)
- Review.belongsTo(User)
- Product.hasMany(Review)
- Review.belongsTo(Product)
+ User.hasMany(Review, {
+   constraints: false
+ })
+ Review.belongsTo(User, {
+   constraints: false
+ })
+ Product.hasMany(Review,{
+  constraints: false
+})
+ Review.belongsTo(Product, {
+  constraints: false
+})
  User.hasMany(Order)
  Order.belongsTo(User)
  Product.belongsToMany(Order, {through: OrderDetail})

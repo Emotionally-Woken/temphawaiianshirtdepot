@@ -18,6 +18,6 @@ router.get('/:reviewId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   let {stars, reviewContent, userId, productId} = req.body
   Review.create({stars, reviewContent, userId, productId})
-    .then(createdReview => res.json(createdReview))
+    .then(createdReview => res.status(201).json(createdReview))
     .catch(next)
 })

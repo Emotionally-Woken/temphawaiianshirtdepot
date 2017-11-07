@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {fetchSelectOrders} from './user'
+import {fetchSelectOrders} from './orders'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -28,14 +28,14 @@ describe('thunk creators', () => {
   })
 
   describe('fetchSelectOrders', () => {
-    xit('eventually dispatches the GET_SELECT_ORDERS action', () => {
+    it('eventually dispatches the GET_SELECT_ORDERS action', () => {
       const fakeOrders = [{id:1, userId:2}, {id: 3, userId:2}]
-      mockAxios.onGet('/orders/2').replyOnce(200, fakeOrders)
-      return store.dispatch(fetchSelectOrders())
+      mockAxios.onGet('/api/orders/2').replyOnce(200, fakeOrders)
+      return store.dispatch(fetchSelectOrders(2))
         .then(() => {
           const actions = store.getActions()
           expect(actions[0].type).to.be.equal('GET_SELECT_ORDERS')
-          expect(actions[0].user).to.be.deep.equal(fakeOrders)
+          expect(actions[0].orders).to.be.deep.equal(fakeOrders)
         })
     })
   })
