@@ -26,12 +26,15 @@ body {
 }
 .shoppingcart {
   display: flex;
-  margin-top: 5%;
-  margin-bottom: 5%;
 }
 
 .cartinfo {
   flex-direction: row;
+  margin-right: 20;
+}
+
+.spacer {
+  flex-grow: 3;
 }
 
 // .dividerShoppingCart {
