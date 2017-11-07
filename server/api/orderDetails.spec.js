@@ -62,7 +62,7 @@ describe('Order Details routes', () => {
       })
     })
 
-    it.only('POST /api/orderDetail/', () => {
+    it('POST /api/orderDetail/', () => {
       return agent
       .post('/api/orderDetail')
       .send({
@@ -88,7 +88,7 @@ describe('Order Details routes', () => {
       })
     })
     
-    it.only('POST /api/orderDetail/localCart', () => {
+    it('POST /api/orderDetail/localCart', () => {
       const fakeCart = {
           id: 3, orderDetails: [{
                   quantity: 1,
@@ -121,7 +121,7 @@ describe('Order Details routes', () => {
       })
     })
     
-    it.only('PUT /api/orderDetail/', () => {
+    it('PUT /api/orderDetail/', () => {
       return agent
       .put(`/api/orderDetail/${1}/${1}`)
       .send({
