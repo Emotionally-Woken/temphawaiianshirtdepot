@@ -10,11 +10,6 @@ const Product = db.define('product', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  category: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-    allowNull: false,
-    defaultValue: ['Classic']
-  },
   image: {
     type: Sequelize.STRING,
     allowNull: false

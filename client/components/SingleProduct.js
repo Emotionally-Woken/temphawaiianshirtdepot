@@ -8,17 +8,16 @@ import ReviewList from './ReviewList'
 import { addToCartThunk, changeQuantityThunk } from '../store'
 import Paper from 'material-ui/Paper';
 
-
 const SingleProduct = (props) => {
   let isAdmin
   let { products, productId, cart, handleAddToCart, handleChangeQuantity, user } = props
-  
+
   let selectedProduct
   if (products) {
     selectedProduct = products.find(product => product.id === +productId)
   }
   if (user) {
-    isAdmin = user.id && user.admin
+    isAdmin = user.id && user.isAdmin
   }
 
   return (
