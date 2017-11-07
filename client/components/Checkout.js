@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeQuantityThunk } from '../store/cart';//fetchItems
+import { changeQuantityThunk, createOrderThunk } from '../store/';//fetchItems
 import Cart from './Cart'
 //----------------------------
 // user signup-component 
@@ -10,21 +10,15 @@ class CheckoutForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      coupon: '',
-      productId: 1,
-      price: 3.0,
-      title: "wonderful title"
+      totalPrice: 0
     };
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.renderUserAddress = this.renderUserAddress.bind(this)
     this.renderLoginOrSignUp = this.renderLoginOrSignUp.bind(this)
 
   }
-
-  // componentWillMount() {
-  //    // this.props.fetchItems();
-  // }
 
   handleChange(event) {
     const value = event.target.value;
@@ -57,8 +51,8 @@ class CheckoutForm extends Component {
       </div>)
   }
   render() {
-    const { cart, user, history } = this.props
-    console.log(this.props)
+    const { cart, user, history, handleClickPay } = this.props
+
     return (
       <div>
         {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
@@ -72,16 +66,18 @@ class CheckoutForm extends Component {
               value={this.state.coupon}
               onChange={this.handleChange} />
           </div>
-          <button
-            type="submit">
-            Enter a coupon
-          </button>
         </form>
         <h1>
           Mahalo, {user.firstName || 'Surfer Dude!'}
         </h1>
         <Cart history={history} />
-        <button disabled={!cart.length} onClick={() => {/*stripe */ }} >Pay!</button>
+        <button 
+          disabled={!cart.orderDetails.length} 
+          onClick={(e) => {
+            e.preventDefault()
+            cart.status = 'Created'
+            handleClickPay(cart)
+          }} >Pay!</button>
       </div>
     );
   }
@@ -89,11 +85,13 @@ class CheckoutForm extends Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   cart: state.cart
-  //   products: state.products
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  // fetchItems: () => dispatch(fetchItems())
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  handleClickPay: (cart) => {
+    dispatch(createOrderThunk(cart))
+    ownProps.history.push('/home')
+  }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
 

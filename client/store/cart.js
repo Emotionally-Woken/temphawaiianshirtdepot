@@ -132,21 +132,31 @@ export const userLogsInCreateCartThunk = user =>
 
 //Reducer
 
+const updateTotalPrice = (array) => {
+  let totalPrice = array.reduce((acc, item) => {
+    return acc += (item.price * item.quantity)
+  }, 0)
+  return totalPrice.toFixed(2)
+}
+
 export default function (state = initialState, action) {
   const newState = Object.assign({}, state)
   switch (action.type) {
     case ADD_TO_CART:
       action.orderDetail.orderId = newState.id
       newState.orderDetails = [...newState.orderDetails, action.orderDetail]
+      newState.totalPrice = updateTotalPrice(newState.orderDetails)
       return newState
     case REMOVE_FROM_CART:
       newState.orderDetails = newState.orderDetails.filter( orderDetail => orderDetail.productId !== action.itemToRemove.productId)
+      newState.totalPrice = updateTotalPrice(newState.orderDetails)
       return newState
     case CHANGE_QUANTITY:
       newState.orderDetails = newState.orderDetails.map( orderDetail => {
         const newOrderDetail = {...orderDetail}
          return newOrderDetail.productId === action.orderDetail.productId ? action.orderDetail : newOrderDetail
       })
+      newState.totalPrice = updateTotalPrice(newState.orderDetails)
       return newState;
     case USER_LOGS_IN_ADD_CART:
       newState.id = action.orderId
@@ -163,6 +173,7 @@ export default function (state = initialState, action) {
       newState.orderDetails = Object.keys(concattedCarts).map(i => {
         return concattedCarts[i]
       })
+      newState.totalPrice = updateTotalPrice(newState.orderDetails)
       return newState
     case USER_LOGS_OUT_REMOVE_CART:
       return {id: 0, orderDetails: []}
