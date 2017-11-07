@@ -13,7 +13,7 @@ export const SingleUser = ({match, users}) => {
 
   return (
     <div>
-
+      <h1>TEST</h1>
 
     </div>
   )

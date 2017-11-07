@@ -35,8 +35,8 @@ class Routes extends Component {
               <Route path="/item/:productId" component={SingleProduct} />
               <Route path="/checkout" component={Checkout} />
               <Route path="/cart" component={Cart} />
-              <Route exact path="/admin/users/createUser" component={AddNewUser} />
-              <Route exact path="/admin/users/:userId" component={SingleUser} />
+
+
 
               {
                 isLoggedIn &&
@@ -50,9 +50,12 @@ class Routes extends Component {
                     <Switch>
                       <Route path="/admin/orders" component={AdminOrders} />
                       <Route path="/admin/products" component={AdminProducts} />
+                      <Route exact path="/admin/users" component={AllUsers} />
                       <Route path="/createProduct" component={AddNewProduct} />
                       <Route path="/editProduct/:productId" component={EditProduct} />
                       <Route path="/createCollection" component={AddNewCollection} />
+                      <Route exact path="/admin/users/createUser" component={AddNewUser} />
+                      <Route exact path="/admin/users/:userId" component={SingleUser} />
                     </Switch>
                   }
                 </Switch>
