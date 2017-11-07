@@ -34,10 +34,8 @@ router.post('/', (req, res, next) => {
 // })
 
 router.put('/:id', (req, res, next) => {
-  console.log("PRODUCTIOOONN", req.body)
   req.product.update(req.body)
     .then((updatedProduct) => {
-      console.log("updatedddd", updatedProduct)
       res.json(updatedProduct)
     })
     .catch(next)
