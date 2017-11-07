@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUserThunk, deleteUserThunk, updateUserThunk, fetchAllUsersThunk} from '../store'
+import { deleteUserThunk } from '../store'
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
@@ -22,7 +22,9 @@ const styles = {
 /**
  * COMPONENT
  */
-export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUsers, handleRemoveUser}) => {
+export const AllUsers = ({users, me, handleRemoveUser}) => {
+
+  console.log('XXXX', me);
 
   return (
       <div>
@@ -42,19 +44,30 @@ export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUs
           <Subheader>Site Users</Subheader>
           {
             users.map(user =>
-              (<Link key={user.id} to={`/admin/users/${user.id}`}>
+              (
                 <ListItem
+                  key={user.id}
                   primaryText={`${user.firstName} ${user.lastName}`}
                   style={styles.root}>
-                  <IconButton tooltip="Font Icon" >
+                  <IconButton
+                    tooltip="Font Icon"
+                    disabled={me.id === user.id}
+                    onClick={() => handleRemoveUser(user)}>
                     <FontIcon
                       className="material-icons"
                       style={styles.child}
-                      onClick={() => handleRemoveUser(user)}
                     >delete</FontIcon>
                   </IconButton>
+                  <Link to={`/admin/users/${user.id}`}>
+                    <IconButton tooltip="Font Icon" >
+                      <FontIcon
+                        className="material-icons"
+                        style={styles.child}
+                      >settings</FontIcon>
+                    </IconButton>
+                  </Link>
                 </ListItem>
-              </Link>)
+              )
             )
           }
         </List>
@@ -63,21 +76,13 @@ export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUs
 }
 
 const mapStateToProps = (state) => ({
-  users: state.adminUsers
+  users: state.adminUsers,
+  me: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGetAllUsers () {
-    dispatch(fetchAllUsersThunk())
-  },
-  handleGetUser (user) {
-    dispatch(fetchUserThunk(user))
-  },
   handleRemoveUser (user) {
     dispatch(deleteUserThunk(user))
-  },
-  handleUpdateUser (user) {
-    dispatch(updateUserThunk(user))
   }
 })
 

@@ -53,12 +53,8 @@ export const AllProducts = (props) => {
           <Link to={'/createProduct'} >
             <FlatButton label="Add New Product" />
           </Link>
-          <Link to={'/admin/users'} >
-            <FlatButton label="Admin User" />
-          </Link>
         </div>
       }
-
     </div>
   )
 }

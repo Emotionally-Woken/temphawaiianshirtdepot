@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser} from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, EditUser} from './components'
 
 import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories, fetchAllUsersThunk } from './store'
 //this is f/collections branch
@@ -55,7 +55,7 @@ class Routes extends Component {
                       <Route path="/editProduct/:productId" component={EditProduct} />
                       <Route path="/createCollection" component={AddNewCollection} />
                       <Route exact path="/admin/users/createUser" component={AddNewUser} />
-                      <Route exact path="/admin/users/:userId" component={SingleUser} />
+                      <Route exact path="/admin/users/:userId" component={EditUser} />
                     </Switch>
                   }
                 </Switch>

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 // import { withRouter } from 'react-router-dom'
-import { fetchUserThunk } from '../store'
+import { updateUserThunk } from '../store'
 import TextField from 'material-ui/TextField'
 import { orange500, blue500 } from 'material-ui/styles/colors'
 import FlatButton from 'material-ui/FlatButton'
 
-class AddNewUser extends Component {
+class EditUser extends Component {
 
   constructor(props) {
     super(props)
@@ -35,17 +35,17 @@ class AddNewUser extends Component {
   emptyState (event) {
     event.preventDefault()
     this.props.handleSubmit(event);
-    this.setState({
-      firstName: '',
-      lastName: '',
-      email: '',
-      city: '',
-      state: '',
-      zip: '',
-      shippingAddress: '',
-      isAdmin: '',
-      password: ''
-    })
+    // this.setState({
+    //   firstName: '',
+    //   lastName: '',
+    //   email: '',
+    //   city: '',
+    //   state: '',
+    //   zip: '',
+    //   shippingAddress: '',
+    //   isAdmin: '',
+    //   password: ''
+    // })
   }
 
   render() {
@@ -63,12 +63,17 @@ class AddNewUser extends Component {
         color: blue500,
       },
     }
+
+    const users = this.props.users
+    const userId = +this.props.match.params.userId;
+    const selectedUser = users.length ? users.find(user => user.id === userId) : {};
+
     return (
       <form name="UserForm" onSubmit={this.emptyState}>
         <fieldset>
-          <label>Create New User:</label>
+          <label>Update User:</label>
           <TextField
-            value={this.state.firstName}
+            defaultValue={selectedUser.firstName}
             onChange={this.handleChange}
             type="text"
             name="firstName"
@@ -77,7 +82,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.lastName}
+            defaultValue={selectedUser.lastName}
             onChange={this.handleChange}
             type="text"
             name="lastName"
@@ -86,7 +91,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.email}
+            defaultValue={selectedUser.email}
             onChange={this.handleChange}
             type="text"
             name="email"
@@ -95,7 +100,7 @@ class AddNewUser extends Component {
             errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.city}
+            defaultValue={selectedUser.city}
             onChange={this.handleChange}
             type="text"
             name="city"
@@ -104,7 +109,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.state}
+            defaultValue={selectedUser.state}
             onChange={this.handleChange}
             type="text"
             name="state"
@@ -113,7 +118,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.zip}
+            defaultValue={selectedUser.zip}
             onChange={this.handleChange}
             type="text"
             name="zip"
@@ -122,7 +127,7 @@ class AddNewUser extends Component {
             errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.shippingAddress}
+            defaultValue={selectedUser.shippingAddress}
             onChange={this.handleChange}
             type="text"
             name="shippingAddress"
@@ -131,7 +136,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.isAdmin}
+            defaultValue={selectedUser.isAdmin}
             onChange={this.handleChange}
             type="text"
             name="isAdmin"
@@ -140,7 +145,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
           <TextField
-            value={this.state.password}
+            defaultValue={selectedUser.password}
             onChange={this.handleChange}
             type="text"
             name="password"
@@ -157,9 +162,14 @@ class AddNewUser extends Component {
 
 }
 
-const mapDispatch = (dispatch) => {
+const mapStateToProps = (state) => ({
+  users: state.adminUsers
+})
+
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleSubmit: (event) => {
+      const id = +ownProps.match.params.userId
       const firstName = event.target.firstName.value
       const lastName = event.target.lastName.value
       const email = event.target.email.value
@@ -170,11 +180,11 @@ const mapDispatch = (dispatch) => {
       let isAdmin = event.target.isAdmin.value
       if (!isAdmin) isAdmin = false
       const password = event.target.password.value
-      const newUser = { firstName, lastName, email, city, state, zip, shippingAddress, isAdmin, password}
-      dispatch(fetchUserThunk(newUser))
+      const updatedUser = { id, firstName, lastName, email, city, state, zip, shippingAddress, isAdmin, password}
 
+      dispatch(updateUserThunk(updatedUser))
     }
   }
 }
 
-export default connect(null, mapDispatch)(AddNewUser)
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser)
