@@ -24,6 +24,8 @@ export const Collections = ({ products, cart, collectionType, handleAddToCart, h
 let filteredProducts
 
   if (products) {
+    console.log("coType", collectionType)
+
     //filteredProducts = products.filter(product => product.category[0] === collectionType)
     filteredProducts = products.filter(product => product.categories.find(category => category.title === collectionType))
   }
@@ -54,7 +56,8 @@ const MapState = (state, ownProps) => {
   return {
     products: state.products,
     cart: state.cart,
-    collectionType: state.categories
+    collectionType: ownProps.match.params.category
+
   }
 }
 

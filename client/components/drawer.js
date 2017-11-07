@@ -21,7 +21,6 @@ class Sidebar extends React.Component {
   handleClose = () => this.setState({ open: false });
 
   render() {
-    console.log("yoooooooo", this.props.collectionsArray)
     const style = {
       marginRight: 20,
     }
@@ -30,7 +29,6 @@ class Sidebar extends React.Component {
     let isAdmin
     const user = this.props.user
     collectionItems = this.props.collectionsArray
-    console.log("beeeeee", this.props.collectionsArray)
     if (collectionItems) {
       collectionTitles = collectionItems.map(collection => collection.title)
     }
