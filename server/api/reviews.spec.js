@@ -33,7 +33,7 @@ describe('Review routes', () => {
         return Review.create({
           reviewContent: review,
           stars: 3,
-          productId: 5,
+          productId: 1,
           userId: 1
         })
       })

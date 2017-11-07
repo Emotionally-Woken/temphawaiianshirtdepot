@@ -3,7 +3,7 @@ const chance = new Chance()
 const db = require('./server/db/')
 const { User, Product, Order, OrderDetail, Review, Category, Tag } = require('./server/db/models/index.js')
 
-const statuses = [ 'Active', 'Created', 'Processing', 'Canceled', 'Completed']
+const statuses = [ 'Active Cart', 'Created', 'Processing', 'Completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
 const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -99,7 +99,7 @@ const makeFakeOrders = (num) => {
   for (let i = 1; i <= num; i++) {
     fakeOrders.push({
       userId: chance.integer({ min: 1, max: 5 }),
-      status: statuses[chance.integer({ num: 0, max: 3 })],
+      status: statuses[chance.natural({ num: 0, max: statuses.length -1 })],
       orderDetailId: orderIdNumber.shift()
     })
   }
