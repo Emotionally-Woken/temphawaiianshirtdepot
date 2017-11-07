@@ -24,6 +24,61 @@ const locationWords = ['the Long Beach', 'my Many Dreams', 'the Lovely Sunshine'
 const madLibNouns = ['shirt', 'masterpiece', 'shawl', 'tropical garb', 'armour', 'cool shirt', 'awesome shirt']
 const madLibAdjectives = ['beautiful', 'awesome', 'amazing', 'confident', 'super tropical', 'unstoppable', 'taller', 'smarter']
 const madLibPronoun = ['my son', 'my wife', 'my mom', 'my dad', 'my dog', 'me', 'my neighbor']
+const setUsers = [{
+      firstName: 'John',
+      lastName: 'Pepino',
+      email: 'john@pepino.com',
+      isAdmin: true,
+      password: '1',
+      shippingAddress: '123 hut avenue',
+      state: 'Hawaii',
+      city: 'Aloha',
+      zip: 17080
+},
+  {
+      firstName: 'Claire',
+      lastName: 'Liu',
+      email: 'claire@Liu.com',
+      isAdmin: true,
+      password: '1',
+      shippingAddress: '123 hawaii avenue',
+      state: 'Pennsylvania',
+      city: 'Aloha',
+      zip: 17090
+},
+  {
+      firstName: 'Brian',
+      lastName: 'Mac',
+      email: 'brian@mac.com',
+      isAdmin: true,
+      password: '1',
+      shippingAddress: '156 hut avenue',
+      state: 'Illinois',
+      city: 'Aloha',
+      zip: 17078
+},
+  {
+      firstName: 'Andrew',
+      lastName: 'Z',
+      email: 'andrew@z.com',
+      isAdmin: false,
+      password: '1',
+      shippingAddress: '156 hut street',
+      state: 'Wisconsin',
+      city: 'Aloha',
+      zip: 17073
+},
+  {
+      firstName: 'Ro',
+      lastName: 'Boy',
+      email: 'ro@boy.com',
+      isAdmin: false,
+      password: '1',
+      shippingAddress: '156 hut avenue',
+      state: 'Maine',
+      city: 'Aloha',
+      zip: 17778
+}]
 //Make Fake Users
 const makeFakeUsers = (num) => {
   let fakeUsers = []
@@ -116,7 +171,7 @@ const makeFakeOrders = (num) => {
 }
 
   const [orders, orderDetails] = makeFakeOrders(10)
-  const users = makeFakeUsers(10)
+  const users = makeFakeUsers(10).concat(setUsers)
   const [products, joinTable] = makeFakeProducts(10)
   const reviews = makeFakeReviews(20)
   const genCategories = makeFakeCategories()

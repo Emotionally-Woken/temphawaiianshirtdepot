@@ -20,7 +20,7 @@ describe('Category model', () => {
         })
       })
 
-      it.only('tests model type', () => {
+      it('tests model type', () => {
         expect(collection.title).to.be.equal('Beachwear')
       })
     })
