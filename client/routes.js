@@ -5,8 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AddNewCollection, AdminProducts} from './components'
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories } from './store'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser} from './components'
+
+import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories, fetchAllUsersThunk } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -35,6 +36,8 @@ class Routes extends Component {
               <Route path="/checkout" component={Checkout} />
               <Route path="/cart" component={Cart} />
 
+
+
               {
                 isLoggedIn &&
                 <Switch>
@@ -47,9 +50,12 @@ class Routes extends Component {
                     <Switch>
                       <Route path="/admin/orders" component={AdminOrders} />
                       <Route path="/admin/products" component={AdminProducts} />
+                      <Route exact path="/admin/users" component={AllUsers} />
                       <Route path="/createProduct" component={AddNewProduct} />
                       <Route path="/editProduct/:productId" component={EditProduct} />
                       <Route path="/createCollection" component={AddNewCollection} />
+                      <Route exact path="/admin/users/createUser" component={AddNewUser} />
+                      <Route exact path="/admin/users/:userId" component={SingleUser} />
                     </Switch>
                   }
                 </Switch>
@@ -82,6 +88,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchAllProducts())
       dispatch(fetchAllReviews())
       dispatch(fetchAllCategories())
+      dispatch(fetchAllUsersThunk())
     }
   }
 }
