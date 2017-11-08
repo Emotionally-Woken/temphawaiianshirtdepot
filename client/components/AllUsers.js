@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { fetchUserThunk, deleteUserThunk, updateUserThunk, fetchAllUsersThunk} from '../store'
+import { deleteUserThunk } from '../store'
 
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import { blue100 } from 'material-ui/styles/colors'
 
 const styles = {
   root: {
@@ -22,7 +23,7 @@ const styles = {
 /**
  * COMPONENT
  */
-export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUsers, handleRemoveUser}) => {
+export const AllUsers = ({users, me, handleRemoveUser}) => {
 
   return (
       <div>
@@ -33,7 +34,6 @@ export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUs
               <FontIcon
                 className="material-icons"
                 style={styles.child}
-                // onClick={handleGetUser}
               >add_box</FontIcon>
             </IconButton>
           </Link>
@@ -42,19 +42,31 @@ export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUs
           <Subheader>Site Users</Subheader>
           {
             users.map(user =>
-              (<Link key={user.id} to={`/admin/users/${user.id}`}>
+              (
                 <ListItem
+                  key={user.id}
+                  hoverColor={blue100}
                   primaryText={`${user.firstName} ${user.lastName}`}
-                  style={styles.root}>
-                  <IconButton tooltip="Font Icon" >
-                    <FontIcon
-                      className="material-icons"
-                      style={styles.child}
-                      onClick={() => handleRemoveUser(user)}
-                    >delete</FontIcon>
-                  </IconButton>
-                </ListItem>
-              </Link>)
+                  rightIcon={
+                    <IconButton
+                      tooltip="Font Icon"
+                      disabled={me.id === user.id}
+                      onClick={() => handleRemoveUser(user)}>
+                      <FontIcon
+                        className="material-icons"
+                      >delete</FontIcon>
+                    </IconButton>
+                  }
+                  leftIcon={
+                    <Link to={`/admin/users/${user.id}`}>
+                      <IconButton tooltip="Font Icon" >
+                        <FontIcon
+                          className="material-icons"
+                        >settings</FontIcon>
+                      </IconButton>
+                    </Link>
+                  } />
+              )
             )
           }
         </List>
@@ -63,21 +75,13 @@ export const AllUsers = ({users, handleUpdateUser, handleGetUser, handleGetAllUs
 }
 
 const mapStateToProps = (state) => ({
-  users: state.adminUsers
+  users: state.adminUsers,
+  me: state.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  handleGetAllUsers () {
-    dispatch(fetchAllUsersThunk())
-  },
-  handleGetUser (user) {
-    dispatch(fetchUserThunk(user))
-  },
   handleRemoveUser (user) {
     dispatch(deleteUserThunk(user))
-  },
-  handleUpdateUser (user) {
-    dispatch(updateUserThunk(user))
   }
 })
 

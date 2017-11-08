@@ -5,9 +5,9 @@ import { Route, Switch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 
-import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders,AddNewCollection, AdminProducts, AllUsers, AddNewUser, SingleUser, AdminSingleOrder} from './components'
+import { Main, Login, Signup, UserHome, AllProducts, Collections, SingleProduct, Cart, ReviewForm, Checkout, SingleOrder, AddNewProduct, EditProduct, AdminOrders, AddNewCollection, AdminProducts, AllUsers, AddNewUser, EditUser, AdminSingleOrder} from './components'
 
-import { me, fetchAllProducts, fetchAllReviews, fetchSelectOrders, fetchAllCategories, fetchAllUsersThunk } from './store'
+import { me, fetchAllProducts, fetchAllReviews, fetchAllCategories, fetchAllUsersThunk } from './store'
 //this is f/collections branch
 /**
  * COMPONENT
@@ -36,8 +36,6 @@ class Routes extends Component {
               <Route path="/checkout" component={Checkout} />
               <Route path="/cart" component={Cart} />
 
-
-
               {
                 isLoggedIn &&
                 <Switch>
@@ -56,7 +54,7 @@ class Routes extends Component {
                       <Route path="/editProduct/:productId" component={EditProduct} />
                       <Route path="/createCollection" component={AddNewCollection} />
                       <Route exact path="/admin/users/createUser" component={AddNewUser} />
-                      <Route exact path="/admin/users/:userId" component={SingleUser} />
+                      <Route exact path="/admin/users/:userId" component={EditUser} />
                     </Switch>
                   }
                 </Switch>

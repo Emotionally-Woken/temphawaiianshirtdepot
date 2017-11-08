@@ -11,6 +11,7 @@ import {
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {Link} from 'react-router-dom'
+import FlatButton from 'material-ui/FlatButton';
 
 class AdminProducts extends Component {
 
@@ -19,7 +20,11 @@ class AdminProducts extends Component {
 
     return(
       <div>
-        <h3>All Products</h3>
+        <h3 style={{display: "inline-block"}}>All Products</h3>
+        <Link to={'/createProduct'} >
+          <FlatButton label="Add New Product" />
+        </Link>
+
       <Table selectable={false}>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
