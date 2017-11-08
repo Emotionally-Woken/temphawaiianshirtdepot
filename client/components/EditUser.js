@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-// import { withRouter } from 'react-router-dom'
 import { updateUserThunk } from '../store'
 import TextField from 'material-ui/TextField'
 import { orange500, blue500 } from 'material-ui/styles/colors'
@@ -152,7 +151,7 @@ class EditUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
 
-          <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Create User" primary={true} />
+          <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Submit" primary={true} />
         </fieldset>
       </form>
     )

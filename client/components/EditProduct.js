@@ -23,18 +23,18 @@ class EditProduct extends Component {
   }
 
   handleChange (event) {
-
     this.setState({ [event.target.name]: event.target.value })
   }
+
   emptyState (event) {
     event.preventDefault()
     this.props.handleSubmit(event);
-    this.setState({
-      title: '',
-      description: '',
-      price: 0,
-      image: ''
-    })
+    // this.setState({
+    //   title: '',
+    //   description: '',
+    //   price: 0,
+    //   image: ''
+    // })
   }
 
   render() {
@@ -62,7 +62,7 @@ class EditProduct extends Component {
     return (
       <form name="myForm" onSubmit={this.emptyState}>
         <fieldset>
-          <label>Enter a new product, Hawaiian Style!</label>
+          <label>Update Product:</label>
           <TextField
             defaultValue={selectedProduct.title}
             onChange={this.handleChange}
@@ -104,7 +104,7 @@ class EditProduct extends Component {
 
           /><br />
 
-            <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Edit Product" primary={true} />
+            <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Submit" primary={true} />
         </fieldset>
       </form>
     )
