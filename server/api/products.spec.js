@@ -28,7 +28,7 @@ describe('Product routes', () => {
       })
     })
 
-    xit('GET /api/products', () => {
+    it('GET /api/products', () => {
       return request(app)
         .get('/api/products')
         .expect(200)
