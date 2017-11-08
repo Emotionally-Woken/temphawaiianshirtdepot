@@ -39,9 +39,7 @@ export default function (state = [], action) {
     case GET_SELECT_ORDERS:
       return action.orders
     case CREATE_ORDER:
-      const newState = [...state]
-      newState.map(order => order.id === action.payload.id ? action.payload : order)
-      return newState
+      return [...state, action.payload]
     default:
       return state
   }
