@@ -8,6 +8,7 @@ const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 const CHANGE_QUANTITY = 'CHANGE_QUANTITY'
 const USER_LOGS_IN_ADD_CART = 'USER_LOGS_IN_ADD_CART'
 const USER_LOGS_OUT_REMOVE_CART = 'USER_LOGS_OUT_REMOVE_CART'
+const CREATE_ORDER = 'CREATE_ORDER'
 
 //Action Creators
 
@@ -142,6 +143,8 @@ const updateTotalPrice = (array) => {
 export default function (state = initialState, action) {
   const newState = Object.assign({}, state)
   switch (action.type) {
+    case CREATE_ORDER:
+      return { id: 0, orderDetails: [] }
     case ADD_TO_CART:
       action.orderDetail.orderId = newState.id
       newState.orderDetails = [...newState.orderDetails, action.orderDetail]

@@ -27,7 +27,7 @@ const updateUser = user => ({type: UPDATE_USER, user});
  */
 export const fetchAllUsersThunk = () =>
   dispatch => {
-    axios.get('/api/users')
+    return axios.get('/api/users')
       .then(res => res.data)
       .then(users => dispatch(fetchAllUsers(users)))
       .catch(err => console.error(err))
@@ -35,7 +35,7 @@ export const fetchAllUsersThunk = () =>
 
 export const deleteUserThunk = (user) =>
   dispatch => {
-    axios.delete(`/api/users/${user.id}`)
+    return axios.delete(`/api/users/${user.id}`)
       .then(() => {
         history.push(`/admin/users`)
         dispatch(deleteUser(user))
@@ -45,7 +45,7 @@ export const deleteUserThunk = (user) =>
 
 export const updateUserThunk = (user) =>
   dispatch => {
-    axios.put(`/api/users/${user.id}`, user)
+    return axios.put(`/api/users/${user.id}`, user)
       .then(res => res.data)
       .then(updatedUser => {
         dispatch(updateUser(updatedUser))
@@ -56,7 +56,7 @@ export const updateUserThunk = (user) =>
 
 export const fetchUserThunk = (user) =>
   dispatch => {
-    axios.post(`/api/users/`, user)
+    return axios.post(`/api/users/`, user)
       .then(res => res.data)
       .then(({user, bool}) => {
         if (bool) {
