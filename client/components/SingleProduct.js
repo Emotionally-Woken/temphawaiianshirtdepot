@@ -1,6 +1,5 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
@@ -38,11 +37,12 @@ const SingleProduct = (props) => {
               {selectedProduct.description}
             </CardText>
             <CardActions>
-              <FlatButton primary={true} label="Add to Cart"
+              <FlatButton
+primary={true} label="Add to Cart"
                 onClick={() => {
                   const orderDetail = cart.orderDetails.find(item => item.productId === selectedProduct.id)
                   if (orderDetail) {
-                    orderDetail.quantity < selectedProduct.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
+                    orderDetail.quantity < selectedProduct.quantity ? handleChangeQuantity(orderDetail) : alert('not enough inventory')
                   } else {
                     handleAddToCart(selectedProduct, cart)
                   }

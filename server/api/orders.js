@@ -24,7 +24,6 @@ router.post('/:userId/create', (req, res, next) => {
 })
 
 router.put('/createdOrder/', (req, res, next) => {
-  console.log(req.body)
   return Order.findById(req.body.order.id)
   .then(foundOrder => {
     return foundOrder.update(req.body.order)

@@ -11,21 +11,19 @@ const style = {
 }
 
 const pstyle = {
-  alignItems: "flex-start"
+  alignItems: 'flex-start'
 }
 
 
-
-//changed
 function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, history}) {
-  
+
   const isCartLocation = history.location.pathname === '/cart'
   let totalPrice = 0
   let stringifiedCart = JSON.stringify(cart)
-  if(!user.id){
+  if (!user.id){
   localStorage.setItem('cart', stringifiedCart)
   }
-  if (products.length && cart.orderDetails.length) { 
+  if (products.length && cart.orderDetails.length) {
     return (
       <div>
         {cart.orderDetails.map(orderDetail => {
@@ -36,9 +34,9 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           const itemPrice = item.price * orderDetail.quantity
 
           if (tooMany) orderDetail.quantity = item.quantity;
-         
+
           totalPrice += itemPrice
-         
+
           return (
             <div key={item.id} className="container">
               <div className="shoppingcart">
@@ -50,26 +48,29 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
                         <p>the price of aloha: '$'{itemPrice.toFixed(2)}</p>
                       </div>
                   </div>
-                  <div className="spacer"/>
+                  <div className="spacer" />
                   <div className="cartbuttons">
                     <FloatingActionButton disabled={!canIncrement} mini={true} style={style}>
-                      <FontIcon className="fa fa-plus-square" aria-hidden="true"
-                        onClick={() => { 
-                          canIncrement && handleAmountChange(orderDetail, 'increment') 
+                      <FontIcon
+className="fa fa-plus-square" aria-hidden="true"
+                        onClick={() => {
+                          canIncrement && handleAmountChange(orderDetail, 'increment')
                         }} />
                     </FloatingActionButton>
                     <FloatingActionButton disabled={!canDecrement} mini={true} style={style}>
-                      <FontIcon className="fa fa-minus-square"
+                      <FontIcon
+className="fa fa-minus-square"
                         aria-hidden="true"
-                        onClick={() => { 
-                          canDecrement && handleAmountChange(orderDetail, 'decrement') 
+                        onClick={() => {
+                          canDecrement && handleAmountChange(orderDetail, 'decrement')
                         }} />
                     </FloatingActionButton>
                     <FloatingActionButton mini={true}style={style}>
-                      <FontIcon className="fa fa-times-circle"
+                      <FontIcon
+className="fa fa-times-circle"
                       aria-hidden="true"
-                      onClick={() => { 
-                        handleRemoveFromCart(orderDetail) 
+                      onClick={() => {
+                        handleRemoveFromCart(orderDetail)
                       }} />
                     </FloatingActionButton>
                   </div>

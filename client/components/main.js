@@ -23,7 +23,7 @@ class Main extends React.Component {
   handleChange = (event, index, value) => this.setState({value});
 
   render(){
-    const {children, handleClick, isLoggedIn, products, history} = this.props
+    const {children, handleClick, isLoggedIn} = this.props
 
     return (
       <div>
@@ -36,7 +36,7 @@ class Main extends React.Component {
           <SearchBar />
 
           <ToolbarGroup>
-            <Link to='/' style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'rgba(0, 0, 0, 0.87)'}}>
               <ToolbarTitle text="HAWAIIAN - HUT 🍹" />
             </Link>
             <FontIcon className="muidocs-icon-custom-sort" />
@@ -47,13 +47,13 @@ class Main extends React.Component {
             isLoggedIn
               ? <div>
                 {/* The navbar will show these links after you log in */}
-                <Link to="/home"> <RaisedButton label="Home"/></Link>
-                <a href="#" onClick={handleClick}><RaisedButton label="Logout"/></a>
+                <Link to="/home"> <RaisedButton label="Home" /></Link>
+                <a href="#" onClick={handleClick}><RaisedButton label="Logout" /></a>
               </div>
               : <div>
                 {/* The navbar will show these links before you log in */}
-                <Link to="/login"> <RaisedButton label="Login"/></Link>
-                <Link to="/signup"> <RaisedButton label="Sign Up"/></Link>
+                <Link to="/login"> <RaisedButton label="Login" /></Link>
+                <Link to="/signup"> <RaisedButton label="Sign Up" /></Link>
               </div>
           }
 

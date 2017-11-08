@@ -58,13 +58,13 @@ class SingleOrderDetail extends Component {
     this.setState({open: false});
   };
 
-  handleTextFieldChange = (e)=>{
+  handleTextFieldChange = (event) => {
     this.setState({
-      textFieldValue: e.target.value
+      textFieldValue: event.target.value
   });
   }
 
-  handleDropDownChange = (e, idx, value)=>{
+  handleDropDownChange = (event, idx, value) => {
     this.setState({
       dropDownValue: value
   });
@@ -84,7 +84,7 @@ class SingleOrderDetail extends Component {
 
   const actions = [
     <FlatButton label="Cancel" primary={true} onClick={this.handleCancel} />,
-    <FlatButton label="Submit" primary={true} onClick={this.handleSubmit} disabled={this.state.textFieldValue.length > 10 ? false: true} />,
+    <FlatButton label="Submit" primary={true} onClick={this.handleSubmit} disabled={!(this.state.textFieldValue.length > 10)} />,
   ];
 
   return (

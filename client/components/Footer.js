@@ -1,10 +1,10 @@
 import React from 'react';
 
-const Footer = ()=>{
+const Footer = () => {
   return (
-    <div className='row footer'>
-      <div className='justify-content-end'>
-        <p className='footer-text'> Free shipping on all orders. </p>
+    <div className="row footer">
+      <div className="justify-content-end">
+        <p className="footer-text"> Free shipping on all orders. </p>
       </div>
     </div>
   )

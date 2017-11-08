@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Product, Category} = require('../db/models')
-const Op = require('sequelize').Op
 module.exports = router
 
 router.param('id', function (req, res, next, id) {
@@ -24,14 +23,6 @@ router.post('/', (req, res, next) => {
     .then(product => res.json(product))
     .catch(next)
 })
-
-// router.put('/:productId', (req, res, next) => {
-//   Product.update(req.body, {where: {id: req.params.productId}, returning: true})
-//     .then((updatedProduct) => {
-//       res.json(updatedProduct)
-//     })
-//     .catch(next)
-// })
 
 router.put('/:id', (req, res, next) => {
   req.product.update(req.body)

@@ -13,10 +13,10 @@ describe('PastOrder', () => {
   let pastOrder
 
   beforeEach(() => {
-    pastOrder = shallow(<PastOrder order={[{id:1, status:'Processing', orderDetails: [{
+    pastOrder = shallow(<PastOrder order={[{id: 1, status: 'Processing', orderDetails: [{
       quantity: 2,
       price: 45
-    }]}, {id:2, status:'Created'}, {id:2, status:'Processing'}]}/>)
+    }]}, {id: 2, status: 'Created'}, {id: 2, status: 'Processing'}]} />)
   })
 
   it('renders all orders in the List', () => {

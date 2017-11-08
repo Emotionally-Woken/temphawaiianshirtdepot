@@ -23,14 +23,14 @@ class UserHome extends Component {
         <div>
           { isAdmin &&
           <div>
-            <Link to={'/admin/users'}><RaisedButton label={'User Management'}/></Link>
-            <Link to={'/admin/products'}><RaisedButton label={'Product Management'}/></Link>
-            <Link to={'/admin/orders'}><RaisedButton label={'Order Management'}/></Link>
+            <Link to={'/admin/users'}><RaisedButton label={'User Management'} /></Link>
+            <Link to={'/admin/products'}><RaisedButton label={'Product Management'} /></Link>
+            <Link to={'/admin/orders'}><RaisedButton label={'Order Management'} /></Link>
           </div>
           }
         </div>
         <div>
-          <PastOrder orders={orders}/>
+          <PastOrder orders={orders} />
         </div>
       </div>
     )

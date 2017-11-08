@@ -1,14 +1,13 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import { Rating } from 'material-ui-rating'
 
-const ReviewList = (props)=>{
+const ReviewList = (props) => {
   let {reviews, productId} = props
   let selectedReviews;
-  if(reviews){
+  if (reviews){
     selectedReviews = reviews.filter(review => review.productId === +productId)
   }
 

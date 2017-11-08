@@ -40,7 +40,6 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
-        console.log('this is a sign in event!')
         dispatch(getUser(res.data))
         history.push('/home')
         const userCart = res.data.orders.find(order => order.status === 'Active Cart')

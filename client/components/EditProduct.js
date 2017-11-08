@@ -55,10 +55,6 @@ class EditProduct extends Component {
     const products = this.props.products
     const productId = +this.props.match.params.productId
     const selectedProduct = products.length ? products.find(product => product.id === productId) : {}
-    // console.log("products", products)
-    // console.log("productId", productId)
-    // console.log("selectedProduct", selectedProduct)
-
     return (
       <form name="myForm" onSubmit={this.emptyState}>
         <fieldset>

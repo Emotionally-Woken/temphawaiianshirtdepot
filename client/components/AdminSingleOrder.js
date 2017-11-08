@@ -22,13 +22,11 @@ class AdminSingleOrder extends Component {
     })
   };
 
-  handleDropDownChange(e, idx, value){
-    e.preventDefault()
+  handleDropDownChange(event, idx, value){
+    event.preventDefault()
     this.setState({
       dropDownValue: value
   });}
-
-
 
 
   render(){

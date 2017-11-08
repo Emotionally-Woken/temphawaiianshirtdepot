@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, OrderDetail } = require('../db/models')
+const { OrderDetail } = require('../db/models')
 module.exports = router
 
 router.post('/', (req, res, next) => {
@@ -11,7 +11,6 @@ router.post('/', (req, res, next) => {
 })
 
 router.post('/localCart', (req, res, next) => {
-  console.log(req.body.orderDetails)
   return Promise.all(req.body.orderDetails.map(orderDetail => {
     orderDetail.orderId = req.body.id
     OrderDetail.create(orderDetail)

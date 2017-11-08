@@ -12,16 +12,16 @@ enzyme.configure({ adapter })
 describe('Collections', () => {
   let collections, collections1, collectionsFail
 
-  let products = [{ description: "hawaiian", image: "this.url", category: ['Performance'] }, { description: "lawaiian", image: "lhis.url", category: ['Performance'] }]
+  let products = [{ description: 'hawaiian', image: 'this.url', category: ['Performance'] }, { description: 'lawaiian', image: 'lhis.url', category: ['Performance'] }]
 
-  let products1 = [{ description: "hawaiian", image: "this.url", category: ['Performance'] }]
+  let products1 = [{ description: 'hawaiian', image: 'this.url', category: ['Performance'] }]
 
-  let productsFail = [{ description: "hawaiian", image: "this.url", category: ['Performance'] }]
+  let productsFail = [{ description: 'hawaiian', image: 'this.url', category: ['Performance'] }]
 
   beforeEach(() => {
-    collections = shallow(<Collections products={products} collectionType={"Performance"} />)
-    collections1 = shallow(<Collections products={products1} collectionType={"Performance"} />)
-    collectionsFail = shallow(<Collections products={productsFail} collectionType={"Performance"} />)
+    collections = shallow(<Collections products={products} collectionType={'Performance'} />)
+    collections1 = shallow(<Collections products={products1} collectionType={'Performance'} />)
+    collectionsFail = shallow(<Collections products={productsFail} collectionType={'Performance'} />)
   })
 
   xit('renders a collection', () => {

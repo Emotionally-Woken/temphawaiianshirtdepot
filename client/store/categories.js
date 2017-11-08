@@ -10,7 +10,7 @@ export const fetchAllCategories = () =>
   dispatch =>
     axios.get('/api/categories')
     .then(categories => {
-      console.log("categoriesReducer", categories)
+      console.log('categoriesReducer', categories)
       dispatch(getCategories(categories.data))
     })
     .catch(err => console.log(err))
@@ -20,7 +20,7 @@ export const addCategory = (category, history) =>
       axios.post('/api/categories', category)
         .then(res => res.data)
         .then(newCategory => {
-          console.log("newCategory", newCategory)
+          console.log('newCategory', newCategory)
           dispatch(createCategory(newCategory))
           history.push(`/`)
         })
@@ -31,8 +31,8 @@ export default function(categories = [], action) {
     case GET_ALL_CATEGORIES:
       return action.categories
     case CREATE_CATEGORY:
-    console.log("122sdsfad", )
-    console.log("iiii",[action.category, categories])
+    console.log('122sdsfad', )
+    console.log('iiii', [action.category, categories])
       return categories.concat(action.category)
     default:
       return categories

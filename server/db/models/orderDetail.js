@@ -16,7 +16,7 @@ OrderDetail.beforeCreate((orderDetail) => {
   Product.findById(orderDetail.productId)
   .then(product => {
     if (orderDetail.quantity > product.quantity) {
-      throw new Error("Amount exceeds inventory")
+      throw new Error('Amount exceeds inventory')
     }
   })
   .catch(console.error)

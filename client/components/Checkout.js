@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeQuantityThunk, createOrderThunk } from '../store/';//fetchItems
+import { createOrderThunk } from '../store/';
 import Cart from './Cart'
-//----------------------------
-// user signup-component 
-//changed
-//-------------------------
+
+
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +42,7 @@ class CheckoutForm extends Component {
 
   renderLoginOrSignUp() {
     return (
-      <div id='checkoutShippingField'>
+      <div id="checkoutShippingField">
         <h4>Login</h4>
         <h4>Or Sign up</h4>
         <button>No mahalo, guest check out</button>
@@ -71,10 +69,10 @@ class CheckoutForm extends Component {
           Mahalo, {user.firstName || 'Surfer Dude!'}
         </h1>
         <Cart history={history} />
-        <button 
-          disabled={!cart.orderDetails.length} 
-          onClick={(e) => {
-            e.preventDefault()
+        <button
+          disabled={!cart.orderDetails.length}
+          onClick={(event) => {
+            event.preventDefault()
             cart.status = 'Created'
             handleClickPay(cart)
           }} >Pay!</button>
@@ -95,4 +93,3 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
 
-//
