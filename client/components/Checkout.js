@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeQuantityThunk, createOrderThunk } from '../store/';//fetchItems
+import { changeQuantityThunk, createOrderThunk, createCartThunk } from '../store/';//fetchItems
 import Cart from './Cart'
 //----------------------------
 // user signup-component 
@@ -76,7 +76,7 @@ class CheckoutForm extends Component {
           onClick={(e) => {
             e.preventDefault()
             cart.status = 'Created'
-            handleClickPay(cart)
+            handleClickPay(cart, user)
           }} >Pay!</button>
       </div>
     );
@@ -88,8 +88,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  handleClickPay: (cart) => {
+  handleClickPay: (cart, user) => {
     dispatch(createOrderThunk(cart))
+    dispatch(createCartThunk(user))
     ownProps.history.push('/home')
   }
 });
