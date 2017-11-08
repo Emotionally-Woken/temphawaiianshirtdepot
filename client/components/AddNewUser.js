@@ -149,7 +149,7 @@ class AddNewUser extends Component {
             // errorStyle={styles.errorStyle}
           /><br />
 
-          <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Create User" primary={true} />
+          <FlatButton styles={'margin-bottom: 20px'} type="submit" label="Submit" primary={true} />
         </fieldset>
       </form>
     )
