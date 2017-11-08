@@ -116,7 +116,7 @@ export const addToCartThunk = (item, cart) =>
       history.push('/cart');
 }
 
-export const userLogsInCreateCartThunk = user =>
+export const createCartThunk = user =>
   dispatch => {
     axios.post(`/api/orders/${user.id}/create`, user)
     .then(res => {

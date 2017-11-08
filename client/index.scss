@@ -15,9 +15,16 @@ body {
   }
 
   form div {
-    margin: 1em;
+    // margin: 1em;
     display: inline-block;
   }
+}
+
+
+.checkoutbuttons {
+  display: flex;
+  justify-content: flex-start;
+  margin: 2em;
 }
 
 .thumbnail {

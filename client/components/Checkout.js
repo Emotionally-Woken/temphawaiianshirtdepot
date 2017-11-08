@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createOrderThunk } from '../store/';
+import { changeQuantityThunk, createOrderThunk, createCartThunk } from '../store/';//fetchItems
 import Cart from './Cart'
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 class CheckoutForm extends Component {
@@ -34,18 +35,15 @@ class CheckoutForm extends Component {
   renderUserAddress() {
     const { user } = this.props
     return (
-      <div>
-        <p>{user.shippingAddress}</p>
-        <p>{`${user.city}, ${user.state} ${user.zip}`}</p>
+      <div className='useraddress'>
+        <p>{`${user.shippingAddress}, ${user.city}, ${user.state} ${user.zip}`}</p>
       </div>)
   }
 
   renderLoginOrSignUp() {
     return (
-      <div id="checkoutShippingField">
-        <h4>Login</h4>
-        <h4>Or Sign up</h4>
-        <button>No mahalo, guest check out</button>
+      <div id='checkoutShippingField'>
+        <RaisedButton label='guest checkout' secondary={true} />
       </div>)
   }
   render() {
@@ -53,29 +51,25 @@ class CheckoutForm extends Component {
 
     return (
       <div>
-        {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
-        <form onSubmit={this.handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="checkoutInputCoupon">Coupon</label>
-            <input
-              name="coupon"
-              type="text"
-              className="form-control"
-              value={this.state.coupon}
-              onChange={this.handleChange} />
-          </div>
-        </form>
         <h1>
           Mahalo, {user.firstName || 'Surfer Dude!'}
         </h1>
+        <div>
         <Cart history={history} />
-        <button
-          disabled={!cart.orderDetails.length}
+        </div>
+        <div className='checkoutbuttons'>
+        <RaisedButton
+          label='pay'
+          primary={true}
+          disabled={!cart.orderDetails.length} 
           onClick={(event) => {
             event.preventDefault()
             cart.status = 'Created'
             handleClickPay(cart)
-          }} >Pay!</button>
+          }} />
+        {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
+        </div>
+
       </div>
     );
   }
@@ -86,8 +80,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  handleClickPay: (cart) => {
+  handleClickPay: (cart, user) => {
     dispatch(createOrderThunk(cart))
+    dispatch(createCartThunk(user))
     ownProps.history.push('/home')
   }
 });

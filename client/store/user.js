@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {userLogsOutRemoveCartAction, userLogsInAddCartThunk, userLogsInCreateCartThunk} from './index'
+import {userLogsOutRemoveCartAction, userLogsInAddCartThunk, createCartThunk} from './index'
 
 /**
  * ACTION TYPES
@@ -30,7 +30,7 @@ export const me = () =>
         if (res.data.id) {
           const userCart = res.data.orders.find(order => order.status === 'Active Cart')
           if (userCart) dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id))
-          else dispatch(userLogsInCreateCartThunk(res.data))
+          else dispatch(createCartThunk(res.data))
         }
         }
       )
