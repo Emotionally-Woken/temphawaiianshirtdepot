@@ -40,11 +40,11 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
-        console.log('this is a sign in event!')
+        console.log('this is a sign in event.', res.data)
         dispatch(getUser(res.data))
         history.push('/home')
         const userCart = res.data.orders.find(order => order.status === 'Active Cart')
-        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(createCartThunk(res.data))
+        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
       })
       .catch(error =>
         dispatch(getUser({error})))
