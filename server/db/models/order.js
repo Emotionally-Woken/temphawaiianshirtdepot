@@ -7,6 +7,9 @@ const Order = db.define('order', {
     type: Sequelize.ENUM( 'Active Cart', 'Created', 'Processing', 'Canceled', 'Completed'),
     defaultValue: 'Active Cart',
     allowNull: false
+  },
+  totalPrice: {
+    type: Sequelize.DECIMAL(10, 2)
   }
 }, {
   defaultScope: {include: [ OrderDetail ]}

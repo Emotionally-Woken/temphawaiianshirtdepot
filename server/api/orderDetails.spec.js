@@ -83,7 +83,7 @@ describe('Order Details routes', () => {
         })
         .then(foundOrderDetail => {
           expect(foundOrderDetail).to.be.an('object')
-          expect(foundOrderDetail.price).to.equal(25)
+          expect(foundOrderDetail.price).to.equal('25.00')
         })
       })
     })

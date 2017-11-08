@@ -3,19 +3,19 @@ const {Order, OrderDetail} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  Order.findAll({include: [{model: OrderDetail}]})
+  return Order.findAll({include: [{model: OrderDetail}]})
     .then(orders => res.json(orders))
     .catch(next)
 })
 
 router.get('/:userId', (req, res, next) => {
-  Order.findAll({where: {userId: req.params.userId}, include: [{model: OrderDetail}]})
+  return Order.findAll({where: {userId: req.params.userId}, include: [{model: OrderDetail}]})
     .then(orders => res.json(orders))
     .catch(next)
 })
 
 router.post('/:userId/create', (req, res, next) => {
-  Order.create({status: 'Active Cart'})
+  return Order.create({status: 'Active Cart'})
   .then((newOrder => {
     newOrder.setUser(req.params.userId)
     res.json(newOrder)
@@ -23,8 +23,18 @@ router.post('/:userId/create', (req, res, next) => {
   .catch(next)
 })
 
+router.put('/createdOrder/', (req, res, next) => {
+  console.log(req.body)
+  return Order.findById(req.body.order.id)
+  .then(foundOrder => {
+    return foundOrder.update(req.body.order)
+  })
+  .then(res.json.bind(res))
+  .catch()
+})
+
 router.put('/', (req, res, next) => {
-  Order.update({status: req.body.status}, {where: {id: req.body.id}})
+  return Order.update({status: req.body.status}, {where: {id: req.body.id}})
   .then((updatedOrder => {
     res.json(updatedOrder)
   }))

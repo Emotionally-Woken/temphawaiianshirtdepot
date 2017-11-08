@@ -9,7 +9,7 @@ const OrderDetail = db.define('orderDetail', {
       min: 1
     }
   },
-  price: Sequelize.INTEGER
+  price: Sequelize.DECIMAL(10, 2)
 })
 
 OrderDetail.beforeCreate((orderDetail) => {
