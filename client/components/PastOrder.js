@@ -20,7 +20,7 @@ export const PastOrder = ({orders}) => {
           secondaryText={
             <div>
               <span style={{color: darkBlack}}>{`${order.status}`}</span> --
-              {`Total Cost: $${order.orderDetails.length === 1 ? order.orderDetails[0].price : order.orderDetails.reduce((a,b)=> (a.quantity * a.price + b.quantity * b.price))}`}
+              {`Total Cost: $${order.totalPrice}`}
               <p> {`${order.createdAt.slice(0,10)}`}</p>
             </div>
           }
