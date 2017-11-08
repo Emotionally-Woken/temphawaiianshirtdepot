@@ -25,11 +25,11 @@ export const AllProducts = (props) => {
       overflowY: 'auto',
     },
   };
-
+if(products) {
   return (
     <div style={styles.root}>
       <GridList cellHeight={500} style={styles.gridList} cols={4}>
-        {products && products.map(product =>
+        {products.map(product =>
           (<GridTile key={product.id}>
             <ProductItem
               product={product}
@@ -42,6 +42,14 @@ export const AllProducts = (props) => {
       </GridList>
     </div>
   )
+} else  {
+  return (<div>
+            <FloatingActionButton >
+              <FontIcon className="fa fa-spinner fa-pulse fa-3x fa-fw"
+                aria-hidden="true" />
+              </FloatingActionButton>
+          </div>)
+}
 }
 
 
