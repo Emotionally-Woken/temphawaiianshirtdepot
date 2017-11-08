@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { changeQuantityThunk, createOrderThunk } from '../store/';//fetchItems
+import { changeQuantityThunk, createOrderThunk, createCartThunk } from '../store/';//fetchItems
 import Cart from './Cart'
 import RaisedButton from 'material-ui/RaisedButton';
 //----------------------------
@@ -73,6 +73,7 @@ class CheckoutForm extends Component {
           }} />
         {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
         </div>
+
       </div>
     );
   }
@@ -83,8 +84,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  handleClickPay: (cart) => {
+  handleClickPay: (cart, user) => {
     dispatch(createOrderThunk(cart))
+    dispatch(createCartThunk(user))
     ownProps.history.push('/home')
   }
 });
