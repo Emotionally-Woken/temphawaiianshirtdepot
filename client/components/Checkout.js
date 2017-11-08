@@ -69,7 +69,7 @@ class CheckoutForm extends Component {
           onClick={(e) => {
             e.preventDefault()
             cart.status = 'Created'
-            handleClickPay(cart)
+            handleClickPay(cart, user)
           }} />
         {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
         </div>
