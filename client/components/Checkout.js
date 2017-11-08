@@ -65,7 +65,7 @@ class CheckoutForm extends Component {
           onClick={(event) => {
             event.preventDefault()
             cart.status = 'Created'
-            handleClickPay(cart)
+            handleClickPay(cart, user)
           }} />
         {(user.id && this.renderUserAddress()) || this.renderLoginOrSignUp()}
         </div>
@@ -87,4 +87,3 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
-
