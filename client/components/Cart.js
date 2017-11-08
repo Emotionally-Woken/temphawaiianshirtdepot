@@ -5,13 +5,14 @@ import { changeQuantityThunk, removeFromCartThunk } from '../store' //deleted ca
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FontIcon from 'material-ui/FontIcon';
 import Divider from 'material-ui/Divider'
+import RaisedButton from 'material-ui/RaisedButton';
 
 const style = {
   marginRight: 20,
 }
 
-const pstyle = {
-  alignItems: "flex-start"
+const checkoutstyle = {
+  margin: 12
 }
 
 
@@ -47,7 +48,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
                     <Link to={`/item/${item.id}`}>{item.title}</Link>
                       <div className="quantityPrice">
                         <p>this much aloha: {orderDetail.quantity}</p>
-                        <p>the price of aloha: '$'{itemPrice.toFixed(2)}</p>
+                        <p>the price of aloha: ${itemPrice.toFixed(2)}</p>
                       </div>
                   </div>
                   <div className="spacer"/>
@@ -79,7 +80,7 @@ function Cart({cart, products, user, handleAmountChange, handleRemoveFromCart, h
           )
         })}
         <h4>Total: {totalPrice.toFixed(2)}</h4>
-        {isCartLocation && <Link to={'/checkout'}><button>checkout</button></Link>}
+        {isCartLocation && <Link to={'/checkout'}><RaisedButton label="checkout" primary={true} style={checkoutstyle} /></Link>}
       </div>
     )
   } else {
