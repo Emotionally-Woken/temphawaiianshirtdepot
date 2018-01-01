@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import { GridList, GridTile } from 'material-ui/GridList';
@@ -10,7 +9,7 @@ import {addToCartThunk, changeQuantityThunk} from '../store'
  * COMPONENT
  */
 export const AllProducts = (props) => {
-  let { products, handleAddToCart, cart, handleChangeQuantity, user } = props;
+  let { products, handleAddToCart, cart, handleChangeQuantity } = props;
   const styles = {
     root: {
       display: 'flex',
@@ -51,7 +50,6 @@ if(products) {
           </div>)
 }
 }
-
 
 
 /**

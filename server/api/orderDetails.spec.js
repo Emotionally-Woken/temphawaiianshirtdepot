@@ -1,5 +1,4 @@
 const { expect } = require('chai');
-const request = require('supertest');
 const db = require('../db');
 const app = require('../index');
 const OrderDetail = db.model('orderDetail');
@@ -15,8 +14,8 @@ describe('Order Details routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/orderDetail/', () => { 
-  
+  describe('/api/orderDetail/', () => {
+
     beforeEach(() => {
       return Product.bulkCreate([{
         quantity: 3,
@@ -35,7 +34,7 @@ describe('Order Details routes', () => {
 
     beforeEach(() => {
       return User.create({
-        email: "b@sample.com"
+        email: 'b@sample.com'
       })
     })
 
@@ -87,7 +86,7 @@ describe('Order Details routes', () => {
         })
       })
     })
-    
+
     it('POST /api/orderDetail/localCart', () => {
       const fakeCart = {
           id: 3, orderDetails: [{
@@ -120,7 +119,7 @@ describe('Order Details routes', () => {
         })
       })
     })
-    
+
     it('PUT /api/orderDetail/', () => {
       return agent
       .put(`/api/orderDetail/${1}/${1}`)

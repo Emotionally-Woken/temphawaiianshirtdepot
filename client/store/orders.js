@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 
 /**
@@ -18,8 +17,8 @@ export const createOrders = (order) => ({type: CREATE_ORDER, payload: order})
 
 /* THUNK CREATORS*/
 
-export const createOrderThunk = (order) => 
-  dispatch => 
+export const createOrderThunk = (order) =>
+  dispatch =>
   axios.put(`/api/orders/createdOrder/`, {order})
   .then(res => res.data)
   .then(createdOrder => dispatch(createOrders(createdOrder)))

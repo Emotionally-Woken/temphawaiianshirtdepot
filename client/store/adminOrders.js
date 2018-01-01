@@ -15,7 +15,7 @@ const UPDATE_SINGLE_ORDER = 'UPDATE_SINGLE_ORDER'
 
 export const getAllOrders = (adminOrders) => ({ type: GET_ALL_ORDERS, adminOrders})
 
-export const updateSingleOrder = (payload)=> ({ type: UPDATE_SINGLE_ORDER,
+export const updateSingleOrder = (payload) => ({ type: UPDATE_SINGLE_ORDER,
 payload})
 /* THUNK CREATORS*/
 

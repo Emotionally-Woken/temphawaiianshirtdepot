@@ -57,19 +57,19 @@ const changeBulkQuantityThunk = (cart) =>
 
 export const userLogsInAddCartThunk = (usersCartOrderDetails, orderId) =>
   dispatch => {
-   
+
     const bulkAdd = {id: orderId}
     const changeQuantity = {id: orderId}
     const cartToAdd = localCart()
     const [forChangeQuantityOrderDetails, forBulkAddOrderDetails] = uniqueToBulkAddDuplicateToChangeQuantity(usersCartOrderDetails, cartToAdd)
-   
+
     bulkAdd.orderDetails = forBulkAddOrderDetails
     changeQuantity.orderDetails = forChangeQuantityOrderDetails
-   
+
     dispatch(userLogsInAddCartAction(usersCartOrderDetails, orderId))
     if (bulkAdd.orderDetails.length) dispatch(createBulkOrderDetailsThunk(bulkAdd))
     if (changeQuantity.orderDetails.length) dispatch(changeBulkQuantityThunk(changeQuantity))
-   
+
     resetLocalCart()
   }
 
@@ -85,11 +85,11 @@ export const removeFromCartThunk = orderDetail =>
 
 export const changeQuantityThunk = (orderDetail, delta) =>
   dispatch => {
-    
+
     orderDetail.quantity = delta === 'increment' ? orderDetail.quantity + 1 : orderDetail.quantity - 1
-    
+
     dispatch(changeQuantityAction(orderDetail))
-    
+
     if (orderDetail.orderId) {
     axios.put(`api/orderDetail/${orderDetail.orderId}/${orderDetail.productId}`, orderDetail)
     .catch(console.error)
@@ -98,14 +98,14 @@ export const changeQuantityThunk = (orderDetail, delta) =>
 
 export const addToCartThunk = (item, cart) =>
   dispatch => {
-    
+
     const orderDetail = {}
     orderDetail.productId = item.id;
     orderDetail.price = item.price;
     orderDetail.quantity = 1;
     orderDetail.orderId = cart.id;
     if (cart.id) {
-  
+
       axios.post(`api/orderDetail/`, orderDetail)
       .then(res => {
         const updatedCart = Object.assign({}, cart)
@@ -170,7 +170,7 @@ export default function (state = initialState, action) {
         if (!concattedCarts[newOrderDetail.productId]) {
           concattedCarts[newOrderDetail.productId] = newOrderDetail
         }
-        else concattedCarts[newOrderDetail.productId].quantity += newOrderDetail.quantity
+        else {concattedCarts[newOrderDetail.productId].quantity += newOrderDetail.quantity}
       })
 
       newState.orderDetails = Object.keys(concattedCarts).map(i => {

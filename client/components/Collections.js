@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ProductItem from './ProductItem'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'

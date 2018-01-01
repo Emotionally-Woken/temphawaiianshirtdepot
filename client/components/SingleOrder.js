@@ -3,10 +3,10 @@ import {connect} from 'react-redux'
 import Paper from 'material-ui/Paper'
 import SingleOrderDetail from './SingleOrderDetail'
 
-const SingleOrder = ({userId, orderId, orders})=>{
+const SingleOrder = ({userId, orderId, orders}) => {
   let order
-  if(orders){
-    order = orders.find(o => o.id === orderId)
+  if (orders){
+    order = orders.find(singleOrder => singleOrder.id === orderId)
   }
 
   return (
@@ -15,7 +15,7 @@ const SingleOrder = ({userId, orderId, orders})=>{
         <div>
           {order && order.orderDetails.map(detail => (
               <div key={detail.id}>
-                <SingleOrderDetail userId={userId} detail={detail}/>
+                <SingleOrderDetail userId={userId} detail={detail} />
               </div>
               ))}
         </div>

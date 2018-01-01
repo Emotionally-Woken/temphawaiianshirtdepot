@@ -1,7 +1,5 @@
-/* global describe beforeEach afterEach it */
-
 import {expect} from 'chai'
-import {fetchSelectOrders} from './orders'
+import {fetchSingleReview} from './reviews'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -14,7 +12,7 @@ describe('thunk creators', () => {
   let store
   let mockAxios
 
-  const initialState = {orders: {}}
+  const initialState = {reviews: {}}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -26,15 +24,15 @@ describe('thunk creators', () => {
     store.clearActions()
   })
 
-  describe('fetchSelectOrders', () => {
-    it('eventually dispatches the GET_SELECT_ORDERS action', () => {
-      const fakeOrders = [{id: 1, userId: 2}, {id: 3, userId: 2}]
-      mockAxios.onGet('/api/orders/2').replyOnce(200, fakeOrders)
-      return store.dispatch(fetchSelectOrders(2))
+  describe('fetchSingleReview', () => {
+    it('eventually dispatches the GET_SINGLE_REVIEW: action', () => {
+      const fakeReviews = [{id: 1, reviewId: 10}, {id: 2, reviewId: 1}]
+      mockAxios.onGet('/api/reviews/2').replyOnce(200, fakeReviews)
+      return store.dispatch(fetchSingleReview(2))
         .then(() => {
           const actions = store.getActions()
-          expect(actions[0].type).to.be.equal('GET_SELECT_ORDERS')
-          expect(actions[0].orders).to.be.deep.equal(fakeOrders)
+          expect(actions[0].type).to.be.equal('GET_SINGLE_REVIEW')
+          expect(actions[0].reviews).to.be.deep.equal(fakeReviews)
         })
     })
   })

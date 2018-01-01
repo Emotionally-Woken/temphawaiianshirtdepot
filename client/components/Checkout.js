@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 import { changeQuantityThunk, createOrderThunk, createCartThunk } from '../store/';//fetchItems
 import Cart from './Cart'
 import RaisedButton from 'material-ui/RaisedButton';
-//----------------------------
-// user signup-component 
-//changed
-//-------------------------
 
 
 class CheckoutForm extends Component {
@@ -66,8 +62,8 @@ class CheckoutForm extends Component {
           label='pay'
           primary={true}
           disabled={!cart.orderDetails.length} 
-          onClick={(e) => {
-            e.preventDefault()
+          onClick={(event) => {
+            event.preventDefault()
             cart.status = 'Created'
             handleClickPay(cart, user)
           }} />
@@ -91,5 +87,3 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CheckoutForm);
-
-//

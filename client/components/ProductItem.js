@@ -1,11 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
 import RaisedButton from 'material-ui/FlatButton';
-import {NavLink, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
-const ProductItem = (props)=>{
+const ProductItem = (props) => {
   const {product, handleAddToCart, handleChangeQuantity, cart} = props
 
   return (
@@ -14,15 +13,15 @@ const ProductItem = (props)=>{
         <img
         src={product.image} alt="" />
       </CardMedia>
-      <CardTitle title={product.title} titleStyle={{'fontSize':'12px'}}/>
+      <CardTitle title={product.title} titleStyle={{fontSize: '12px'}} />
       <CardActions>
         <RaisedButton
           label="Add to Cart"
           primary={true}
-          onClick={()=> {
+          onClick={() => {
             const orderDetail = cart.orderDetails.find(item => item.productId === product.id)
             if (orderDetail) {
-              orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert("not enough inventory")
+              orderDetail.quantity < product.quantity ? handleChangeQuantity(orderDetail) : alert('not enough inventory')
           } else {
             handleAddToCart(product, cart)
           }
@@ -30,13 +29,13 @@ const ProductItem = (props)=>{
         <RaisedButton
           label="Product Details"
           secondary={true}
-          containerElement={<Link to={`/item/${product.id}`}/>} />
+          containerElement={<Link to={`/item/${product.id}`} />} />
       </CardActions>
     </Card>
   )
 }
 
-const MapState = (state, ownProps)=>{
+const MapState = (state, ownProps) => {
   return {
     product: ownProps.product
   }

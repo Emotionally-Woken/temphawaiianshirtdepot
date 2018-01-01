@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchAllOrders, updateOrder } from '../store'
+import { fetchAllOrders } from '../store'
 import {
   Table,
   TableBody,
@@ -27,11 +27,11 @@ class AdminOrders extends Component {
 
   render(){
     let { orders } = this.props;
-    orders =((this.state.value === 'All') ? this.props.orders :
+    orders = ((this.state.value === 'All') ? this.props.orders :
       orders.filter(order => order.status === this.state.value))
 
 
-    return(
+    return (
       <div>
         <h3>All Orders</h3>
       <Table>

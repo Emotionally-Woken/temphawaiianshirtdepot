@@ -67,20 +67,17 @@ class SearchBar extends Component {
     const collectionType = currentPath.slice(13);
 
     if (currentPath === `/collections/${collectionType}`) {
-      //console.log('IN A')
       checkbox = true;
-      //const collectionData = products.filter(product => product.category[0] === collectionType);
+
       const collectionData = products.filter(product => product.categories.find(category => category.title === collectionType))
       searchBarData = collectionData;
       productTitleArray = collectionData.map(item => item.title);
     } else {
-      //console.log('IN B')
       searchBarData = products;
       productTitleArray = products.map(item => item.title)
     }
 
     if (this.state.allProducts) {
-      //console.log('IN C')
       searchBarData = products;
       productTitleArray = products.map(item => item.title)
     }
@@ -91,10 +88,8 @@ class SearchBar extends Component {
           hintText="What are you looking for?"
           searchText={this.state.searchText}
           onUpdateInput={this.handleUpdateInput}
-          // onNewRequest={this.handleNewRequest}
           dataSource={productTitleArray}
           filter={AutoComplete.caseInsensitiveFilter}
-          // filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
           openOnFocus={true}
         />
         <FlatButton

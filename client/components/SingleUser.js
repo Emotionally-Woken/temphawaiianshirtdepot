@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { fetchUserThunk, deleteUserThunk, updateUserThunk, fetchAllUsersThunk} from '../store'
@@ -12,26 +12,25 @@ export const SingleUser = ({match, users}) => {
 
   if (users.length) {
     return (
-      <div className='container'>
+      <div className="container">
 
         <h4>{selectedUser.firstName}
           <Link to={`/users/${selectedUser.id}/edit`}>
-            <i className="fa fa-cog" aria-hidden="true"/>
+            <i className="fa fa-cog" aria-hidden="true" />
           </Link>
         </h4>
 
         <h4>{selectedUser.lastName}
           <Link to={`/users/${selectedUser.id}/editname`}>
-            <i className="fa fa-cog" aria-hidden="true"/>
+            <i className="fa fa-cog" aria-hidden="true" />
           </Link>
         </h4>
-
 
 
       </div>
     )
   } else {
-      return (<div>Loading...<i className='fa fa-spinner fa-pulse fa-3x fa-fw' aria-hidden="true"/></div>)
+      return (<div>Loading...<i className="fa fa-spinner fa-pulse fa-3x fa-fw" aria-hidden="true" /></div>)
   }
 }
 

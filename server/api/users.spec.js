@@ -29,5 +29,14 @@ describe('User routes', () => {
           expect(res.body[0].email).to.be.equal(codysEmail)
         })
     })
+
+    it('GET /api/users/:userId', () => {
+      return request(app)
+        .get('/api/users/1')
+        .expect(200)
+        .then(res => {
+          expect(res.body.email).to.be.equal(codysEmail)
+        })
+    })
   }) // end describe('/api/users')
 }) // end describe('User routes')

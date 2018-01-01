@@ -12,7 +12,7 @@ const Tag = require('./tag')
  Review.belongsTo(User, {
    constraints: false
  })
- Product.hasMany(Review,{
+ Product.hasMany(Review, {
   constraints: false
 })
  Review.belongsTo(Product, {

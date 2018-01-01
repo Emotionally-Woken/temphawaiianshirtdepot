@@ -21,6 +21,6 @@ Order.getStatusWhere = (orderStatus) => {
     return foundOrders
   })
   .catch(console.error)
-} 
+}
 
 module.exports = Order;
