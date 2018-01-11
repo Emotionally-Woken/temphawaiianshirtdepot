@@ -20,6 +20,38 @@ body {
   }
 }
 
+.weather {
+  display: flex;
+  flex-direction: row;
+}
+
+.weatherNav {
+  width: 100vw;
+  height: 3vh;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  animation-name: blink;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1
+  }
+  50% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1
+  }
+}
 
 .checkoutbuttons {
   display: flex;
@@ -52,3 +84,14 @@ body {
 // .container {
 //   margin-bottom: 5%;
 // }
+
+.singleOrder {
+  display: flex;
+  height: 50vh;
+  widows: auto;
+}
+
+.productImage {
+  margin-top: 1em;
+  margin-left: 1em;
+}

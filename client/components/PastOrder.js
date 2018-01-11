@@ -33,7 +33,7 @@ export const PastOrder = ({orders}) => {
           secondaryTextLines={2}
         />
         </List>)
-      )}
+      }
       </List>
     </Paper>
   )
