@@ -11,7 +11,7 @@ const SingleOrder = ({userId, orderId, orders}) => {
 
   return (
     <div>
-      <Paper>
+      <Paper className='singleOrder'>
         <div>
           {order && order.orderDetails.map(detail => (
               <div key={detail.id}>

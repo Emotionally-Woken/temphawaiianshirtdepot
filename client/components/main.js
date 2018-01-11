@@ -9,6 +9,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './drawer'
 import SearchBar from './SearchBar';
+import Weather from './Weather'
+import APIKEY from '../../secrets.js'
 
 class Main extends React.Component {
 
@@ -16,15 +18,27 @@ class Main extends React.Component {
     super(props);
     this.state = {
       value: 3,
+      hawaii: null
     };
     this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount(){
+    console.log('mounted, fetching')
+    fetch(`http://api.wunderground.com/api/${APIKEY}/geolookup/conditions/q/HI/Honolulu.json`)
+    .then(data => data.json())
+    .then(parsedData => {
+      console.log('parsed data', parsedData)
+      this.setState({hawaii: parsedData})
+    })
+    .catch(console.error);
   }
 
   handleChange = (event, index, value) => this.setState({value});
 
   render(){
     const {children, handleClick, isLoggedIn} = this.props
-
+    console.log(this.state)
     return (
       <div>
         <Toolbar>
@@ -41,7 +55,6 @@ class Main extends React.Component {
             </Link>
             <FontIcon className="muidocs-icon-custom-sort" />
           </ToolbarGroup>
-
           <ToolbarGroup>
           {
             isLoggedIn
@@ -63,6 +76,9 @@ class Main extends React.Component {
           </ToolbarGroup>
 
         </Toolbar>
+        <div className='weatherNav'>
+          <Weather hawaii={this.state.hawaii} />
+        </div>
 
         <hr />
         {children}
