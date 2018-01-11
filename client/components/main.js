@@ -10,7 +10,8 @@ import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './drawer'
 import SearchBar from './SearchBar';
 import Weather from './Weather'
-import APIKEY from '../../secrets.js'
+
+const APIKEY = process.env.WUNDER_API || require('../../secrets.js')
 
 class Main extends React.Component {
 
