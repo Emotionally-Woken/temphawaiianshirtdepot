@@ -24,11 +24,9 @@ class Main extends React.Component {
   }
 
   componentDidMount(){
-    console.log('mounted, fetching')
     fetch(`http://api.wunderground.com/api/${apiKey}/geolookup/conditions/q/HI/Honolulu.json`)
     .then(data => data.json())
     .then(parsedData => {
-      console.log('parsed data', parsedData)
       this.setState({hawaii: parsedData})
     })
     .catch(console.error);
@@ -38,7 +36,8 @@ class Main extends React.Component {
 
   render(){
     const {children, handleClick, isLoggedIn} = this.props
-    console.log(this.state)
+    console.log(process.env)
+    console.log(process.env.WUNDER_API)
     return (
       <div>
         <Toolbar>
