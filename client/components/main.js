@@ -24,7 +24,7 @@ class Main extends React.Component {
 
   componentDidMount(){
     console.log('mounted, fetching')
-    fetch(`http://api.wunderground.com/api/${WUNDER_API}/geolookup/conditions/q/HI/Honolulu.json`)
+    fetch(`http://api.wunderground.com/api/${process.env.WUNDER_API}/geolookup/conditions/q/HI/Honolulu.json`)
     .then(data => data.json())
     .then(parsedData => {
       console.log('parsed data', parsedData)
