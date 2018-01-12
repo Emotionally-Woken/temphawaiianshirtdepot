@@ -10,7 +10,7 @@ import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './drawer'
 import SearchBar from './SearchBar';
 import Weather from './Weather'
-const apiKey = process.env.WUNDER_API
+import axios from 'axios'
 
 class Main extends React.Component {
 
@@ -23,21 +23,19 @@ class Main extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
-  componentDidMount(){
-    fetch(`http://api.wunderground.com/api/${apiKey}/geolookup/conditions/q/HI/Honolulu.json`)
-    .then(data => data.json())
-    .then(parsedData => {
-      this.setState({hawaii: parsedData})
-    })
-    .catch(console.error);
+  componentDidMount() {
+    axios.get('api/wunderground')
+      .then(res => {
+        this.setState({ hawaii: res.data })
+      })
+      .catch(console.error);
   }
 
   handleChange = (event, index, value) => this.setState({value});
 
   render(){
     const {children, handleClick, isLoggedIn} = this.props
-    console.log(process.env)
-    console.log(process.env.WUNDER_API)
+  
     return (
       <div>
         <Toolbar>
