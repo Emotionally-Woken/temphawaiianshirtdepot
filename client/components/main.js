@@ -11,8 +11,6 @@ import Sidebar from './drawer'
 import SearchBar from './SearchBar';
 import Weather from './Weather'
 
-const APIKEY = process.env.WUNDER_API || require('../../secrets.js')
-
 class Main extends React.Component {
 
   constructor(props) {
@@ -26,7 +24,7 @@ class Main extends React.Component {
 
   componentDidMount(){
     console.log('mounted, fetching')
-    fetch(`http://api.wunderground.com/api/${APIKEY}/geolookup/conditions/q/HI/Honolulu.json`)
+    fetch(`http://api.wunderground.com/api/${WUNDER_API}/geolookup/conditions/q/HI/Honolulu.json`)
     .then(data => data.json())
     .then(parsedData => {
       console.log('parsed data', parsedData)
