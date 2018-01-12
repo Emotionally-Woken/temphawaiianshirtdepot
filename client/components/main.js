@@ -10,6 +10,7 @@ import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
 import Sidebar from './drawer'
 import SearchBar from './SearchBar';
 import Weather from './Weather'
+const apiKey = process.env.WUNDER_API
 
 class Main extends React.Component {
 
@@ -24,7 +25,7 @@ class Main extends React.Component {
 
   componentDidMount(){
     console.log('mounted, fetching')
-    fetch(`http://api.wunderground.com/api/${process.env.WUNDER_API}/geolookup/conditions/q/HI/Honolulu.json`)
+    fetch(`http://api.wunderground.com/api/${apiKey}/geolookup/conditions/q/HI/Honolulu.json`)
     .then(data => data.json())
     .then(parsedData => {
       console.log('parsed data', parsedData)
