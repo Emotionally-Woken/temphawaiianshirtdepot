@@ -38,7 +38,7 @@ export const addProduct = (product) =>
 export const changeProduct = (id, product) =>
     dispatch =>
       axios.put(`/api/products/${id}`, product)
-        .then(res =>res.data)
+        .then(res => res.data)
         .then(updatedProduct => {
            dispatch(updateProduct(updatedProduct))
            history.push(`/item/${id}`)

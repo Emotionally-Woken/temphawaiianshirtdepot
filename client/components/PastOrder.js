@@ -10,7 +10,7 @@ import {darkBlack} from 'material-ui/styles/colors';
 export const PastOrder = ({orders}) => {
 
   let selectedOrders
-  if(orders && orders.length){
+  if (orders && orders.length){
     selectedOrders = orders.filter(order => order.status !== 'Active Cart')
   }
 
@@ -19,7 +19,7 @@ export const PastOrder = ({orders}) => {
       <List>
         <Subheader>PREVIOUS ORDERS</Subheader>
       {selectedOrders && selectedOrders.map(order =>
-      <List key={order.id}>
+      (<List key={order.id}>
         <ListItem
           primaryText= {`Order : #${order.id}`}
           containerElement={<Link to={`/order/${order.id}`} />}
@@ -32,7 +32,7 @@ export const PastOrder = ({orders}) => {
           }
           secondaryTextLines={2}
         />
-        </List>)
+        </List>))
       }
       </List>
     </Paper>

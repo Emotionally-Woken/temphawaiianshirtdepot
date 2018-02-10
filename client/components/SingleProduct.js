@@ -18,7 +18,7 @@ const SingleProduct = (props) => {
   if (user) {
     isAdmin = user.id && user.isAdmin
   }
-  
+
   return (
     <div>
       {selectedProduct &&
