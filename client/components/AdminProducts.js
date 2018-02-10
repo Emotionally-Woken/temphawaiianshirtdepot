@@ -18,9 +18,9 @@ class AdminProducts extends Component {
   render(){
     let { products } = this.props;
 
-    return(
+    return (
       <div>
-        <h3 style={{display: "inline-block"}}>All Products</h3>
+        <h3 style={{display: 'inline-block'}}>All Products</h3>
         <Link to={'/createProduct'} >
           <FlatButton label="Add New Product" />
         </Link>

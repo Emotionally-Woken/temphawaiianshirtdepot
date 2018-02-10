@@ -35,7 +35,7 @@ class Main extends React.Component {
 
   render(){
     const {children, handleClick, isLoggedIn} = this.props
-  
+
     return (
       <div>
         <Toolbar>
@@ -73,7 +73,7 @@ class Main extends React.Component {
           </ToolbarGroup>
 
         </Toolbar>
-        <div className='weatherNav'>
+        <div className="weatherNav">
           <Weather hawaii={this.state.hawaii} />
         </div>
 

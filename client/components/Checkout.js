@@ -34,16 +34,16 @@ class CheckoutForm extends Component {
 
   renderUserAddress() {
     const { user } = this.props
-    return (
-      <div className='useraddress'>
+    return user.shippingAddress !== null ?
+    <div className="useraddress">
         <p>{`${user.shippingAddress}, ${user.city}, ${user.state} ${user.zip}`}</p>
-      </div>)
+      </div> : <div />
   }
 
   renderLoginOrSignUp() {
     return (
-      <div id='checkoutShippingField'>
-        <RaisedButton label='guest checkout' secondary={true} />
+      <div id="checkoutShippingField">
+        <RaisedButton label="guest checkout" secondary={true} />
       </div>)
   }
   render() {
@@ -57,11 +57,11 @@ class CheckoutForm extends Component {
         <div>
         <Cart history={history} />
         </div>
-        <div className='checkoutbuttons'>
+        <div className="checkoutbuttons">
         <RaisedButton
-          label='pay'
+          label="pay"
           primary={true}
-          disabled={!cart.orderDetails.length} 
+          disabled={!cart.orderDetails.length}
           onClick={(event) => {
             event.preventDefault()
             cart.status = 'Created'

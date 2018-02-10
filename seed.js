@@ -154,7 +154,7 @@ const makeFakeOrders = (num) => {
   for (let i = 1; i <= num; i++) {
     fakeOrders.push({
       userId: chance.integer({ min: 1, max: 5 }),
-      status: statuses[chance.natural({ num: 0, max: statuses.length -1 })],
+      status: statuses[chance.natural({ num: 0, max: statuses.length - 1 })],
       orderDetailId: orderIdNumber.shift()
     })
   }
@@ -172,8 +172,8 @@ const makeFakeOrders = (num) => {
 
   const [orders, orderDetails] = makeFakeOrders(10)
   const users = makeFakeUsers(10).concat(setUsers)
-  const [products, joinTable] = makeFakeProducts(10)
-  const reviews = makeFakeReviews(20)
+  const [products, joinTable] = makeFakeProducts(100)
+  const reviews = makeFakeReviews(200)
   const genCategories = makeFakeCategories()
 
   const seed = () => {

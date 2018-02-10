@@ -92,7 +92,7 @@ class SingleOrderDetail extends Component {
       <GridList cols={2} cellHeight={300} padding={1} style={styles.gridList}>
         <Link to={`/item/${orderedProduct.id}`}>
           <GridTile>
-            <img className='productImage' src={orderedProduct.image} />
+            <img className="productImage" src={orderedProduct.image} />
           </GridTile>
         </Link>
         <GridTile>

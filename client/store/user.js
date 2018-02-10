@@ -26,6 +26,7 @@ export const me = () =>
   dispatch =>
     axios.get('/auth/me')
       .then(res => {
+        console.log('in me')
         dispatch(getUser(res.data || defaultUser))
         if (res.data.id) {
           const userCart = res.data.orders.find(order => order.status === 'Active Cart')
@@ -40,13 +41,15 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
+        console.log('auth')
         dispatch(getUser(res.data))
         history.push('/home')
         const userCart = res.data.orders.find(order => order.status === 'Active Cart')
-        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(userLogsInCreateCartThunk(res.data))
+        userCart ? dispatch(userLogsInAddCartThunk(userCart.orderDetails, userCart.id)) : dispatch(createCartThunk(res.data))
+      }, authError => {
+        dispatch(getUser({ error: authError }))
       })
-      .catch(error =>
-        dispatch(getUser({error})))
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 
 export const logout = () =>
   dispatch =>
