@@ -44,7 +44,18 @@ const User = db.define('user', {
   googleId: {
     type: Sequelize.STRING
   }
-}, {defaultScope: {include: [{model: Order}]}})
+}, {
+  scopes: {
+    orders: {
+      include: [
+        {
+          model: Order
+        }
+      ]
+    }
+  }
+  }
+)
 
 module.exports = User
 
