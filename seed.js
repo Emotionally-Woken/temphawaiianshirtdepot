@@ -17,12 +17,12 @@ const images = [
 ]
 
 //Words to create fake shirts
-const hawaiianWords = ['Island Dreamin in ', 'Paradise of ', 'The Aloha in ', 'Wave Catchin on ', 'Hangin ten with ', 'Volcano of ', 'Sunshine on ']
-const locationWords = ['the Long Beach', 'my Many Dreams', 'the Lovely Sunshine', 'a Cool Breeze', 'a Nice Wave', 'a Quart of Friendly Lava', 'Some Grains of Cool Sand']
+const hawaiianWords = ['Dreamin in ', 'Paradise of ', 'Aloha in ', 'Surf ', 'Sip ', 'Volcano of ', 'Sunshine on ']
+const locationWords = ['the Beach', 'Dreams', 'the Sunshine', 'Salty Breezes', 'a Nice Wave', 'some Lava', 'Wet Sand']
 
 //mad libs for fake reviews.
-const madLibNouns = ['shirt', 'masterpiece', 'shawl', 'tropical garb', 'armour', 'cool shirt', 'awesome shirt']
-const madLibAdjectives = ['beautiful', 'awesome', 'amazing', 'confident', 'super tropical', 'unstoppable', 'taller', 'smarter']
+const madLibNouns = ['shirt', 'masterpiece', 'shawl', 'tropical garb', 'armour', 'cool shirt', 'awesome shirt', 'lifestyle']
+const madLibAdjectives = ['beautiful', 'awesome', 'amazing', 'confident', 'super tropical', 'unstoppable', 'taller', 'smarter', 'unafraid', 'no longer ashamed']
 const madLibPronoun = ['my son', 'my wife', 'my mom', 'my dad', 'my dog', 'me', 'my neighbor']
 const setUsers = [{
       firstName: 'John',

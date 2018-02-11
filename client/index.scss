@@ -20,6 +20,43 @@ body {
   }
 }
 
+.productTile {
+  display: flex;
+  flex-direction: column;
+  margin: .5em;
+  height: 26em;
+  width: 16em;
+  border-bottom: 0em;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.productItemTitle {
+    display: flex;
+    flex-direction: column;
+    font-size: .9em;
+    justify-content: center;
+    align-items: center;
+    margin: 0em;
+    margin-top: 1em;
+    padding: 0em;
+    flex-wrap: nowrap;
+    flex-shrink: 2;
+}
+
+
+.productButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  padding: 0em;
+}
+
+.mainContainer {
+  width: 100vw;
+  height: 100vh;
+}
+
 .wunderground {
   height: 3vh;
   margin: auto;

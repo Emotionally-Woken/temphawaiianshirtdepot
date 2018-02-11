@@ -8,13 +8,13 @@ const ProductItem = (props) => {
   const {product, handleAddToCart, handleChangeQuantity, cart} = props
 
   return (
-    <Card>
+    <Card className={'productTile'}>
       <CardMedia>
         <img
         src={product.image} alt="" />
       </CardMedia>
-      <CardTitle title={product.title} titleStyle={{fontSize: '12px'}} />
-      <CardActions>
+      <h4 className={'productItemTitle'}>{product.title}</h4>
+      <CardActions className='productButtonContainer'>
         <RaisedButton
           label="Add to Cart"
           primary={true}
