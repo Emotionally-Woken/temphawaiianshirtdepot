@@ -14,10 +14,10 @@ export const Collections = ({ products, cart, collectionType, handleAddToCart, h
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 1000,
-    height: 450,
+    width: '100vw',
+    height: '100vh',
     overflowY: 'auto',
-  },
+  }
 }
 
 let filteredProducts

@@ -37,7 +37,7 @@ class Main extends React.Component {
     const {children, handleClick, isLoggedIn} = this.props
 
     return (
-      <div>
+      <div className='mainContainer'>
         <Toolbar>
 
           <ToolbarGroup firstChild={true}>
