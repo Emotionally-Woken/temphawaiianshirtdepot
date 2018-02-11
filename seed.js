@@ -137,10 +137,10 @@ const makeFakeReviews = (num) => {
   let fakeReviews = []
   for (let i = 0; i < num; i++) {
     fakeReviews.push({
-      userId: chance.integer({ min: 1, max: 10 }),
-      productId: chance.integer({ min: 1, max: 10 }),
+      userId: chance.integer({ min: 1, max: 50 }),
+      productId: chance.integer({ min: 1, max: 100 }),
       stars: chance.integer({ min: 1, max: 5 }),
-      reviewContent: `This ${madLibNouns[chance.integer({ min: 0, max: 6 })]} made ${madLibPronoun[chance.integer({ min: 0, max: 6 })]} feel ${madLibAdjectives[chance.integer({ min: 0, max: 7 })]}!`
+      reviewContent: `This ${madLibNouns[chance.integer({ min: 0, max: 6 })]} made ${madLibPronoun[chance.integer({ min: 0, max: 6 })]} feel ${madLibAdjectives[chance.integer({ min: 0, max: 9 })]}!`
     })
   }
   return fakeReviews;
@@ -153,7 +153,7 @@ const makeFakeOrders = (num) => {
   let fakeOrdersDetails = []
   for (let i = 1; i <= num; i++) {
     fakeOrders.push({
-      userId: chance.integer({ min: 1, max: 5 }),
+      userId: chance.integer({ min: 1, max: 50 }),
       status: statuses[chance.natural({ num: 0, max: statuses.length - 1 })],
       orderDetailId: orderIdNumber.shift()
     })
@@ -170,10 +170,10 @@ const makeFakeOrders = (num) => {
   return [fakeOrders, fakeOrdersDetails];
 }
 
-  const [orders, orderDetails] = makeFakeOrders(10)
-  const users = makeFakeUsers(10).concat(setUsers)
+  const [orders, orderDetails] = makeFakeOrders(50)
+  const users = makeFakeUsers(50).concat(setUsers)
   const [products, joinTable] = makeFakeProducts(100)
-  const reviews = makeFakeReviews(200)
+  const reviews = makeFakeReviews(400)
   const genCategories = makeFakeCategories()
 
   const seed = () => {
