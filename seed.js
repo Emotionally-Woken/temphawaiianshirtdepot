@@ -5,7 +5,14 @@ const { User, Product, Order, OrderDetail, Review, Category, Tag } = require('./
 
 const statuses = [ 'Active Cart', 'Created', 'Processing', 'Completed']
 const categories = ['classic', 'for him', 'for pets', 'performance', 'active wear', 'business', 'casual', 'sleepwear', 'formal', 'weddings']
-const numbersForPop = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+const numbersForPop = []
+
+const addNumberForPop = (num) => {
+  for (let i = 1; i <= num; i++) {
+    numbersForPop.push(i)
+  }
+}
+addNumberForPop(100)
 
 const images = [
   'https://hawaiishirtcompany.com/wp-content/uploads/102c_98_black.jpg',
